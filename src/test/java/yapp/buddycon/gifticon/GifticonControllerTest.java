@@ -15,6 +15,9 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.Arrays;
+import yapp.buddycon.web.gifticon.adapter.in.GifticonController;
+import yapp.buddycon.web.gifticon.adapter.in.response.GifticonVO;
+import yapp.buddycon.web.gifticon.application.port.in.GifticonUseCase;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doReturn;
