@@ -81,4 +81,70 @@ public class GifticonControllerTest {
     }
   }
 
+  @Nested
+  class getGifticonDetail {
+
+    @Test
+    void 정상조회() throws Exception {
+      // given
+      long gifticonId = 1;
+      doReturn(new GifticonDetailVO(gifticonId)).when(gifticonUseCase).getGifticonDetail(gifticonId);
+
+      // when
+      final ResultActions resultActions = mockMvc.perform(
+          MockMvcRequestBuilders.get(BASE_URL + "/" + gifticonId));
+
+      // then
+      resultActions.andExpect(status().isOk());
+    }
+
+//    @Test
+//    void 찾지못함() throws Exception {
+//      // given
+//      doThrow(GifticonException.GIFTICON_NOT_FOUND).when(gifticonUseCase).getGifticonDetail(any());
+//
+//      // when
+//      final ResultActions resultActions = mockMvc.perform(
+//          MockMvcRequestBuilders.get(BASE_URL + "/1"));
+//
+//      // then
+//      resultActions.andExpect(status().isNotFound());
+//
+////      // given
+////      doReturn(Optional.of(null))
+////          .when(gifticonRepository).findById(any());
+////
+////      // when
+////      Exception exception = Assertions.assertThrows(ResourceNotFoundException.class, () -> {
+////        gifticonService.getGifticonDetail(any());
+////      });
+////
+////      // then
+////      assertThat(exception.getMessage()).isEqualTo("gifticon not found");
+//    }
+
+//    @Test
+//    void 권한없음() throws Exception {
+//      // given
+//      final GifticonDetailVO gifticonDetailVO = mock(GifticonDetailVO.class);
+//      doReturn(gifticonDetailVO).when(gifticonUseCase).getGifticonDetail(any());
+//
+//      // when
+//      final ResultActions resultActions = mockMvc.perform(
+//          MockMvcRequestBuilders.get(BASE_URL + "/1"));
+//
+//      // then
+//      resultActions.andExpect(status().isForbidden());
+//    }
+  }
+
+  // TODO
+  //  - POST
+  //    - 추가
+  //  - PUT
+  //    - 정보 수정
+  //    - 사용 완료 처리
+  //  - DELETE
+  //    - 삭제
+
 }
