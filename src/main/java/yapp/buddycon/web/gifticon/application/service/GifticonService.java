@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import yapp.buddycon.web.gifticon.adapter.in.request.SearchGifticonDTO;
+import yapp.buddycon.web.gifticon.adapter.in.response.GifticonDetailVO;
 import yapp.buddycon.web.gifticon.adapter.in.response.GifticonVO;
 import yapp.buddycon.web.gifticon.application.port.in.GifticonUseCase;
 
@@ -18,4 +19,8 @@ public class GifticonService implements GifticonUseCase {
     return null;
   }
 
+  @Override
+  public GifticonDetailVO getGifticonDetail(long gifticonId) {
+    return null;
+  }
 }

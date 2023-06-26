@@ -16,6 +16,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.Arrays;
 import yapp.buddycon.web.gifticon.adapter.in.GifticonController;
+import yapp.buddycon.web.gifticon.adapter.in.response.GifticonDetailVO;
 import yapp.buddycon.web.gifticon.adapter.in.response.GifticonVO;
 import yapp.buddycon.web.gifticon.application.port.in.GifticonUseCase;
 
