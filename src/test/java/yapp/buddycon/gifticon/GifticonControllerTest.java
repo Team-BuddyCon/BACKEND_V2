@@ -48,9 +48,9 @@ public class GifticonControllerTest {
     void 정상조회() throws Exception {
       // given
       doReturn(new PageImpl<>(Arrays.asList(
-          new GifticonVO(1L),
-          new GifticonVO(2L),
-          new GifticonVO(3L)))
+           new GifticonVO(),
+          new GifticonVO(),
+          new GifticonVO()))
       ).when(gifticonUseCase).getGifticons(any());
 
       // when

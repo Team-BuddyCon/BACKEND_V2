@@ -1,12 +1,21 @@
 package yapp.buddycon.web.gifticon.adapter.in.response;
 
+import java.time.LocalDate;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
 
 @Getter
-@RequiredArgsConstructor
+@NoArgsConstructor
 public class GifticonVO {
 
-  private final Long gifticonId;
+  // gifticon
+  private Long gifticonId;
+  private String imageUrl;
+  private String name;
+  private LocalDate expireDate;
+
+  // brand
+  private Long brandId;
+  private String brandName;
 
 }
