@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import yapp.buddycon.web.gifticon.adapter.in.request.SearchGifticonDTO;
 import yapp.buddycon.web.gifticon.adapter.in.response.GifticonDetailVO;
 import yapp.buddycon.web.gifticon.adapter.in.response.GifticonVO;
-import yapp.buddycon.web.gifticon.adapter.out.GifticonSearchParam;
+import yapp.buddycon.web.gifticon.adapter.out.jpa.GifticonSearchParam;
 import yapp.buddycon.web.gifticon.application.port.in.GifticonUseCase;
 import yapp.buddycon.web.gifticon.application.port.out.GifticonQueryPort;
 

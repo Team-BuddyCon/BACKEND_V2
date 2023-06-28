@@ -1,4 +1,4 @@
-package yapp.buddycon.web.gifticon.adapter.out;
+package yapp.buddycon.web.gifticon.adapter.out.jpa;
 
 import yapp.buddycon.web.gifticon.adapter.in.request.SearchGifticonDTO;
 

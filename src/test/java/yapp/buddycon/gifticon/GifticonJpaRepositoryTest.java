@@ -11,14 +11,15 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import yapp.buddycon.web.gifticon.adapter.in.request.SearchGifticonDTO;
 import yapp.buddycon.web.gifticon.adapter.in.response.GifticonVO;
-import yapp.buddycon.web.gifticon.adapter.out.GifticonRepository;
-import yapp.buddycon.web.gifticon.adapter.out.GifticonSearchParam;
+import yapp.buddycon.web.gifticon.adapter.out.jpa.GifticonJpaRepository;
+import yapp.buddycon.web.gifticon.adapter.out.jpa.GifticonSearchParam;
+import yapp.buddycon.web.gifticon.domain.Gifticon;
 
 @DataJpaTest
-public class GifticonRepositoryTest {
+public class GifticonJpaRepositoryTest {
 
   @Autowired
-  private GifticonRepository gifticonRepository;
+  private GifticonJpaRepository gifticonJpaRepository;
 
   @Nested
   class findAll {
@@ -28,24 +29,24 @@ public class GifticonRepositoryTest {
       // given
       final Gifticon gifticon1 = Gifticon.builder()
           .barcode("aaaa")
-          .iamgeUrl("url1")
+          .imageUrl("url1")
           .name("name1")
           .expireDate(LocalDate.now())
           .used(false)
           .build();
       final Gifticon gifticon2 = Gifticon.builder()
           .barcode("bbbb")
-          .iamgeUrl("url2")
+          .imageUrl("url2")
           .name("name2")
           .expireDate(LocalDate.now())
           .used(false)
           .build();
 
-      gifticonRepository.save(gifticon1);
-      gifticonRepository.save(gifticon2);
+      gifticonJpaRepository.save(gifticon1);
+      gifticonJpaRepository.save(gifticon2);
 
       // when
-      Page<GifticonVO> result = gifticonRepository.findAll(
+      Page<GifticonVO> result = gifticonJpaRepository.findAll(
           GifticonSearchParam.valueOf(new SearchGifticonDTO()), PageRequest.of(1, 10));
 
       // then
@@ -57,7 +58,7 @@ public class GifticonRepositoryTest {
       // given
 
       // when
-      Page<GifticonVO> result = gifticonRepository.findAll(
+      Page<GifticonVO> result = gifticonJpaRepository.findAll(
           GifticonSearchParam.valueOf(new SearchGifticonDTO()), PageRequest.of(1, 10));
 
       // then
