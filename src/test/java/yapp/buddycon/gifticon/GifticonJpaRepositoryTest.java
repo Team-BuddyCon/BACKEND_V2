@@ -39,18 +39,27 @@ public class GifticonJpaRepositoryTest {
           .imageUrl("url2")
           .name("name2")
           .expireDate(LocalDate.now())
-          .used(false)
+          .used(true)
           .build();
 
       gifticonJpaRepository.save(gifticon1);
       gifticonJpaRepository.save(gifticon2);
 
       // when
-      Page<GifticonVO> result = gifticonJpaRepository.findAll(
-          GifticonSearchParam.valueOf(new SearchGifticonDTO()), PageRequest.of(1, 10));
+      SearchGifticonDTO dto1 = new SearchGifticonDTO();
+      Page<GifticonVO> result1 = gifticonJpaRepository.findAll(
+          GifticonSearchParam.valueOf(dto1), PageRequest.of(0, 10));
+
+      SearchGifticonDTO dto2 = new SearchGifticonDTO();
+      dto2.setUsed(false);
+      Page<GifticonVO> result2 = gifticonJpaRepository.findAll(
+          GifticonSearchParam.valueOf(dto2), PageRequest.of(0, 10));
 
       // then
-      assertThat(result.getTotalElements()).isEqualTo(2);
+      assertThat(result1.getTotalElements()).isEqualTo(2);
+
+      assertThat(result2.getTotalElements()).isEqualTo(1);
+      assertThat(result2.getContent().get(0).getName()).isEqualTo("name1");
     }
 
     @Test
