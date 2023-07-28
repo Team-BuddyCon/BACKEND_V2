@@ -1,8 +1,8 @@
-package yapp.buddycon.web.gifticon.adapter.out.jpa;
+package yapp.buddycon.web.gifticon.infra.jpa;
 
 import lombok.Getter;
 import lombok.Setter;
-import yapp.buddycon.web.gifticon.adapter.in.request.SearchGifticonDTO;
+import yapp.buddycon.web.gifticon.adapter.request.SearchGifticonDTO;
 
 @Getter
 @Setter

@@ -9,10 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import yapp.buddycon.web.gifticon.adapter.in.request.SearchGifticonDTO;
-import yapp.buddycon.web.gifticon.adapter.in.response.GifticonVO;
-import yapp.buddycon.web.gifticon.adapter.out.jpa.GifticonJpaRepository;
-import yapp.buddycon.web.gifticon.adapter.out.jpa.GifticonSearchParam;
+import yapp.buddycon.web.gifticon.adapter.request.SearchGifticonDTO;
+import yapp.buddycon.web.gifticon.adapter.response.GifticonVO;
+import yapp.buddycon.web.gifticon.infra.jpa.GifticonJpaRepository;
+import yapp.buddycon.web.gifticon.infra.jpa.GifticonSearchParam;
 import yapp.buddycon.web.gifticon.domain.Gifticon;
 
 @DataJpaTest

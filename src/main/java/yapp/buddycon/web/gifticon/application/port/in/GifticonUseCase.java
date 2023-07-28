@@ -1,9 +1,9 @@
 package yapp.buddycon.web.gifticon.application.port.in;
 
 import org.springframework.data.domain.Page;
-import yapp.buddycon.web.gifticon.adapter.in.request.SearchGifticonDTO;
-import yapp.buddycon.web.gifticon.adapter.in.response.GifticonDetailVO;
-import yapp.buddycon.web.gifticon.adapter.in.response.GifticonVO;
+import yapp.buddycon.web.gifticon.adapter.request.SearchGifticonDTO;
+import yapp.buddycon.web.gifticon.adapter.response.GifticonDetailVO;
+import yapp.buddycon.web.gifticon.adapter.response.GifticonVO;
 
 public interface GifticonUseCase {
 

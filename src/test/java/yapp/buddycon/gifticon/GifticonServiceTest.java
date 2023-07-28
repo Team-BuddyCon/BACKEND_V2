@@ -16,8 +16,8 @@ import org.springframework.data.domain.Page;
 import java.util.Arrays;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
-import yapp.buddycon.web.gifticon.adapter.in.request.SearchGifticonDTO;
-import yapp.buddycon.web.gifticon.adapter.in.response.GifticonVO;
+import yapp.buddycon.web.gifticon.adapter.request.SearchGifticonDTO;
+import yapp.buddycon.web.gifticon.adapter.response.GifticonVO;
 import yapp.buddycon.web.gifticon.application.port.out.GifticonQueryPort;
 import yapp.buddycon.web.gifticon.application.service.GifticonService;
 

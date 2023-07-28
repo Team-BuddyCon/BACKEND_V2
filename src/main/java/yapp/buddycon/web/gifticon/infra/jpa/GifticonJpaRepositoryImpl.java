@@ -1,4 +1,4 @@
-package yapp.buddycon.web.gifticon.adapter.out.jpa;
+package yapp.buddycon.web.gifticon.infra.jpa;
 
 import static yapp.buddycon.web.gifticon.domain.QGifticon.gifticon;
 
@@ -12,8 +12,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
-import yapp.buddycon.web.gifticon.adapter.in.response.GifticonVO;
-import yapp.buddycon.web.gifticon.adapter.in.response.QGifticonVO;
+import yapp.buddycon.web.gifticon.adapter.response.GifticonVO;
+import yapp.buddycon.web.gifticon.adapter.response.QGifticonVO;
 import yapp.buddycon.web.gifticon.domain.Gifticon;
 import yapp.buddycon.web.gifticon.domain.QBrand;
 
