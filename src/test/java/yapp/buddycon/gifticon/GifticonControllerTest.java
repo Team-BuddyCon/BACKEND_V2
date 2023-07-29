@@ -18,10 +18,15 @@ import java.util.Arrays;
 import yapp.buddycon.web.gifticon.adapter.GifticonController;
 import yapp.buddycon.web.gifticon.adapter.response.GifticonDetailVO;
 import yapp.buddycon.web.gifticon.adapter.response.GifticonVO;
+import yapp.buddycon.web.gifticon.adapter.in.response.GifticonException;
+import yapp.buddycon.web.gifticon.adapter.in.response.GifticonException.GifticonExceptionCode;
 import yapp.buddycon.web.gifticon.application.port.in.GifticonUseCase;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.doThrow;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -48,7 +53,7 @@ public class GifticonControllerTest {
     void 정상조회() throws Exception {
       // given
       doReturn(new PageImpl<>(Arrays.asList(
-           new GifticonVO(),
+          new GifticonVO(),
           new GifticonVO(),
           new GifticonVO()))
       ).when(gifticonUseCase).getGifticons(any());
@@ -99,30 +104,38 @@ public class GifticonControllerTest {
       resultActions.andExpect(status().isOk());
     }
 
-//    @Test
-//    void 찾지못함() throws Exception {
-//      // given
-//      doThrow(GifticonException.GIFTICON_NOT_FOUND).when(gifticonUseCase).getGifticonDetail(any());
-//
-//      // when
+    @Test
+    void 찾지못함() throws Exception {
+      // given
+      long gifticonId = 1;
+      doThrow(new GifticonException(GifticonExceptionCode.GIFTICON_NOT_FOUND))
+          .when(gifticonUseCase).getGifticonDetail(gifticonId);
+
+      // when
+      Throwable exception = assertThrows(GifticonException.class, () -> {
+        mockMvc.perform(MockMvcRequestBuilders.get(BASE_URL + "/" + gifticonId));
+      });
+
+      // then
+      assertEquals(GifticonExceptionCode.GIFTICON_NOT_FOUND.getMessage(), exception.getMessage());
+
+      // when
 //      final ResultActions resultActions = mockMvc.perform(
-//          MockMvcRequestBuilders.get(BASE_URL + "/1"));
-//
-//      // then
+//          MockMvcRequestBuilders.get(BASE_URL + "/" + gifticonId));
+
+      // then
 //      resultActions.andExpect(status().isNotFound());
+
+
+//      //when
+//      Throwable exception = assertThrows(AuthenticationException.class, () -> {
+//        financingLimitHelper.checkAuthForFinancingLimit(loginUser, financingLimit);
+//      });
 //
-////      // given
-////      doReturn(Optional.of(null))
-////          .when(gifticonRepository).findById(any());
-////
-////      // when
-////      Exception exception = Assertions.assertThrows(ResourceNotFoundException.class, () -> {
-////        gifticonService.getGifticonDetail(any());
-////      });
-////
-////      // then
-////      assertThat(exception.getMessage()).isEqualTo("gifticon not found");
-//    }
+//      //then
+//      assertEquals("not authorized", exception.getMessage());
+
+    }
 
 //    @Test
 //    void 권한없음() throws Exception {
