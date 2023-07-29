@@ -20,3 +20,15 @@ spring:
       hibernate:
         format_sql: true
         show-sql: true
+
+# spring:
+#   datasource:
+# #    driver-class-name: com.mysql.cj.jdbc.Driver
+#     url: jdbc:mysql://localhost:3306/buddy?serverTimezone=Asia/Seoul
+#     username: root
+#     password: 28782821
+#   jpa:
+#     show-sql: true
+#     generate-ddl: true
+#     hibernate:
+#       ddl-auto: create
