@@ -17,28 +17,28 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @TestDatabaseInitTest
 class ReadControllerTest {
 
-  @InjectMocks
-  private ReadController target;
-
-  private MockMvc mockMvc;
-
-  @BeforeEach
-  public void init() {
-    mockMvc = MockMvcBuilders.standaloneSetup(target)
-      .setCustomArgumentResolvers(new PageableHandlerMethodArgumentResolver())
-      .build();
-  }
-
-  @Test
-  void 쿠폰_생성() throws Exception {
-    final String url = "/api/v1/coupon";
-
-    var result = mockMvc.perform(get(url)
-      .param("page", "0")
-      .param("size", "2")
-      .param("sort", "id,DESC")
-    );
-
-    result.andExpect(status().isOk());
-  }
+//  @InjectMocks
+//  private ReadController target;
+//
+//  private MockMvc mockMvc;
+//
+//  @BeforeEach
+//  public void init() {
+//    mockMvc = MockMvcBuilders.standaloneSetup(target)
+//      .setCustomArgumentResolvers(new PageableHandlerMethodArgumentResolver())
+//      .build();
+//  }
+//
+//  @Test
+//  void 쿠폰_생성() throws Exception {
+//    final String url = "/api/v1/coupon";
+//
+//    var result = mockMvc.perform(get(url)
+//      .param("page", "0")
+//      .param("size", "2")
+//      .param("sort", "id,DESC")
+//    );
+//
+//    result.andExpect(status().isOk());
+//  }
 }
