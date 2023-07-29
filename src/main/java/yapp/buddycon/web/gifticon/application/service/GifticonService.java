@@ -6,7 +6,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import yapp.buddycon.web.gifticon.adapter.request.SearchGifticonDTO;
-import yapp.buddycon.web.gifticon.adapter.response.GifticonDetailVO;
 import yapp.buddycon.web.gifticon.adapter.response.GifticonVO;
 import yapp.buddycon.web.gifticon.infra.jpa.GifticonSearchParam;
 import yapp.buddycon.web.gifticon.application.port.in.GifticonUseCase;
@@ -25,8 +24,4 @@ public class GifticonService implements GifticonUseCase {
         PageRequest.of(dto.getPageNumber(), dto.getRowCount()));
   }
 
-  @Override
-  public GifticonDetailVO getGifticonDetail(long gifticonId) {
-    return null;
-  }
 }
