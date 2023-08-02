@@ -9,5 +9,4 @@ import yapp.buddycon.common.request.PagingDTO;
 public class SearchGifticonDTO extends PagingDTO {
 
   private Boolean used;
-  private Long brandId;
 }

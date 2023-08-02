@@ -15,18 +15,11 @@ public class GifticonVO {
   private String name;
   private LocalDate expireDate;
 
-  // brand
-  private Long brandId;
-  private String brandName;
-
   @QueryProjection
-  public GifticonVO(Long gifticonId, String imageUrl, String name, LocalDate expireDate,
-      Long brandId, String brandName) {
+  public GifticonVO(Long gifticonId, String imageUrl, String name, LocalDate expireDate) {
     this.gifticonId = gifticonId;
     this.imageUrl = imageUrl;
     this.name = name;
     this.expireDate = expireDate;
-    this.brandId = brandId;
-    this.brandName = brandName;
   }
 }
