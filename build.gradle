@@ -24,12 +24,15 @@ sonar {
 		property "sonar.projectKey", "Team-BuddyCon_BACKEND_V2"
 		property "sonar.organization", "team-buddycon"
 		property "sonar.host.url", "https://sonarcloud.io"
+		property "sonar.coverage.jacoco.xmlReportPaths", "build/reports/jacoco.xml"
 	}
 }
 
 jacocoTestReport {
 	reports {
 		xml.enabled true
+		html.enabled true
+		xml.destination file("${buildDir}/reports/jacoco.xml")
 	}
 }
 
