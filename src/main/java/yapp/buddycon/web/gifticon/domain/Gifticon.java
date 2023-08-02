@@ -10,13 +10,14 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import yapp.buddycon.common.BaseEntity;
 
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Entity
-public class Gifticon {
+public class Gifticon extends BaseEntity {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
