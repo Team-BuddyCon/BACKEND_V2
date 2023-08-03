@@ -1,12 +1,16 @@
-package yapp.buddycon.web.auth;
+package yapp.buddycon.app.auth.application.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+import yapp.buddycon.app.auth.application.port.out.CacheStorage;
+import yapp.buddycon.app.auth.domain.User;
 
 import java.util.Date;
 
 @RequiredArgsConstructor
-class JwtTokenProvider {
+@Component
+public class JwtTokenProvider implements TokenProvider {
 
   @Value("${security.jwt.token.access-token-expire-time}")
   private long ACCESS_TOKEN_EXPIRE_TIME;

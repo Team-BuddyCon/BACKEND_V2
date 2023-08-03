@@ -1,4 +1,4 @@
-package yapp.buddycon.web.auth;
+package yapp.buddycon.app.common.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

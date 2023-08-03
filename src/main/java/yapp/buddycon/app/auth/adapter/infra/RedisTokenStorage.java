@@ -1,8 +1,9 @@
-package yapp.buddycon.web.auth;
+package yapp.buddycon.app.auth.adapter.infra;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
+import yapp.buddycon.app.auth.application.port.out.CacheStorage;
 
 import java.util.concurrent.TimeUnit;
 

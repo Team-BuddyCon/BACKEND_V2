@@ -1,4 +1,4 @@
-package yapp.buddycon.web.auth;
+package yapp.buddycon.app.auth.adapter;
 
 class OAuthRequestException extends RuntimeException {
 

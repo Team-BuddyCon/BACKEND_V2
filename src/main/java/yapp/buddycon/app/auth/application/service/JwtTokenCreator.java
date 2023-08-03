@@ -1,15 +1,16 @@
-package yapp.buddycon.web.auth;
+package yapp.buddycon.app.auth.application.service;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import yapp.buddycon.app.auth.domain.User;
 
 import java.util.Date;
 
 @RequiredArgsConstructor
 @Component
-class JwtTokenCreator implements TokenCreator {
+public class JwtTokenCreator implements TokenCreator {
 
   private final JwtTokenSecretKey jwtTokenSecretKey;
   @Override

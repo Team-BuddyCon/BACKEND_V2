@@ -1,4 +1,4 @@
-package yapp.buddycon.web.auth;
+package yapp.buddycon.app.auth.application.service;
 
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import javax.crypto.SecretKey;
 
 @Component
-class JwtTokenSecretKey {
+public class JwtTokenSecretKey {
 
   @Value("security.jwt.token.secret-key")
   private String SECRET_KEY;

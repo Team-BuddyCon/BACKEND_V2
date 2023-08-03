@@ -1,4 +1,4 @@
-package yapp.buddycon.web.auth;
+package yapp.buddycon.app.auth;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -8,6 +8,10 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import yapp.buddycon.app.auth.application.service.JwtTokenCreator;
+import yapp.buddycon.app.auth.application.service.JwtTokenSecretKey;
+import yapp.buddycon.app.auth.application.service.Token;
+import yapp.buddycon.app.auth.domain.User;
 
 import java.lang.reflect.Type;
 import java.util.*;

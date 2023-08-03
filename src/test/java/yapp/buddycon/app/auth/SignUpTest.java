@@ -1,9 +1,14 @@
-package yapp.buddycon.web.auth;
+package yapp.buddycon.app.auth;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import yapp.buddycon.app.auth.application.port.out.OAuthUserInfoApi;
+import yapp.buddycon.app.auth.application.port.out.UserStorage;
+import yapp.buddycon.app.auth.application.service.OAuthMemberInfo;
+import yapp.buddycon.app.auth.application.service.SignUp;
+import yapp.buddycon.app.auth.domain.User;
 
 import static org.mockito.Mockito.*;
 
@@ -16,15 +21,15 @@ class SignUpTest {
     // given
     var validAccessToken = "accessToken";
     var signUp = new SignUp(userStorage, oAuthUserInfoApi);
-    var oAuthResponse = new OAuthResponse(1L);
-    when(oAuthUserInfoApi.call(validAccessToken)).thenReturn(oAuthResponse);
-    when(userStorage.existsByClientId(oAuthResponse.clientId())).thenReturn(false);
+    var memberInfo = new OAuthMemberInfo(1L);
+    when(oAuthUserInfoApi.call(validAccessToken)).thenReturn(memberInfo);
+    when(userStorage.existsByClientId(memberInfo.id())).thenReturn(false);
 
     // when
     signUp.signUp(validAccessToken);
 
     // then
-    verify(userStorage).save(new User(null, oAuthResponse.clientId()));
+    verify(userStorage).save(new User(null, memberInfo.id()));
   }
 
   @Test
@@ -32,9 +37,9 @@ class SignUpTest {
     // given
     var validAccessToken = "accessToken";
     var signUp = new SignUp(userStorage, oAuthUserInfoApi);
-    var oAuthResponse = new OAuthResponse(1L);
-    when(oAuthUserInfoApi.call(validAccessToken)).thenReturn(oAuthResponse);
-    when(userStorage.existsByClientId(oAuthResponse.clientId())).thenReturn(true);
+    var memberInfo = new OAuthMemberInfo(1L);
+    when(oAuthUserInfoApi.call(validAccessToken)).thenReturn(memberInfo);
+    when(userStorage.existsByClientId(memberInfo.id())).thenReturn(true);
 
     // when
     signUp.signUp(validAccessToken);
