@@ -20,7 +20,7 @@ class KakaoOAuthUserInfoApi implements OAuthUserInfoApi {
             })
             .retrieve()
             .bodyToMono(Kakao.class)
-            .onErrorMap((error) -> new OAuthRequestException())
+            .onErrorMap((error) -> new OAuthRequestException("invalid access token"))
             .map(Kakao::toOAuthMember)
             .block();
   }

@@ -1,5 +1,8 @@
 package yapp.buddycon.app.auth.adapter;
 
-class OAuthRequestException extends RuntimeException {
+public class OAuthRequestException extends RuntimeException {
 
+    public OAuthRequestException(String message) {
+        super(message);
+    }
 }

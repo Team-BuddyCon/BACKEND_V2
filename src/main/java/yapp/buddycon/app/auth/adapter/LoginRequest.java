@@ -1,6 +1,6 @@
 package yapp.buddycon.app.auth.adapter;
 
-record LoginRequest(
+public record LoginRequest(
         String accessToken
 ) {
 }
