@@ -7,7 +7,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import java.time.LocalDate;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -19,27 +18,17 @@ import yapp.buddycon.common.BaseEntity;
 @AllArgsConstructor
 @Builder
 @Entity
-public class Gifticon extends BaseEntity {
+public class Store extends BaseEntity {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "gifticon_id")
+  @Column(name = "store_id")
   private Long id;
-
-  @Column(name = "barcode", nullable = false)
-  private String barcode;
-  @Column(name = "image_url", nullable = false)
-  private String imageUrl;
-  @Column(name = "name", nullable = false, length = 16)
+  @Column(name = "name", nullable = false, length = 20)
   private String name;
-  @Column(name = "memo", length = 20)
-  private String memo;
-  @Column(name = "expire_date", nullable = false)
-  private LocalDate expireDate;
-  private boolean used;
 
   @ManyToOne
-  @JoinColumn(name = "store_id", referencedColumnName = "store_id")
-  private Store store;
+  @JoinColumn(name = "store_category_id", nullable = false, referencedColumnName = "store_category_id")
+  private StoreCategory storeCategory;
 
 }
