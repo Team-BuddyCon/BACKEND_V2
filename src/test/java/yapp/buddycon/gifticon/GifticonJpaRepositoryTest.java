@@ -5,27 +5,37 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.time.LocalDate;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+import yapp.buddycon.common.request.OrderByType;
 import yapp.buddycon.web.gifticon.adapter.request.SearchGifticonDTO;
+import yapp.buddycon.web.gifticon.adapter.request.SearchGifticonSortType;
 import yapp.buddycon.web.gifticon.adapter.response.GifticonVO;
+import yapp.buddycon.web.gifticon.domain.Store;
+import yapp.buddycon.web.gifticon.domain.StoreCategory;
 import yapp.buddycon.web.gifticon.infra.jpa.GifticonJpaRepository;
 import yapp.buddycon.web.gifticon.infra.jpa.GifticonSearchParam;
 import yapp.buddycon.web.gifticon.domain.Gifticon;
 
+@ExtendWith(SpringExtension.class)
 @DataJpaTest
 public class GifticonJpaRepositoryTest {
 
   @Autowired
   private GifticonJpaRepository gifticonJpaRepository;
+  @Autowired
+  private JpaRepository jpaRepository;
 
   @Nested
   class findAll {
 
     @Test
-    public void 정상조회() {
+    void 정상조회() {
       // given
       final Gifticon gifticon1 = Gifticon.builder()
           .barcode("aaaa")
@@ -63,7 +73,7 @@ public class GifticonJpaRepositoryTest {
     }
 
     @Test
-    public void 빈리스트() {
+    void 빈리스트() {
       // given
 
       // when
@@ -73,6 +83,132 @@ public class GifticonJpaRepositoryTest {
       // then
       assertThat(result.getTotalElements()).isEqualTo(0);
     }
+
+    @Test
+    void 정렬조회_이름() {
+      // given
+      gifticonJpaRepository.save(
+          Gifticon.builder()
+              .barcode("bbbb")
+              .imageUrl("url1")
+              .name("name1")
+              .expireDate(LocalDate.now())
+              .used(true)
+              .build()
+      );
+      gifticonJpaRepository.save(
+          Gifticon.builder()
+              .barcode("bbbb")
+              .imageUrl("url2")
+              .name("name3")
+              .expireDate(LocalDate.now())
+              .used(true)
+              .build()
+      );
+      gifticonJpaRepository.save(
+          Gifticon.builder()
+              .barcode("bbbb")
+              .imageUrl("url2")
+              .name("name2")
+              .expireDate(LocalDate.now())
+              .used(true)
+              .build()
+      );
+
+      // when
+      SearchGifticonDTO dto1 = new SearchGifticonDTO();
+      dto1.setSortType(SearchGifticonSortType.NAME);
+      dto1.setOrderByType(OrderByType.ASC);
+      Page<GifticonVO> result1 = gifticonJpaRepository.findAll(
+          GifticonSearchParam.valueOf(dto1), PageRequest.of(0, 10));
+
+      SearchGifticonDTO dto2 = new SearchGifticonDTO();
+      dto2.setSortType(SearchGifticonSortType.NAME);
+      Page<GifticonVO> result2 = gifticonJpaRepository.findAll(
+          GifticonSearchParam.valueOf(dto2), PageRequest.of(0, 10));
+
+      // then
+      assertThat(result1.getTotalElements()).isEqualTo(3);
+      assertThat(result1.getContent().get(0).getName()).isEqualTo("name1");
+
+      assertThat(result2.getTotalElements()).isEqualTo(3);
+      assertThat(result2.getContent().get(0).getName()).isEqualTo("name3");
+    }
+
+    @Test
+    void 필터링조회() {
+      // given
+      Gifticon gifticon1 = createGifticon("gifticon1", true, null);
+
+      StoreCategory storeCategory1 = createStoreCategory("category1");
+      Store store1 = createStore(1l, "store1", storeCategory1);
+      Gifticon gifticon2 = createGifticon("gifticon2", true, store1);
+      Store store2 = createStore(2l, "store2", storeCategory1);
+      Gifticon gifticon3 = createGifticon("gifticon3", true, store2);
+
+      StoreCategory storeCategory2 = createStoreCategory("category2");
+      Store store3 = createStore(3l, "store3", storeCategory2);
+      Gifticon gifticon4 = createGifticon("gifticon4", true, store3);
+      Gifticon gifticon5 = createGifticon("gifticon4", false, store3);
+
+      // when
+      SearchGifticonDTO dto1 = new SearchGifticonDTO();
+      Page<GifticonVO> result1 = gifticonJpaRepository.findAll(
+          GifticonSearchParam.valueOf(dto1), PageRequest.of(0, 10));
+
+      SearchGifticonDTO dto2 = new SearchGifticonDTO();
+      dto2.setStoreId(2l);
+      Page<GifticonVO> result2 = gifticonJpaRepository.findAll(
+          GifticonSearchParam.valueOf(dto2), PageRequest.of(0, 10));
+
+      SearchGifticonDTO dto3 = new SearchGifticonDTO();
+      dto3.setStoreCategoryName(storeCategory2.getName());
+      Page<GifticonVO> result3 = gifticonJpaRepository.findAll(
+          GifticonSearchParam.valueOf(dto3), PageRequest.of(0, 10));
+
+      // then
+      assertThat(result1.getTotalElements()).isEqualTo(5);
+
+      assertThat(result2.getTotalElements()).isEqualTo(1);
+      assertThat(result2.getContent().get(0).getStoreName()).isEqualTo(store2.getName());
+
+      assertThat(result3.getTotalElements()).isEqualTo(2);
+      assertThat(result3.getContent().get(0).getStoreCategoryName()).isEqualTo(storeCategory2.getName());
+    }
+
+    // TODO Entity 메소드로 분리 예정
+    /** Create Start **/
+    private Gifticon createGifticon(String name, boolean used, Store store) {
+      Gifticon gifticon = Gifticon.builder()
+          .barcode("aaaa")
+          .imageUrl("url1")
+          .name(name)
+          .expireDate(LocalDate.now())
+          .used(used)
+          .store(store)
+          .build();
+      return gifticonJpaRepository.save(gifticon);
+    }
+
+    private Store createStore(Long id, String name, StoreCategory storeCategory) {
+      Store store = Store.builder()
+          .id(id)
+          .name(name)
+          .storeCategory(storeCategory)
+          .build();
+
+      jpaRepository.save(store);
+      return store;
+    }
+
+    private StoreCategory createStoreCategory(String name) {
+      StoreCategory storeCategory = StoreCategory.builder()
+          .name(name)
+          .build();
+      jpaRepository.save(storeCategory);
+      return storeCategory;
+    }
+    /** Create End **/
   }
 
 }

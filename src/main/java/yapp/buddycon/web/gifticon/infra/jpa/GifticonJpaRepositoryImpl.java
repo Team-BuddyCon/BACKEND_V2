@@ -54,6 +54,8 @@ public class GifticonJpaRepositoryImpl extends QuerydslRepositorySupport impleme
         .leftJoin(store.storeCategory, storeCategory)
         .where(createWhereCondition(param));
 
+    jpaQuery = addOrderByQuery(jpaQuery, param);
+
     long totalCount = jpaQuery.fetchCount();
     List<GifticonVO> results = getQuerydsl().applyPagination(pageable, jpaQuery).fetch();
     return new PageImpl<>(results, pageable, totalCount);
@@ -61,12 +63,54 @@ public class GifticonJpaRepositoryImpl extends QuerydslRepositorySupport impleme
 
   private BooleanBuilder createWhereCondition(GifticonSearchParam param) {
     BooleanBuilder booleanBuilder = new BooleanBuilder();
+
     if (Boolean.TRUE.equals(param.getUsed())) {
       booleanBuilder.and(gifticon.used.isTrue());
     } else if (Boolean.FALSE.equals(param.getUsed())) {
       booleanBuilder.and(gifticon.used.isFalse());
     }
+    if (Objects.nonNull(param.getStoreId())) {
+      booleanBuilder.and(store.id.eq(param.getStoreId()));
+    }
+    if (StringUtils.hasText(param.getStoreName())) {
+      booleanBuilder.and(store.name.eq(param.getStoreName()));
+    }
+    if (Objects.nonNull(param.getStoreCategoryId())) {
+      booleanBuilder.and(storeCategory.id.eq(param.getStoreCategoryId()));
+    }
+    if (StringUtils.hasText(param.getStoreCategoryName())) {
+      booleanBuilder.and(storeCategory.name.eq(param.getStoreCategoryName()));
+    }
+
     return booleanBuilder;
+  }
+
+  // TODO 추상화 후 분리?
+  private <T> JPAQuery<T> addOrderByQuery(JPAQuery<T> query, GifticonSearchParam param) {
+    if (Objects.nonNull(param.getSortType())) {
+      if (OrderByType.ASC.equals(param.getOrderByType())) {
+        if (SearchGifticonSortType.EXPIRE_DATE.equals(param.getSortType())) {
+          query.orderBy(gifticon.expireDate.asc());
+        }
+        if (SearchGifticonSortType.CREATED_AT.equals(param.getSortType())) {
+          query.orderBy(gifticon.createdAt.asc());
+        }
+        if (SearchGifticonSortType.NAME.equals(param.getSortType())) {
+          query.orderBy(gifticon.name.asc());
+        }
+      } else {
+        if (SearchGifticonSortType.EXPIRE_DATE.equals(param.getSortType())) {
+          query.orderBy(gifticon.expireDate.desc());
+        }
+        if (SearchGifticonSortType.CREATED_AT.equals(param.getSortType())) {
+          query.orderBy(gifticon.createdAt.desc());
+        }
+        if (SearchGifticonSortType.NAME.equals(param.getSortType())) {
+          query.orderBy(gifticon.name.desc());
+        }
+      }
+    }
+    return query;
   }
 
 }
