@@ -7,22 +7,32 @@ import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
 import java.util.List;
+import java.util.Objects;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
+import org.springframework.util.StringUtils;
+import yapp.buddycon.common.request.OrderByType;
+import yapp.buddycon.web.gifticon.adapter.request.SearchGifticonSortType;
 import yapp.buddycon.web.gifticon.adapter.response.GifticonVO;
 import yapp.buddycon.web.gifticon.adapter.response.QGifticonVO;
 import yapp.buddycon.web.gifticon.domain.Gifticon;
+import yapp.buddycon.web.gifticon.domain.QStore;
+import yapp.buddycon.web.gifticon.domain.QStoreCategory;
 
 public class GifticonJpaRepositoryImpl extends QuerydslRepositorySupport implements
     GifticonJpaCustomRepository {
 
   private final JPAQueryFactory query;
+  private QStore store;
+  private QStoreCategory storeCategory;
 
   public GifticonJpaRepositoryImpl(EntityManager em) {
     super(Gifticon.class);
     query = new JPAQueryFactory(em);
+    store = new QStore("store");
+    storeCategory = new QStoreCategory("storeCategory");
   }
 
   @Override
@@ -30,12 +40,19 @@ public class GifticonJpaRepositoryImpl extends QuerydslRepositorySupport impleme
     JPAQuery<GifticonVO> jpaQuery = query.select(
             new QGifticonVO(
                 gifticon.id,
+                gifticon.barcode,
                 gifticon.imageUrl,
                 gifticon.name,
-                gifticon.expireDate
+                gifticon.memo,
+                gifticon.expireDate,
+                store.id,
+                store.name,
+                storeCategory.id,
+                storeCategory.name
             )).from(gifticon)
-        .where(createWhereCondition(param))
-        .orderBy(gifticon.id.desc());
+        .leftJoin(gifticon.store, store)
+        .leftJoin(store.storeCategory, storeCategory)
+        .where(createWhereCondition(param));
 
     long totalCount = jpaQuery.fetchCount();
     List<GifticonVO> results = getQuerydsl().applyPagination(pageable, jpaQuery).fetch();
