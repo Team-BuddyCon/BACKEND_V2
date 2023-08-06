@@ -37,23 +37,8 @@ public class GifticonJpaRepositoryTest {
     @Test
     void 정상조회() {
       // given
-      final Gifticon gifticon1 = Gifticon.builder()
-          .barcode("aaaa")
-          .imageUrl("url1")
-          .name("name1")
-          .expireDate(LocalDate.now())
-          .used(false)
-          .build();
-      final Gifticon gifticon2 = Gifticon.builder()
-          .barcode("bbbb")
-          .imageUrl("url2")
-          .name("name2")
-          .expireDate(LocalDate.now())
-          .used(true)
-          .build();
-
-      gifticonJpaRepository.save(gifticon1);
-      gifticonJpaRepository.save(gifticon2);
+      Gifticon gifticon1 = createGifticon("name1", false, null);
+      Gifticon gifticon2 = createGifticon("name2", true, null);
 
       // when
       SearchGifticonDTO dto1 = new SearchGifticonDTO();
@@ -87,33 +72,9 @@ public class GifticonJpaRepositoryTest {
     @Test
     void 정렬조회_이름() {
       // given
-      gifticonJpaRepository.save(
-          Gifticon.builder()
-              .barcode("bbbb")
-              .imageUrl("url1")
-              .name("name1")
-              .expireDate(LocalDate.now())
-              .used(true)
-              .build()
-      );
-      gifticonJpaRepository.save(
-          Gifticon.builder()
-              .barcode("bbbb")
-              .imageUrl("url2")
-              .name("name3")
-              .expireDate(LocalDate.now())
-              .used(true)
-              .build()
-      );
-      gifticonJpaRepository.save(
-          Gifticon.builder()
-              .barcode("bbbb")
-              .imageUrl("url2")
-              .name("name2")
-              .expireDate(LocalDate.now())
-              .used(true)
-              .build()
-      );
+      Gifticon gifticon1 = createGifticon("name1", true, null);
+      Gifticon gifticon3 = createGifticon("name3", true, null);
+      Gifticon gifticon2 = createGifticon("name2", true, null);
 
       // when
       SearchGifticonDTO dto1 = new SearchGifticonDTO();
@@ -129,10 +90,10 @@ public class GifticonJpaRepositoryTest {
 
       // then
       assertThat(result1.getTotalElements()).isEqualTo(3);
-      assertThat(result1.getContent().get(0).getName()).isEqualTo("name1");
+      assertThat(result1.getContent().get(0).getName()).isEqualTo(gifticon1.getName());
 
       assertThat(result2.getTotalElements()).isEqualTo(3);
-      assertThat(result2.getContent().get(0).getName()).isEqualTo("name3");
+      assertThat(result2.getContent().get(0).getName()).isEqualTo(gifticon3.getName());
     }
 
     @Test
