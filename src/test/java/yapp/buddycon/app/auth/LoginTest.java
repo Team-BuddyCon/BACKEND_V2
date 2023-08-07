@@ -6,7 +6,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import yapp.buddycon.app.auth.application.service.Login;
 import yapp.buddycon.app.auth.application.service.SignUpDecider;
-import yapp.buddycon.app.auth.application.service.TokenProvider;
+import yapp.buddycon.app.auth.application.port.out.TokenProvider;
 
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;

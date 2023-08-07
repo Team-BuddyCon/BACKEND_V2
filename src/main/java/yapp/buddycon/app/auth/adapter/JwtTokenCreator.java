@@ -5,7 +5,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import yapp.buddycon.app.auth.application.service.Token;
-import yapp.buddycon.app.auth.application.service.TokenCreator;
+import yapp.buddycon.app.auth.application.port.out.TokenCreator;
 import yapp.buddycon.app.user.domain.User;
 
 import java.util.Date;

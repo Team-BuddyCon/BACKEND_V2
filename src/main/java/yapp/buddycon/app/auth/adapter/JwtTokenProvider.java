@@ -6,8 +6,8 @@ import org.springframework.stereotype.Component;
 import yapp.buddycon.app.auth.application.port.out.CachePort;
 import yapp.buddycon.app.auth.application.service.Time;
 import yapp.buddycon.app.auth.application.service.Token;
-import yapp.buddycon.app.auth.application.service.TokenCreator;
-import yapp.buddycon.app.auth.application.service.TokenProvider;
+import yapp.buddycon.app.auth.application.port.out.TokenCreator;
+import yapp.buddycon.app.auth.application.port.out.TokenProvider;
 import yapp.buddycon.app.user.domain.User;
 
 import java.util.Date;
