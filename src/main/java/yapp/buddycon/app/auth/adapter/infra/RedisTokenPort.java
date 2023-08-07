@@ -3,13 +3,13 @@ package yapp.buddycon.app.auth.adapter.infra;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
-import yapp.buddycon.app.auth.application.port.out.CacheStorage;
+import yapp.buddycon.app.auth.application.port.out.CachePort;
 
 import java.util.concurrent.TimeUnit;
 
 @RequiredArgsConstructor
 @Component
-class RedisTokenStorage implements CacheStorage {
+class RedisTokenPort implements CachePort {
 
   private final RedisTemplate<String, Object> redisTemplate;
 

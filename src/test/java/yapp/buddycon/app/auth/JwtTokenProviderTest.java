@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import yapp.buddycon.app.auth.application.port.out.CacheStorage;
+import yapp.buddycon.app.auth.application.port.out.CachePort;
 import yapp.buddycon.app.auth.application.service.TokenCreator;
 import yapp.buddycon.app.auth.adapter.JwtTokenProvider;
 import yapp.buddycon.app.auth.application.service.Time;
@@ -19,8 +19,8 @@ import static org.mockito.Mockito.*;
 class JwtTokenProviderTest {
   TokenCreator tokenCreator = Mockito.mock(TokenCreator.class);
   Time time = Mockito.mock(Time.class);
-  CacheStorage cacheStorage = Mockito.mock(CacheStorage.class);
-  JwtTokenProvider jwtTokenProvider = new JwtTokenProvider(cacheStorage, tokenCreator, time);
+  CachePort cachePort = Mockito.mock(CachePort.class);
+  JwtTokenProvider jwtTokenProvider = new JwtTokenProvider(cachePort, tokenCreator, time);
 
   @Test
   void 토큰을_생성할때_token_creator는_한번_invocation_된다() {
@@ -51,6 +51,6 @@ class JwtTokenProviderTest {
     jwtTokenProvider.provide(user);
 
     // then
-    verify(cacheStorage, times(1)).saveWithExpiration(anyString(), anyString(), anyLong());
+    verify(cachePort, times(1)).saveWithExpiration(anyString(), anyString(), anyLong());
   }
 }

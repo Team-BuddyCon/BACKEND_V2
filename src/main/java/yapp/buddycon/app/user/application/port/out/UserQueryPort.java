@@ -4,7 +4,7 @@ import yapp.buddycon.app.user.domain.User;
 
 import java.util.Optional;
 
-public interface UserQueryStorage {
+public interface UserQueryPort {
 
     boolean existsByClientId(Long clientId);
 

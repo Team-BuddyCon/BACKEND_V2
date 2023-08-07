@@ -3,7 +3,7 @@ package yapp.buddycon.app.auth.adapter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import yapp.buddycon.app.auth.application.port.out.CacheStorage;
+import yapp.buddycon.app.auth.application.port.out.CachePort;
 import yapp.buddycon.app.auth.application.service.Time;
 import yapp.buddycon.app.auth.application.service.Token;
 import yapp.buddycon.app.auth.application.service.TokenCreator;
@@ -21,7 +21,7 @@ public class JwtTokenProvider implements TokenProvider {
   @Value("${security.jwt.token.refresh-token-expire-time}")
   private long REFRESH_TOKEN_EXPIRE_TIME;
 
-  private final CacheStorage cacheStorage;
+  private final CachePort cachePort;
   private final TokenCreator tokenCreator;
   private final Time time;
 
@@ -31,7 +31,7 @@ public class JwtTokenProvider implements TokenProvider {
     Date refreshTokenExpiresIn = new Date(now.getTime()+REFRESH_TOKEN_EXPIRE_TIME);
 
     Token token = tokenCreator.createToken(user, accessTokenExpiresIn, refreshTokenExpiresIn, now);
-    cacheStorage.saveWithExpiration(user.id().toString(), token.refreshToken(), REFRESH_TOKEN_EXPIRE_TIME);
+    cachePort.saveWithExpiration(user.id().toString(), token.refreshToken(), REFRESH_TOKEN_EXPIRE_TIME);
 
     return token;
   }
