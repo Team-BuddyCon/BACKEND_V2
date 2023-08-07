@@ -9,11 +9,11 @@ import yapp.buddycon.app.user.domain.User;
 @RequiredArgsConstructor
 public class Login {
 
-    private final SignUp signUp;
+    private final SignUpDecider signUpDecider;
     private final TokenProvider tokenProvider;
     @Transactional
     public Token login(String accessToken) {
-        User user = signUp.signUp(accessToken);
+        User user = signUpDecider.decide(accessToken);
         return tokenProvider.provide(user);
     }
 }

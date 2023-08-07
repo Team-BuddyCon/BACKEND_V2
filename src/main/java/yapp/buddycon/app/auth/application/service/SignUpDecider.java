@@ -9,13 +9,13 @@ import yapp.buddycon.app.user.domain.User;
 
 @Component
 @RequiredArgsConstructor
-public class SignUp {
+public class SignUpDecider {
 
   private final UserQueryPort userQueryPort;
   private final UserCommandPort userCommandPort;
   private final OAuthUserInfoApi oAuthUserInfoApi;
 
-  public User signUp(String accessToken) {
+  public User decide(String accessToken) {
     OAuthMemberInfo memberInfo = oAuthUserInfoApi.call(accessToken);
     Long clientId = memberInfo.id();
     return userQueryPort.findByClientId(clientId).orElseGet(() -> userCommandPort.save(new User(null, clientId)));
