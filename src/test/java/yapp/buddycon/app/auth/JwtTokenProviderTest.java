@@ -6,7 +6,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import yapp.buddycon.app.auth.application.port.out.CacheStorage;
 import yapp.buddycon.app.auth.application.service.TokenCreator;
-import yapp.buddycon.app.auth.application.service.JwtTokenProvider;
+import yapp.buddycon.app.auth.adapter.JwtTokenProvider;
 import yapp.buddycon.app.auth.application.service.Time;
 import yapp.buddycon.app.auth.application.service.Token;
 import yapp.buddycon.app.user.domain.User;

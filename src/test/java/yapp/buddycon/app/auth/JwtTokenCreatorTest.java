@@ -8,8 +8,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import yapp.buddycon.app.auth.application.service.JwtTokenCreator;
-import yapp.buddycon.app.auth.application.service.JwtTokenSecretKey;
+import yapp.buddycon.app.auth.adapter.JwtTokenCreator;
+import yapp.buddycon.app.auth.adapter.JwtTokenSecretKey;
 import yapp.buddycon.app.auth.application.service.Token;
 import yapp.buddycon.app.user.domain.User;
 
