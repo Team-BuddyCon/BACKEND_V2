@@ -74,5 +74,22 @@ class LoginControllerTest {
 
     }
 
+    @Test
+    void 액세스토큰_값이_blank라면_bad_request를_던진다() throws Exception {
 
+        // given
+        final var invalidAccessToken = "";
+        final var body = "{\"accessToken\":\"" + invalidAccessToken + "\"}";
+
+        final var resultActions = mockMvc.perform(
+                MockMvcRequestBuilders
+                        .post("/api/v1/auth/login")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(body)
+        );
+
+        resultActions
+                .andExpect(status().isBadRequest());
+
+    }
 }
