@@ -25,6 +25,6 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
             String errorMessage = error.getDefaultMessage();
             errors.put(fieldName, errorMessage);
         });
-        return ApiResponse.badRequest(e.getMessage(), errors);
+        return ApiResponse.badRequest(e.getBody().getDetail(), errors);
     }
 }
