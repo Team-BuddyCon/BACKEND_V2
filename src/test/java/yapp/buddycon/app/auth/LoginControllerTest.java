@@ -10,9 +10,13 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import yapp.buddycon.app.auth.adapter.OAuthRequestException;
 import yapp.buddycon.app.auth.application.service.OAuthMemberInfo;
 import yapp.buddycon.app.auth.application.port.out.OAuthUserInfoApi;
 
+import java.util.Objects;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -46,4 +50,29 @@ class LoginControllerTest {
         resultActions.andExpect(status().isOk());
 
     }
+
+    @Test
+    void 정상적이지않은_액세스_토큰의_경우_로그인시_예외가_던져진다() throws Exception {
+
+        // given
+        final var invalidAccessToken = "invalid_access_token";
+        final var body = "{\"accessToken\":\"" + invalidAccessToken + "\"}";
+
+        when(oAuthUserInfoApi.call(invalidAccessToken)).thenThrow(new OAuthRequestException("올바르지않은 액세스토큰입니다."));
+
+        final var resultActions = mockMvc.perform(
+                MockMvcRequestBuilders
+                        .post("/api/v1/auth/login")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(body)
+        );
+
+        resultActions
+                .andExpect(status().is5xxServerError())
+                .andExpect((result) -> assertTrue(Objects.requireNonNull(result.getResolvedException()).getClass().isAssignableFrom(OAuthRequestException.class)))
+                .andReturn();
+
+    }
+
+
 }
