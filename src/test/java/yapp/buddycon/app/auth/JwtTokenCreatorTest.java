@@ -11,7 +11,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import yapp.buddycon.app.auth.application.service.JwtTokenCreator;
 import yapp.buddycon.app.auth.application.service.JwtTokenSecretKey;
 import yapp.buddycon.app.auth.application.service.Token;
-import yapp.buddycon.app.auth.domain.User;
+import yapp.buddycon.app.user.domain.User;
 
 import java.lang.reflect.Type;
 import java.util.*;

@@ -9,7 +9,7 @@ import yapp.buddycon.app.auth.application.service.TokenCreator;
 import yapp.buddycon.app.auth.application.service.JwtTokenProvider;
 import yapp.buddycon.app.auth.application.service.Time;
 import yapp.buddycon.app.auth.application.service.Token;
-import yapp.buddycon.app.auth.domain.User;
+import yapp.buddycon.app.user.domain.User;
 
 import java.util.Date;
 

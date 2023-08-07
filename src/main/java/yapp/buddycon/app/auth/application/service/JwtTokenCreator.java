@@ -4,7 +4,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import yapp.buddycon.app.auth.domain.User;
+import yapp.buddycon.app.user.domain.User;
 
 import java.util.Date;
 

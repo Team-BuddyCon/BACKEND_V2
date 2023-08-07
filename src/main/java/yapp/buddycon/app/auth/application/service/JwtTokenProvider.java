@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import yapp.buddycon.app.auth.application.port.out.CacheStorage;
-import yapp.buddycon.app.auth.domain.User;
+import yapp.buddycon.app.user.domain.User;
 
 import java.util.Date;
 

@@ -1,6 +1,6 @@
-package yapp.buddycon.app.auth.application.port.out;
+package yapp.buddycon.app.user.application.port.out;
 
-import yapp.buddycon.app.auth.domain.User;
+import yapp.buddycon.app.user.domain.User;
 
 import java.util.Optional;
 

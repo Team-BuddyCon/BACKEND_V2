@@ -5,11 +5,11 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import yapp.buddycon.app.auth.application.port.out.OAuthUserInfoApi;
-import yapp.buddycon.app.auth.application.port.out.UserCommandStorage;
-import yapp.buddycon.app.auth.application.port.out.UserQueryStorage;
+import yapp.buddycon.app.user.application.port.out.UserCommandStorage;
+import yapp.buddycon.app.user.application.port.out.UserQueryStorage;
 import yapp.buddycon.app.auth.application.service.OAuthMemberInfo;
 import yapp.buddycon.app.auth.application.service.SignUp;
-import yapp.buddycon.app.auth.domain.User;
+import yapp.buddycon.app.user.domain.User;
 
 import java.util.Optional;
 

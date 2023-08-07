@@ -1,6 +1,6 @@
 package yapp.buddycon.app.auth.application.service;
 
-import yapp.buddycon.app.auth.domain.User;
+import yapp.buddycon.app.user.domain.User;
 
 import java.util.Date;
 

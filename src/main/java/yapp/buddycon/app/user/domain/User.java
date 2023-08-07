@@ -1,4 +1,4 @@
-package yapp.buddycon.app.auth.domain;
+package yapp.buddycon.app.user.domain;
 
 public record User(
   Long id,

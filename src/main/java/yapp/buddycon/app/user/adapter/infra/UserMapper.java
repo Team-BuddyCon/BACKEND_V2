@@ -1,8 +1,8 @@
-package yapp.buddycon.app.auth.adapter.infra;
+package yapp.buddycon.app.user.adapter.infra;
 
 import org.springframework.stereotype.Component;
-import yapp.buddycon.app.auth.adapter.UserEntity;
-import yapp.buddycon.app.auth.domain.User;
+import yapp.buddycon.app.user.adapter.UserEntity;
+import yapp.buddycon.app.user.domain.User;
 
 import java.util.Optional;
 
