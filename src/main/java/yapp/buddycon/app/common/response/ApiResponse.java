@@ -13,8 +13,11 @@ public class ApiResponse {
         return ResponseEntity.ok(new ResponseBody(OK.value(), message, body));
     }
 
+    public static ResponseEntity<?> serverError(String message, Object body) {
+        return ResponseEntity.internalServerError().body(new ResponseBody(HttpStatus.INTERNAL_SERVER_ERROR.value(), message, body));
+    }
 
     public static ResponseEntity<?> badRequest(String message, Object body) {
-        return ResponseEntity.badRequest().body(new ExceptionResponseBody(LocalDateTime.now(), HttpStatus.BAD_REQUEST.value(), message, body));
+        return ResponseEntity.badRequest().body(new ResponseBody(HttpStatus.BAD_REQUEST.value(), message, body));
     }
 }

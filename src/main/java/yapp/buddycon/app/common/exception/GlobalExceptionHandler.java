@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.reactive.result.method.annotation.ResponseEntityExceptionHandler;
 import yapp.buddycon.app.common.response.ApiResponse;
+import yapp.buddycon.app.common.response.ApplicationException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,6 +16,12 @@ import java.util.Map;
 @Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
+
+    @ExceptionHandler(value = {ApplicationException.class})
+    protected ResponseEntity<?> handleApplicationException(ApplicationException e) {
+        log.error("handleApplicationException throw ApplicationException : {}", e.getMessage());
+        return ApiResponse.serverError(e.getMessage(), null);
+    }
 
     @ExceptionHandler(value = {MethodArgumentNotValidException.class})
     protected ResponseEntity<?> handleValidationException(MethodArgumentNotValidException e) {
