@@ -13,7 +13,7 @@ public class Login {
     private final SignUpDecider signUpDecider;
     private final TokenProvider tokenProvider;
     @Transactional
-    public Token login(String accessToken) {
+    public Token execute(String accessToken) {
         User user = signUpDecider.decide(accessToken);
         return tokenProvider.provide(user);
     }

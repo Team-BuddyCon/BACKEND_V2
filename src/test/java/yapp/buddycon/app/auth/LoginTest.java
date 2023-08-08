@@ -21,7 +21,7 @@ class LoginTest {
         var login = new Login(signUpDecider, tokenProvider);
 
         // when
-        login.login(accessToken);
+        login.execute(accessToken);
 
         // then
         verify(signUpDecider, times(1)).decide(accessToken);

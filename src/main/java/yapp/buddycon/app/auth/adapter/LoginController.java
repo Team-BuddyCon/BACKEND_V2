@@ -20,7 +20,7 @@ public class LoginController {
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody @Valid LoginRequest request) {
-        Token token = login.login(request.accessToken());
+        Token token = login.execute(request.accessToken());
         return ApiResponse.success("로그인에 성공하였습니다.", token);
     }
 
