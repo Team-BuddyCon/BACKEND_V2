@@ -1,7 +1,7 @@
 package yapp.buddycon.app.auth.application.port.out;
 
-public interface CachePort {
-  void save(String key, Object value);
-  Object get(String key);
-  void saveWithExpiration(String key, Object value, long expireTime);
+public interface CachePort<K, V> {
+  void save(K key, V value);
+  V get(K key);
+  void save(K key, V value, long expireTime);
 }

@@ -26,10 +26,13 @@ class RedisConfig {
   public RedisTemplate<?, ?> redisTemplate() {
     RedisTemplate<byte[], byte[]> template = new RedisTemplate<>();
     template.setConnectionFactory(redisConnectionFactory());
-    template.setHashValueSerializer(new StringRedisSerializer());
+
     template.setKeySerializer(new StringRedisSerializer());
     template.setValueSerializer(new StringRedisSerializer());
+
     template.setHashKeySerializer(new StringRedisSerializer());
+    template.setHashValueSerializer(new StringRedisSerializer());
+
     template.afterPropertiesSet();
     return template;
   }

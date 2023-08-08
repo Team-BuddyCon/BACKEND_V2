@@ -9,22 +9,22 @@ import java.util.concurrent.TimeUnit;
 
 @RequiredArgsConstructor
 @Component
-class RedisTokenPort implements CachePort {
+public class RedisRefreshTokenPort implements CachePort<String, String> {
 
-  private final RedisTemplate<String, Object> redisTemplate;
-
-  @Override
-  public void save(String key, Object value) {
-    redisTemplate.opsForValue().set(key, value);
-  }
+  private final RedisTemplate<String, String> redisTemplate;
 
   @Override
-  public Object get(String key) {
+  public String get(String key) {
     return redisTemplate.opsForValue().get("RT:" + key);
   }
 
   @Override
-  public void saveWithExpiration(String key, Object value, long expireTime) {
+  public void save(String key, String value) {
+    redisTemplate.opsForValue().set(key, value);
+  }
+
+  @Override
+  public void save(String key, String value, long expireTime) {
     redisTemplate.opsForValue().set("RT:" + key, value, expireTime, TimeUnit.MILLISECONDS);
   }
 }
