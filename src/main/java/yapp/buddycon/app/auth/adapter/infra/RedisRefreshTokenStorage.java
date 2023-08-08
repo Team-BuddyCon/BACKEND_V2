@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit;
 
 @RequiredArgsConstructor
 @Component
-public class RedisRefreshTokenPort implements CachePort<String, String> {
+public class RedisRefreshTokenStorage implements CachePort<String, String> {
 
   private final RedisTemplate<String, String> redisTemplate;
 
