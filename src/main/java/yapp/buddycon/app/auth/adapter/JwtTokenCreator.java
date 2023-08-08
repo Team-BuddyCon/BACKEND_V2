@@ -8,6 +8,7 @@ import yapp.buddycon.app.auth.application.service.Token;
 import yapp.buddycon.app.auth.application.port.out.TokenCreator;
 import yapp.buddycon.app.user.domain.User;
 
+import java.time.Instant;
 import java.util.Date;
 
 @RequiredArgsConstructor
@@ -16,17 +17,17 @@ public class JwtTokenCreator implements TokenCreator {
 
   private final JwtTokenSecretKey jwtTokenSecretKey;
   @Override
-  public Token createToken(User user, Date accessTokenExpiresIn, Date refreshTokenExpiresIn, Date now) {
+  public Token createToken(User user, Instant accessTokenExpiresIn, Instant refreshTokenExpiresIn, Instant now) {
     var key = jwtTokenSecretKey.getSecretKey();
 
     var accessToken = Jwts.builder()
       .claim("id", user.id())
-      .setIssuedAt(now)
-      .setExpiration(accessTokenExpiresIn)
+      .setIssuedAt(Date.from(now))
+      .setExpiration(Date.from(accessTokenExpiresIn))
       .signWith(key, SignatureAlgorithm.HS512)
       .compact();
     var refreshToken = Jwts.builder()
-      .setExpiration(refreshTokenExpiresIn)
+      .setExpiration(Date.from(refreshTokenExpiresIn))
       .signWith(key, SignatureAlgorithm.HS512)
       .compact();
 

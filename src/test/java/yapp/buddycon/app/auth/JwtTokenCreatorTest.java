@@ -10,6 +10,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import yapp.buddycon.app.auth.adapter.JwtTokenCreator;
 import yapp.buddycon.app.auth.adapter.JwtTokenSecretKey;
+import yapp.buddycon.app.auth.application.service.LocalTime;
 import yapp.buddycon.app.auth.application.service.Token;
 import yapp.buddycon.app.user.domain.User;
 
@@ -19,7 +20,6 @@ import java.util.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
-
 @ExtendWith(MockitoExtension.class)
 class JwtTokenCreatorTest {
 
@@ -27,15 +27,15 @@ class JwtTokenCreatorTest {
   void accessToken은_payload에_id_정보를_포함한다(@Mock JwtTokenSecretKey jwtTokenSecretKey) {
 
     // given
-    final JwtTokenCreator jwtTokenCreator = new JwtTokenCreator(jwtTokenSecretKey);
-    final User user = new User(1L, 12345678L);
-    final Date testDate = new Date();
-    final String secretKey = "abcdefghijklmnopqrstuvwxyz12345678901234567890abcdefghijklmnopqrstuvwxyz12345678901234567890";
+    final var jwtTokenCreator = new JwtTokenCreator(jwtTokenSecretKey);
+    final var user = new User(1L, 12345678L);
+    final var testTime = new LocalTime().getNow();
+    final var secretKey = "abcdefghijklmnopqrstuvwxyz12345678901234567890abcdefghijklmnopqrstuvwxyz12345678901234567890";
 
     when(jwtTokenSecretKey.getSecretKey()).thenReturn(Keys.hmacShaKeyFor(Decoders.BASE64.decode(secretKey)));
 
     // when
-    Token token = jwtTokenCreator.createToken(user, testDate, testDate, testDate);
+    Token token = jwtTokenCreator.createToken(user, testTime, testTime, testTime);
 
     // then
     Map<String, String> map = makePayloadToJson(token);

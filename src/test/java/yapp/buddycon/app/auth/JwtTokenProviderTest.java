@@ -7,26 +7,24 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import yapp.buddycon.app.auth.application.port.out.CachePort;
 import yapp.buddycon.app.auth.application.port.out.TokenCreator;
 import yapp.buddycon.app.auth.adapter.JwtTokenProvider;
-import yapp.buddycon.app.auth.application.service.Time;
+import yapp.buddycon.app.auth.application.service.LocalTime;
 import yapp.buddycon.app.auth.application.service.Token;
 import yapp.buddycon.app.user.domain.User;
-
-import java.util.Date;
 
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class JwtTokenProviderTest {
   TokenCreator tokenCreator = Mockito.mock(TokenCreator.class);
-  Time time = Mockito.mock(Time.class);
+  LocalTime time = Mockito.mock(LocalTime.class);
   CachePort cachePort = Mockito.mock(CachePort.class);
   JwtTokenProvider jwtTokenProvider = new JwtTokenProvider(cachePort, tokenCreator, time);
 
   @Test
   void 토큰을_생성할때_token_creator는_한번_invocation_된다() {
     // given
-    User user = new User(1L, 12345678L);
-    Date testTime = new Date();
+    final var user = new User(1L, 12345678L);
+    final var testTime = new LocalTime().getNow();
 
     when(time.getNow()).thenReturn(testTime);
     when(tokenCreator.createToken(user, testTime, testTime, testTime)).thenReturn(new Token("access", "refresh"));
@@ -41,8 +39,8 @@ class JwtTokenProviderTest {
   @Test
   void 토큰을_생성할때_refresh_token을_한번_저장한다() {
     // given
-    User user = new User(1L, 12345678L);
-    Date testTime = new Date();
+    final var user = new User(1L, 12345678L);
+    final var testTime = new LocalTime().getNow();
 
     when(time.getNow()).thenReturn(testTime);
     when(tokenCreator.createToken(user, testTime, testTime, testTime)).thenReturn(new Token("access", "refresh"));
