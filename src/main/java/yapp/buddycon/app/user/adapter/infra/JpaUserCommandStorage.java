@@ -2,13 +2,13 @@ package yapp.buddycon.app.user.adapter.infra;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import yapp.buddycon.app.user.application.port.out.UserCommandPort;
+import yapp.buddycon.app.user.application.port.out.UserCommandStorage;
 import yapp.buddycon.app.user.domain.User;
 
 
 @RequiredArgsConstructor
 @Component
-public class JpaUserCommandPort implements UserCommandPort {
+public class JpaUserCommandStorage implements UserCommandStorage {
 
     private final JpaUserRepository jpaUserRepository;
     private final UserMapper mapper;
