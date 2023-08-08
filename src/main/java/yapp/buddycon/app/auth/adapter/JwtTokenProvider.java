@@ -6,7 +6,6 @@ import org.springframework.stereotype.Component;
 import yapp.buddycon.app.auth.adapter.infra.RedisRefreshTokenStorage;
 import yapp.buddycon.app.auth.application.service.LocalTime;
 import yapp.buddycon.app.auth.application.service.Token;
-import yapp.buddycon.app.auth.application.port.out.TokenCreator;
 import yapp.buddycon.app.auth.application.port.out.TokenProvider;
 import yapp.buddycon.app.user.domain.User;
 
@@ -23,7 +22,7 @@ public class JwtTokenProvider implements TokenProvider {
   private long REFRESH_TOKEN_EXPIRE_TIME;
 
   private final RedisRefreshTokenStorage refreshTokenStorage;
-  private final TokenCreator tokenCreator;
+  private final JwtTokenCreator jwtTokenCreator;
   private final LocalTime time;
 
   public Token provide(User user) {
@@ -31,7 +30,8 @@ public class JwtTokenProvider implements TokenProvider {
     Instant accessTokenExpiresIn = now.plus(Duration.ofMillis(ACCESS_TOKEN_EXPIRE_TIME));
     Instant refreshTokenExpiresIn = now.plus(Duration.ofMillis(REFRESH_TOKEN_EXPIRE_TIME));
 
-    Token token = tokenCreator.createToken(user, accessTokenExpiresIn, refreshTokenExpiresIn, Instant.now());
+    Token token = jwtTokenCreator.createToken(user, accessTokenExpiresIn, refreshTokenExpiresIn, now);
+
     refreshTokenStorage.save(String.valueOf(user.id()), token.refreshToken(), REFRESH_TOKEN_EXPIRE_TIME);
 
     return token;

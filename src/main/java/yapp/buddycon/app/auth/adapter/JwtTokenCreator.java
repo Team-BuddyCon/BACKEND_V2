@@ -5,7 +5,6 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import yapp.buddycon.app.auth.application.service.Token;
-import yapp.buddycon.app.auth.application.port.out.TokenCreator;
 import yapp.buddycon.app.user.domain.User;
 
 import java.time.Instant;
@@ -13,10 +12,10 @@ import java.util.Date;
 
 @RequiredArgsConstructor
 @Component
-public class JwtTokenCreator implements TokenCreator {
+public class JwtTokenCreator {
 
   private final JwtTokenSecretKey jwtTokenSecretKey;
-  @Override
+
   public Token createToken(User user, Instant accessTokenExpiresIn, Instant refreshTokenExpiresIn, Instant now) {
     var key = jwtTokenSecretKey.getSecretKey();
 
