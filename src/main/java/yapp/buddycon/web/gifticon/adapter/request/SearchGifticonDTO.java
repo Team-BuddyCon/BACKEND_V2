@@ -13,11 +13,9 @@ public class SearchGifticonDTO extends PagingDTO {
 
   // store
   private Long storeId;
-  private String storeName;
 
   // store category
   private Long storeCategoryId;
-  private String storeCategoryName;
 
   // sort
   private SearchGifticonSortType sortType;

@@ -19,7 +19,6 @@ import yapp.buddycon.web.gifticon.adapter.response.GifticonResponseDTO;
 import yapp.buddycon.web.gifticon.domain.Store;
 import yapp.buddycon.web.gifticon.domain.StoreCategory;
 import yapp.buddycon.web.gifticon.infra.jpa.GifticonJpaRepository;
-import yapp.buddycon.web.gifticon.infra.jpa.GifticonSearchParam;
 import yapp.buddycon.web.gifticon.domain.Gifticon;
 
 @ExtendWith(SpringExtension.class)
@@ -42,13 +41,11 @@ public class GifticonJpaRepositoryTest {
 
       // when
       SearchGifticonDTO dto1 = new SearchGifticonDTO();
-      Page<GifticonResponseDTO> result1 = gifticonJpaRepository.findAll(
-          GifticonSearchParam.valueOf(dto1), PageRequest.of(0, 10));
+      Page<GifticonResponseDTO> result1 = gifticonJpaRepository.findAll(dto1, PageRequest.of(0, 10));
 
       SearchGifticonDTO dto2 = new SearchGifticonDTO();
       dto2.setUsed(false);
-      Page<GifticonResponseDTO> result2 = gifticonJpaRepository.findAll(
-          GifticonSearchParam.valueOf(dto2), PageRequest.of(0, 10));
+      Page<GifticonResponseDTO> result2 = gifticonJpaRepository.findAll(dto2, PageRequest.of(0, 10));
 
       // then
       assertThat(result1.getTotalElements()).isEqualTo(2);
@@ -62,8 +59,7 @@ public class GifticonJpaRepositoryTest {
       // given
 
       // when
-      Page<GifticonResponseDTO> result = gifticonJpaRepository.findAll(
-          GifticonSearchParam.valueOf(new SearchGifticonDTO()), PageRequest.of(1, 10));
+      Page<GifticonResponseDTO> result = gifticonJpaRepository.findAll(new SearchGifticonDTO(), PageRequest.of(1, 10));
 
       // then
       assertThat(result.getTotalElements()).isEqualTo(0);
@@ -80,13 +76,11 @@ public class GifticonJpaRepositoryTest {
       SearchGifticonDTO dto1 = new SearchGifticonDTO();
       dto1.setSortType(SearchGifticonSortType.NAME);
       dto1.setSortDirection(Direction.ASC);
-      Page<GifticonResponseDTO> result1 = gifticonJpaRepository.findAll(
-          GifticonSearchParam.valueOf(dto1), PageRequest.of(0, 10));
+      Page<GifticonResponseDTO> result1 = gifticonJpaRepository.findAll(dto1, PageRequest.of(0, 10));
 
       SearchGifticonDTO dto2 = new SearchGifticonDTO();
       dto2.setSortType(SearchGifticonSortType.NAME);
-      Page<GifticonResponseDTO> result2 = gifticonJpaRepository.findAll(
-          GifticonSearchParam.valueOf(dto2), PageRequest.of(0, 10));
+      Page<GifticonResponseDTO> result2 = gifticonJpaRepository.findAll(dto2, PageRequest.of(0, 10));
 
       // then
       assertThat(result1.getTotalElements()).isEqualTo(3);
@@ -114,18 +108,15 @@ public class GifticonJpaRepositoryTest {
 
       // when
       SearchGifticonDTO dto1 = new SearchGifticonDTO();
-      Page<GifticonResponseDTO> result1 = gifticonJpaRepository.findAll(
-          GifticonSearchParam.valueOf(dto1), PageRequest.of(0, 10));
+      Page<GifticonResponseDTO> result1 = gifticonJpaRepository.findAll(dto1, PageRequest.of(0, 10));
 
       SearchGifticonDTO dto2 = new SearchGifticonDTO();
       dto2.setStoreId(2l);
-      Page<GifticonResponseDTO> result2 = gifticonJpaRepository.findAll(
-          GifticonSearchParam.valueOf(dto2), PageRequest.of(0, 10));
+      Page<GifticonResponseDTO> result2 = gifticonJpaRepository.findAll(dto2, PageRequest.of(0, 10));
 
       SearchGifticonDTO dto3 = new SearchGifticonDTO();
-      dto3.setStoreCategoryName(storeCategory2.getName());
-      Page<GifticonResponseDTO> result3 = gifticonJpaRepository.findAll(
-          GifticonSearchParam.valueOf(dto3), PageRequest.of(0, 10));
+      dto3.setStoreCategoryId(storeCategory2.getId());
+      Page<GifticonResponseDTO> result3 = gifticonJpaRepository.findAll(dto3, PageRequest.of(0, 10));
 
       // then
       assertThat(result1.getTotalElements()).isEqualTo(5);

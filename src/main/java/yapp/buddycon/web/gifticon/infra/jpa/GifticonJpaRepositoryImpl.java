@@ -2,7 +2,8 @@ package yapp.buddycon.web.gifticon.infra.jpa;
 
 import static yapp.buddycon.web.gifticon.domain.QGifticon.gifticon;
 
-import com.querydsl.core.BooleanBuilder;
+import com.querydsl.core.types.OrderSpecifier;
+import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
@@ -13,7 +14,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
-import org.springframework.util.StringUtils;
+import yapp.buddycon.web.gifticon.adapter.request.SearchGifticonDTO;
 import yapp.buddycon.web.gifticon.adapter.request.SearchGifticonSortType;
 import yapp.buddycon.web.gifticon.adapter.response.GifticonResponseDTO;
 import yapp.buddycon.web.gifticon.adapter.response.QGifticonResponseDTO;
@@ -36,7 +37,7 @@ public class GifticonJpaRepositoryImpl extends QuerydslRepositorySupport impleme
   }
 
   @Override
-  public Page<GifticonResponseDTO> findAll(GifticonSearchParam param, Pageable pageable) {
+  public Page<GifticonResponseDTO> findAll(SearchGifticonDTO dto, Pageable pageable) {
     JPAQuery<GifticonResponseDTO> jpaQuery = query.select(
             new QGifticonResponseDTO(
                 gifticon.id,
@@ -52,65 +53,46 @@ public class GifticonJpaRepositoryImpl extends QuerydslRepositorySupport impleme
             )).from(gifticon)
         .leftJoin(gifticon.store, store)
         .leftJoin(store.storeCategory, storeCategory)
-        .where(createWhereCondition(param));
-
-    jpaQuery = addOrderByQuery(jpaQuery, param);
+        .where(
+            eqGifticonUsed(dto.getUsed()),
+            eqStoreId(dto.getStoreId()),
+            eqStoreCategoryId(dto.getStoreCategoryId())
+        )
+        .orderBy(orderByGifticonSortType(dto.getSortDirection(), dto.getSortType()));
 
     long totalCount = jpaQuery.fetchCount();
     List<GifticonResponseDTO> results = getQuerydsl().applyPagination(pageable, jpaQuery).fetch();
     return new PageImpl<>(results, pageable, totalCount);
   }
 
-  private BooleanBuilder createWhereCondition(GifticonSearchParam param) {
-    BooleanBuilder booleanBuilder = new BooleanBuilder();
-
-    if (Boolean.TRUE.equals(param.getUsed())) {
-      booleanBuilder.and(gifticon.used.isTrue());
-    } else if (Boolean.FALSE.equals(param.getUsed())) {
-      booleanBuilder.and(gifticon.used.isFalse());
+  private BooleanExpression eqGifticonUsed(Boolean used) {
+    if (Objects.nonNull(used)) {
+      return Boolean.TRUE.equals(used) ? gifticon.used.isTrue() : gifticon.used.isFalse();
     }
-    if (Objects.nonNull(param.getStoreId())) {
-      booleanBuilder.and(store.id.eq(param.getStoreId()));
-    }
-    if (StringUtils.hasText(param.getStoreName())) {
-      booleanBuilder.and(store.name.eq(param.getStoreName()));
-    }
-    if (Objects.nonNull(param.getStoreCategoryId())) {
-      booleanBuilder.and(storeCategory.id.eq(param.getStoreCategoryId()));
-    }
-    if (StringUtils.hasText(param.getStoreCategoryName())) {
-      booleanBuilder.and(storeCategory.name.eq(param.getStoreCategoryName()));
-    }
-
-    return booleanBuilder;
+    return null;
   }
 
-  // TODO 추상화 후 분리?
-  private <T> JPAQuery<T> addOrderByQuery(JPAQuery<T> query, GifticonSearchParam param) {
-    if (Objects.nonNull(param.getSortType())) {
-      if (Direction.ASC.equals(param.getSortDirection())) {
-        if (SearchGifticonSortType.EXPIRE_DATE.equals(param.getSortType())) {
-          query.orderBy(gifticon.expireDate.asc());
-        }
-        if (SearchGifticonSortType.CREATED_AT.equals(param.getSortType())) {
-          query.orderBy(gifticon.createdAt.asc());
-        }
-        if (SearchGifticonSortType.NAME.equals(param.getSortType())) {
-          query.orderBy(gifticon.name.asc());
-        }
-      } else {
-        if (SearchGifticonSortType.EXPIRE_DATE.equals(param.getSortType())) {
-          query.orderBy(gifticon.expireDate.desc());
-        }
-        if (SearchGifticonSortType.CREATED_AT.equals(param.getSortType())) {
-          query.orderBy(gifticon.createdAt.desc());
-        }
-        if (SearchGifticonSortType.NAME.equals(param.getSortType())) {
-          query.orderBy(gifticon.name.desc());
-        }
-      }
+  private BooleanExpression eqStoreId(Long storeId) {
+    return Objects.nonNull(storeId) ? store.id.eq(storeId) : null;
+  }
+
+  private BooleanExpression eqStoreCategoryId(Long storeCategoryId) {
+    return Objects.nonNull(storeCategoryId) ? storeCategory.id.eq(storeCategoryId) : null;
+  }
+
+  private OrderSpecifier orderByGifticonSortType(Direction sortDirection, SearchGifticonSortType searchGifticonSortType) {
+    if (SearchGifticonSortType.EXPIRE_DATE.equals(searchGifticonSortType)) {
+      return Direction.ASC.equals(sortDirection) ? gifticon.expireDate.asc() : gifticon.expireDate.desc();
     }
-    return query;
+    if (SearchGifticonSortType.CREATED_AT.equals(searchGifticonSortType)) {
+      return Direction.ASC.equals(sortDirection) ? gifticon.createdAt.asc() : gifticon.createdAt.desc();
+    }
+    if (SearchGifticonSortType.NAME.equals(searchGifticonSortType)) {
+      return Direction.ASC.equals(sortDirection) ? gifticon.name.asc() : gifticon.name.desc();
+    }
+
+    // default
+    return gifticon.expireDate.desc();
   }
 
 }
