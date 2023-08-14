@@ -1,7 +1,7 @@
-package yapp.buddycon.web.gifticon.infra.jpa;
+package yapp.buddycon.app.gifticon.infra.jpa;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import yapp.buddycon.web.gifticon.domain.Gifticon;
+import yapp.buddycon.app.gifticon.domain.Gifticon;
 
 public interface GifticonJpaRepository extends JpaRepository<Gifticon, Long>,
     GifticonJpaCustomRepository {

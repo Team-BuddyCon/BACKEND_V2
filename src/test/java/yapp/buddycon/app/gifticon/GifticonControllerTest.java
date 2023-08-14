@@ -1,4 +1,4 @@
-package yapp.buddycon.gifticon;
+package yapp.buddycon.app.gifticon;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
@@ -15,9 +15,9 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.Arrays;
-import yapp.buddycon.web.gifticon.adapter.GifticonController;
-import yapp.buddycon.web.gifticon.adapter.response.GifticonResponseDTO;
-import yapp.buddycon.web.gifticon.application.port.in.GifticonUseCase;
+import yapp.buddycon.app.gifticon.adapter.GifticonController;
+import yapp.buddycon.app.gifticon.adapter.response.GifticonResponseDTO;
+import yapp.buddycon.app.gifticon.application.port.in.GifticonUseCase;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doReturn;

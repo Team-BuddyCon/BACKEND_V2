@@ -1,6 +1,4 @@
-package yapp.buddycon.web.gifticon.infra.jpa;
-
-import static yapp.buddycon.web.gifticon.domain.QGifticon.gifticon;
+package yapp.buddycon.app.gifticon.infra.jpa;
 
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.dsl.BooleanExpression;
@@ -14,13 +12,14 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
-import yapp.buddycon.web.gifticon.adapter.request.SearchGifticonDTO;
-import yapp.buddycon.web.gifticon.adapter.request.SearchGifticonSortType;
-import yapp.buddycon.web.gifticon.adapter.response.GifticonResponseDTO;
-import yapp.buddycon.web.gifticon.adapter.response.QGifticonResponseDTO;
-import yapp.buddycon.web.gifticon.domain.Gifticon;
-import yapp.buddycon.web.gifticon.domain.QStore;
-import yapp.buddycon.web.gifticon.domain.QStoreCategory;
+import yapp.buddycon.app.gifticon.adapter.request.SearchGifticonDTO;
+import yapp.buddycon.app.gifticon.adapter.response.GifticonResponseDTO;
+import yapp.buddycon.app.gifticon.domain.Gifticon;
+import yapp.buddycon.app.gifticon.domain.QGifticon;
+import yapp.buddycon.app.gifticon.adapter.request.SearchGifticonSortType;
+import yapp.buddycon.app.gifticon.adapter.response.QGifticonResponseDTO;
+import yapp.buddycon.app.gifticon.domain.QStore;
+import yapp.buddycon.app.gifticon.domain.QStoreCategory;
 
 public class GifticonJpaRepositoryImpl extends QuerydslRepositorySupport implements
     GifticonJpaCustomRepository {
@@ -40,18 +39,18 @@ public class GifticonJpaRepositoryImpl extends QuerydslRepositorySupport impleme
   public Page<GifticonResponseDTO> findAll(SearchGifticonDTO dto, Pageable pageable) {
     JPAQuery<GifticonResponseDTO> jpaQuery = query.select(
             new QGifticonResponseDTO(
-                gifticon.id,
-                gifticon.barcode,
-                gifticon.imageUrl,
-                gifticon.name,
-                gifticon.memo,
-                gifticon.expireDate,
+                QGifticon.gifticon.id,
+                QGifticon.gifticon.barcode,
+                QGifticon.gifticon.imageUrl,
+                QGifticon.gifticon.name,
+                QGifticon.gifticon.memo,
+                QGifticon.gifticon.expireDate,
                 store.id,
                 store.name,
                 storeCategory.id,
                 storeCategory.name
-            )).from(gifticon)
-        .leftJoin(gifticon.store, store)
+            )).from(QGifticon.gifticon)
+        .leftJoin(QGifticon.gifticon.store, store)
         .leftJoin(store.storeCategory, storeCategory)
         .where(
             eqGifticonUsed(dto.getUsed()),
@@ -67,7 +66,7 @@ public class GifticonJpaRepositoryImpl extends QuerydslRepositorySupport impleme
 
   private BooleanExpression eqGifticonUsed(Boolean used) {
     if (Objects.nonNull(used)) {
-      return Boolean.TRUE.equals(used) ? gifticon.used.isTrue() : gifticon.used.isFalse();
+      return Boolean.TRUE.equals(used) ? QGifticon.gifticon.used.isTrue() : QGifticon.gifticon.used.isFalse();
     }
     return null;
   }
@@ -82,17 +81,17 @@ public class GifticonJpaRepositoryImpl extends QuerydslRepositorySupport impleme
 
   private OrderSpecifier orderByGifticonSortType(Direction sortDirection, SearchGifticonSortType searchGifticonSortType) {
     if (SearchGifticonSortType.EXPIRE_DATE.equals(searchGifticonSortType)) {
-      return Direction.ASC.equals(sortDirection) ? gifticon.expireDate.asc() : gifticon.expireDate.desc();
+      return Direction.ASC.equals(sortDirection) ? QGifticon.gifticon.expireDate.asc() : QGifticon.gifticon.expireDate.desc();
     }
     if (SearchGifticonSortType.CREATED_AT.equals(searchGifticonSortType)) {
-      return Direction.ASC.equals(sortDirection) ? gifticon.createdAt.asc() : gifticon.createdAt.desc();
+      return Direction.ASC.equals(sortDirection) ? QGifticon.gifticon.createdAt.asc() : QGifticon.gifticon.createdAt.desc();
     }
     if (SearchGifticonSortType.NAME.equals(searchGifticonSortType)) {
-      return Direction.ASC.equals(sortDirection) ? gifticon.name.asc() : gifticon.name.desc();
+      return Direction.ASC.equals(sortDirection) ? QGifticon.gifticon.name.asc() : QGifticon.gifticon.name.desc();
     }
 
     // default
-    return gifticon.expireDate.desc();
+    return QGifticon.gifticon.expireDate.desc();
   }
 
 }

@@ -1,4 +1,4 @@
-package yapp.buddycon.web.gifticon.domain;
+package yapp.buddycon.app.gifticon.domain;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

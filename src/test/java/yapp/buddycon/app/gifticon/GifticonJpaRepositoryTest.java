@@ -1,4 +1,4 @@
-package yapp.buddycon.gifticon;
+package yapp.buddycon.app.gifticon;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -13,13 +13,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import yapp.buddycon.web.gifticon.adapter.request.SearchGifticonDTO;
-import yapp.buddycon.web.gifticon.adapter.request.SearchGifticonSortType;
-import yapp.buddycon.web.gifticon.adapter.response.GifticonResponseDTO;
-import yapp.buddycon.web.gifticon.domain.Store;
-import yapp.buddycon.web.gifticon.domain.StoreCategory;
-import yapp.buddycon.web.gifticon.infra.jpa.GifticonJpaRepository;
-import yapp.buddycon.web.gifticon.domain.Gifticon;
+import yapp.buddycon.app.gifticon.adapter.request.SearchGifticonDTO;
+import yapp.buddycon.app.gifticon.adapter.request.SearchGifticonSortType;
+import yapp.buddycon.app.gifticon.adapter.response.GifticonResponseDTO;
+import yapp.buddycon.app.gifticon.domain.Store;
+import yapp.buddycon.app.gifticon.domain.StoreCategory;
+import yapp.buddycon.app.gifticon.infra.jpa.GifticonJpaRepository;
+import yapp.buddycon.app.gifticon.domain.Gifticon;
 
 @ExtendWith(SpringExtension.class)
 @DataJpaTest

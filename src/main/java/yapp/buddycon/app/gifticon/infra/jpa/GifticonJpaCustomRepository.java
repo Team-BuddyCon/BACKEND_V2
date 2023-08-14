@@ -1,9 +1,9 @@
-package yapp.buddycon.web.gifticon.infra.jpa;
+package yapp.buddycon.app.gifticon.infra.jpa;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import yapp.buddycon.web.gifticon.adapter.request.SearchGifticonDTO;
-import yapp.buddycon.web.gifticon.adapter.response.GifticonResponseDTO;
+import yapp.buddycon.app.gifticon.adapter.request.SearchGifticonDTO;
+import yapp.buddycon.app.gifticon.adapter.response.GifticonResponseDTO;
 
 public interface GifticonJpaCustomRepository {
 

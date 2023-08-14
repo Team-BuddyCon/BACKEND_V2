@@ -1,4 +1,4 @@
-package yapp.buddycon.web.gifticon.adapter.request;
+package yapp.buddycon.app.gifticon.adapter.request;
 
 public enum SearchGifticonSortType {
 

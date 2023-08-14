@@ -1,4 +1,4 @@
-package yapp.buddycon.web.gifticon.adapter.response;
+package yapp.buddycon.app.gifticon.adapter.response;
 
 import com.querydsl.core.annotations.QueryProjection;
 import java.time.LocalDate;

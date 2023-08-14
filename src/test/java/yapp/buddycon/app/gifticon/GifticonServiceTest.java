@@ -1,4 +1,4 @@
-package yapp.buddycon.gifticon;
+package yapp.buddycon.app.gifticon;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -16,10 +16,10 @@ import org.springframework.data.domain.Page;
 import java.util.Arrays;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
-import yapp.buddycon.web.gifticon.adapter.request.SearchGifticonDTO;
-import yapp.buddycon.web.gifticon.adapter.response.GifticonResponseDTO;
-import yapp.buddycon.web.gifticon.application.port.out.GifticonQueryPort;
-import yapp.buddycon.web.gifticon.application.service.GifticonService;
+import yapp.buddycon.app.gifticon.adapter.request.SearchGifticonDTO;
+import yapp.buddycon.app.gifticon.adapter.response.GifticonResponseDTO;
+import yapp.buddycon.app.gifticon.application.port.out.GifticonQueryPort;
+import yapp.buddycon.app.gifticon.application.service.GifticonService;
 
 @ExtendWith(MockitoExtension.class)
 public class GifticonServiceTest {
