@@ -4,6 +4,7 @@ import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.domain.Sort.Direction;
 
 @Getter
 @Setter
@@ -14,5 +15,6 @@ public class PagingDTO {
   @Min(value = 1)
   @Max(value = 1000)
   private int rowCount = 20;
+  private Direction sortDirection;
 
 }
