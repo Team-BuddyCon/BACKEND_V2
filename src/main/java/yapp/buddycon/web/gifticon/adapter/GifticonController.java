@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import yapp.buddycon.web.gifticon.adapter.request.SearchGifticonDTO;
-import yapp.buddycon.web.gifticon.adapter.response.GifticonVO;
+import yapp.buddycon.web.gifticon.adapter.response.GifticonResponseDTO;
 import yapp.buddycon.web.gifticon.application.port.in.GifticonUseCase;
 
 @RestController
@@ -18,7 +18,7 @@ public class GifticonController {
   private final GifticonUseCase gifticonUseCase;
 
   @GetMapping("")
-  public Page<GifticonVO> getGifticons(@Valid SearchGifticonDTO dto) {
+  public Page<GifticonResponseDTO> getGifticons(@Valid SearchGifticonDTO dto) {
     return gifticonUseCase.getGifticons(dto);
   }
 

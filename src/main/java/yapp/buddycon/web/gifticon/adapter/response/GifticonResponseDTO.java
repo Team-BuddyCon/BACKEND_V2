@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-public class GifticonVO {
+public class GifticonResponseDTO {
 
   // gifticon
   private Long gifticonId;
@@ -26,7 +26,7 @@ public class GifticonVO {
   private String storeCategoryName;
 
   @QueryProjection
-  public GifticonVO(Long gifticonId, String barcode, String imageUrl, String name, String memo,
+  public GifticonResponseDTO(Long gifticonId, String barcode, String imageUrl, String name, String memo,
       LocalDate expireDate, Long storeId, String storeName, Long storeCategoryId,
       String storeCategoryName) {
     this.gifticonId = gifticonId;

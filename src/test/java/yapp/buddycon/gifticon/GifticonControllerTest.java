@@ -16,7 +16,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.Arrays;
 import yapp.buddycon.web.gifticon.adapter.GifticonController;
-import yapp.buddycon.web.gifticon.adapter.response.GifticonVO;
+import yapp.buddycon.web.gifticon.adapter.response.GifticonResponseDTO;
 import yapp.buddycon.web.gifticon.application.port.in.GifticonUseCase;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -47,9 +47,9 @@ public class GifticonControllerTest {
     void 정상조회() throws Exception {
       // given
       doReturn(new PageImpl<>(Arrays.asList(
-          new GifticonVO(),
-          new GifticonVO(),
-          new GifticonVO()))
+          new GifticonResponseDTO(),
+          new GifticonResponseDTO(),
+          new GifticonResponseDTO()))
       ).when(gifticonUseCase).getGifticons(any());
 
       // when

@@ -15,8 +15,8 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
 import org.springframework.util.StringUtils;
 import yapp.buddycon.web.gifticon.adapter.request.SearchGifticonSortType;
-import yapp.buddycon.web.gifticon.adapter.response.GifticonVO;
-import yapp.buddycon.web.gifticon.adapter.response.QGifticonVO;
+import yapp.buddycon.web.gifticon.adapter.response.GifticonResponseDTO;
+import yapp.buddycon.web.gifticon.adapter.response.QGifticonResponseDTO;
 import yapp.buddycon.web.gifticon.domain.Gifticon;
 import yapp.buddycon.web.gifticon.domain.QStore;
 import yapp.buddycon.web.gifticon.domain.QStoreCategory;
@@ -36,9 +36,9 @@ public class GifticonJpaRepositoryImpl extends QuerydslRepositorySupport impleme
   }
 
   @Override
-  public Page<GifticonVO> findAll(GifticonSearchParam param, Pageable pageable) {
-    JPAQuery<GifticonVO> jpaQuery = query.select(
-            new QGifticonVO(
+  public Page<GifticonResponseDTO> findAll(GifticonSearchParam param, Pageable pageable) {
+    JPAQuery<GifticonResponseDTO> jpaQuery = query.select(
+            new QGifticonResponseDTO(
                 gifticon.id,
                 gifticon.barcode,
                 gifticon.imageUrl,
@@ -57,7 +57,7 @@ public class GifticonJpaRepositoryImpl extends QuerydslRepositorySupport impleme
     jpaQuery = addOrderByQuery(jpaQuery, param);
 
     long totalCount = jpaQuery.fetchCount();
-    List<GifticonVO> results = getQuerydsl().applyPagination(pageable, jpaQuery).fetch();
+    List<GifticonResponseDTO> results = getQuerydsl().applyPagination(pageable, jpaQuery).fetch();
     return new PageImpl<>(results, pageable, totalCount);
   }
 

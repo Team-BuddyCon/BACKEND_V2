@@ -17,7 +17,7 @@ import java.util.Arrays;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import yapp.buddycon.web.gifticon.adapter.request.SearchGifticonDTO;
-import yapp.buddycon.web.gifticon.adapter.response.GifticonVO;
+import yapp.buddycon.web.gifticon.adapter.response.GifticonResponseDTO;
 import yapp.buddycon.web.gifticon.application.port.out.GifticonQueryPort;
 import yapp.buddycon.web.gifticon.application.service.GifticonService;
 
@@ -42,13 +42,13 @@ public class GifticonServiceTest {
       doReturn(rowCount).when(searchGifticonDTO).getRowCount();
       doReturn(pageNumber).when(searchGifticonDTO).getPageNumber();
       doReturn(new PageImpl<>(Arrays.asList(
-          new GifticonVO(),
-          new GifticonVO(),
-          new GifticonVO()))
+          new GifticonResponseDTO(),
+          new GifticonResponseDTO(),
+          new GifticonResponseDTO()))
       ).when(gifticonQueryPort).findAll(any(), any(Pageable.class));
 
       // when
-      Page<GifticonVO> resultList = gifticonService.getGifticons(searchGifticonDTO);
+      Page<GifticonResponseDTO> resultList = gifticonService.getGifticons(searchGifticonDTO);
 
       // then
       assertThat(resultList.getSize()).isEqualTo(3);
@@ -63,7 +63,7 @@ public class GifticonServiceTest {
           .when(gifticonQueryPort).findAll(any(), any(Pageable.class));
 
       // when
-      Page<GifticonVO> resultList = gifticonService.getGifticons(searchGifticonDTO);
+      Page<GifticonResponseDTO> resultList = gifticonService.getGifticons(searchGifticonDTO);
 
       // then
       assertThat(resultList.getTotalElements()).isEqualTo(0);
