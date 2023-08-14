@@ -66,8 +66,8 @@ public class GifticonServiceTest {
       Page<GifticonResponseDTO> resultList = gifticonService.getGifticons(searchGifticonDTO);
 
       // then
-      assertThat(resultList.getTotalElements()).isEqualTo(0);
-      assertThat(resultList.getContent().size()).isEqualTo(0);
+      assertThat(resultList.getTotalElements()).isZero();
+      assertThat(resultList.getContent().size()).isZero();
     }
   }
 

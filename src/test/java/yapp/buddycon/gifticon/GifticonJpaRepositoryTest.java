@@ -55,7 +55,7 @@ public class GifticonJpaRepositoryTest {
       Page<GifticonResponseDTO> result = gifticonJpaRepository.findAll(new SearchGifticonDTO(), PageRequest.of(1, 10));
 
       // then
-      assertThat(result.getTotalElements()).isEqualTo(0);
+      assertThat(result.getTotalElements()).isZero();
     }
 
     @Test
