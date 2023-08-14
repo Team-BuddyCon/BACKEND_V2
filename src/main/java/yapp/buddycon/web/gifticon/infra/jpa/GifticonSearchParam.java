@@ -2,7 +2,7 @@ package yapp.buddycon.web.gifticon.infra.jpa;
 
 import lombok.Getter;
 import lombok.Setter;
-import yapp.buddycon.common.request.OrderByType;
+import org.springframework.data.domain.Sort.Direction;
 import yapp.buddycon.web.gifticon.adapter.request.SearchGifticonDTO;
 import yapp.buddycon.web.gifticon.adapter.request.SearchGifticonSortType;
 
@@ -23,7 +23,7 @@ public class GifticonSearchParam {
 
   // DefaultValue
   private SearchGifticonSortType sortType;
-  private OrderByType orderByType;
+  private Direction sortDirection;
 
   public static GifticonSearchParam valueOf(SearchGifticonDTO dto) {
     GifticonSearchParam param = new GifticonSearchParam();
@@ -33,7 +33,7 @@ public class GifticonSearchParam {
     param.setStoreCategoryId(dto.getStoreCategoryId());
     param.setStoreCategoryName(dto.getStoreCategoryName());
     param.setSortType(dto.getSortType());
-    param.setOrderByType(dto.getOrderByType());
+    param.setSortDirection(dto.getSortDirection());
     return param;
   }
 

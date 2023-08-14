@@ -10,9 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import yapp.buddycon.common.request.OrderByType;
 import yapp.buddycon.web.gifticon.adapter.request.SearchGifticonDTO;
 import yapp.buddycon.web.gifticon.adapter.request.SearchGifticonSortType;
 import yapp.buddycon.web.gifticon.adapter.response.GifticonVO;
@@ -79,7 +79,7 @@ public class GifticonJpaRepositoryTest {
       // when
       SearchGifticonDTO dto1 = new SearchGifticonDTO();
       dto1.setSortType(SearchGifticonSortType.NAME);
-      dto1.setOrderByType(OrderByType.ASC);
+      dto1.setSortDirection(Direction.ASC);
       Page<GifticonVO> result1 = gifticonJpaRepository.findAll(
           GifticonSearchParam.valueOf(dto1), PageRequest.of(0, 10));
 

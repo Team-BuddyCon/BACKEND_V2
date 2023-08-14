@@ -11,9 +11,9 @@ import java.util.Objects;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
 import org.springframework.util.StringUtils;
-import yapp.buddycon.common.request.OrderByType;
 import yapp.buddycon.web.gifticon.adapter.request.SearchGifticonSortType;
 import yapp.buddycon.web.gifticon.adapter.response.GifticonVO;
 import yapp.buddycon.web.gifticon.adapter.response.QGifticonVO;
@@ -88,7 +88,7 @@ public class GifticonJpaRepositoryImpl extends QuerydslRepositorySupport impleme
   // TODO 추상화 후 분리?
   private <T> JPAQuery<T> addOrderByQuery(JPAQuery<T> query, GifticonSearchParam param) {
     if (Objects.nonNull(param.getSortType())) {
-      if (OrderByType.ASC.equals(param.getOrderByType())) {
+      if (Direction.ASC.equals(param.getSortDirection())) {
         if (SearchGifticonSortType.EXPIRE_DATE.equals(param.getSortType())) {
           query.orderBy(gifticon.expireDate.asc());
         }

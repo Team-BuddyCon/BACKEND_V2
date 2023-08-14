@@ -2,7 +2,7 @@ package yapp.buddycon.web.gifticon.adapter.request;
 
 import lombok.Getter;
 import lombok.Setter;
-import yapp.buddycon.common.request.OrderByType;
+import org.springframework.data.domain.Sort.Direction;
 import yapp.buddycon.common.request.PagingDTO;
 
 @Getter
@@ -22,6 +22,6 @@ public class SearchGifticonDTO extends PagingDTO {
 
   // sort
   private SearchGifticonSortType sortType;
-  private OrderByType orderByType;
+  private Direction sortDirection;
 
 }
