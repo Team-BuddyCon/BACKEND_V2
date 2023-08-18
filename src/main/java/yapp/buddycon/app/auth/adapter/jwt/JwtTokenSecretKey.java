@@ -1,4 +1,4 @@
-package yapp.buddycon.app.auth.adapter;
+package yapp.buddycon.app.auth.adapter.jwt;
 
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;

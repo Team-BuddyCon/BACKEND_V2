@@ -1,7 +1,9 @@
-package yapp.buddycon.app.user.adapter.infra;
+package yapp.buddycon.app.user.adapter;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import yapp.buddycon.app.user.adapter.jpa.JpaUserRepository;
+import yapp.buddycon.app.user.adapter.jpa.UserMapper;
 import yapp.buddycon.app.user.application.port.out.UserCommandStorage;
 import yapp.buddycon.app.user.domain.User;
 

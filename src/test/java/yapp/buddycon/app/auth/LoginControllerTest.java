@@ -10,7 +10,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import yapp.buddycon.app.auth.adapter.OAuthRequestException;
+import yapp.buddycon.app.auth.adapter.oauth.OAuthRequestException;
 import yapp.buddycon.app.auth.application.service.OAuthMemberInfo;
 import yapp.buddycon.app.auth.application.port.out.OAuthUserInfoApi;
 

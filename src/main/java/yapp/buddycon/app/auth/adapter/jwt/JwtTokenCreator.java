@@ -1,4 +1,4 @@
-package yapp.buddycon.app.auth.adapter;
+package yapp.buddycon.app.auth.adapter.jwt;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

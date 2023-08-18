@@ -1,4 +1,4 @@
-package yapp.buddycon.app.user.adapter;
+package yapp.buddycon.app.user.adapter.jpa;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

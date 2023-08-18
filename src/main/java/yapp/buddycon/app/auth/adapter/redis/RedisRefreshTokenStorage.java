@@ -1,4 +1,4 @@
-package yapp.buddycon.app.auth.adapter.infra;
+package yapp.buddycon.app.auth.adapter.redis;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;

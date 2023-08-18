@@ -1,9 +1,9 @@
-package yapp.buddycon.app.auth.adapter;
+package yapp.buddycon.app.auth.adapter.jwt;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import yapp.buddycon.app.auth.adapter.infra.RedisRefreshTokenStorage;
+import yapp.buddycon.app.auth.adapter.redis.RedisRefreshTokenStorage;
 import yapp.buddycon.app.auth.application.service.LocalTime;
 import yapp.buddycon.app.auth.application.service.Token;
 import yapp.buddycon.app.auth.application.port.out.TokenProvider;

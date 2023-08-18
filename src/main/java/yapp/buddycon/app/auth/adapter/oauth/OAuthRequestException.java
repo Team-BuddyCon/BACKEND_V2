@@ -1,4 +1,4 @@
-package yapp.buddycon.app.auth.adapter;
+package yapp.buddycon.app.auth.adapter.oauth;
 
 import yapp.buddycon.app.common.response.ApplicationException;
 

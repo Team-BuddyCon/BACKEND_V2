@@ -1,7 +1,6 @@
-package yapp.buddycon.app.user.adapter.infra;
+package yapp.buddycon.app.user.adapter.jpa;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import yapp.buddycon.app.user.adapter.UserEntity;
 
 import java.util.Optional;
 
