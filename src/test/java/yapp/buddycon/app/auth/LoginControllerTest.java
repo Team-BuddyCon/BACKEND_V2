@@ -8,8 +8,10 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import yapp.buddycon.BuddyconApplication;
 import yapp.buddycon.app.auth.adapter.oauth.OAuthRequestException;
 import yapp.buddycon.app.auth.application.service.OAuthMemberInfo;
 import yapp.buddycon.app.auth.application.port.out.OAuthUserInfoApi;
@@ -23,6 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ExtendWith(MockitoExtension.class)
 @SpringBootTest
 @AutoConfigureMockMvc
+@ContextConfiguration(classes = BuddyconApplication.class)
 class LoginControllerTest {
 
     @MockBean
