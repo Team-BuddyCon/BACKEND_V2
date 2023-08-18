@@ -19,6 +19,11 @@ jobs:
         with:
           java-version: 17
           distribution: 'zulu' # Alternative distribution options are available
+      - name: Set YML
+        run: |
+          mkdir -p src/main/resources
+          echo "${{ secrets.APPLICATION_YML }}" | base64 --decode > src/main/resources/application.yml
+          find src
       - name: Cache SonarCloud packages
         uses: actions/cache@v3
         with:
