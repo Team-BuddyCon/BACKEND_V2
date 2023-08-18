@@ -17,6 +17,12 @@ configurations {
 	}
 }
 
+jacocoTestReport {
+	reports {
+		xml.enabled true
+	}
+}
+
 repositories {
 	mavenCentral()
 	maven { url 'https://repo.spring.io/milestone' }
