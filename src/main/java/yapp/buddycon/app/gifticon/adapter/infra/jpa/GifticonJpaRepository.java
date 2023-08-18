@@ -1,4 +1,4 @@
-package yapp.buddycon.app.gifticon.infra.jpa;
+package yapp.buddycon.app.gifticon.adapter.infra.jpa;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import yapp.buddycon.app.gifticon.domain.Gifticon;

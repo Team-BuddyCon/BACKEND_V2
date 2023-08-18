@@ -13,12 +13,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import yapp.buddycon.app.gifticon.adapter.request.SearchGifticonDTO;
-import yapp.buddycon.app.gifticon.adapter.request.SearchGifticonSortType;
-import yapp.buddycon.app.gifticon.adapter.response.GifticonResponseDTO;
+import yapp.buddycon.app.gifticon.adapter.client.request.SearchGifticonDTO;
+import yapp.buddycon.app.gifticon.adapter.client.request.SearchGifticonSortType;
+import yapp.buddycon.app.gifticon.adapter.client.response.GifticonResponseDTO;
 import yapp.buddycon.app.gifticon.domain.Store;
 import yapp.buddycon.app.gifticon.domain.StoreCategory;
-import yapp.buddycon.app.gifticon.infra.jpa.GifticonJpaRepository;
+import yapp.buddycon.app.gifticon.adapter.infra.jpa.GifticonJpaRepository;
 import yapp.buddycon.app.gifticon.domain.Gifticon;
 
 @ExtendWith(SpringExtension.class)

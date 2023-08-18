@@ -5,8 +5,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import yapp.buddycon.app.gifticon.adapter.request.SearchGifticonDTO;
-import yapp.buddycon.app.gifticon.adapter.response.GifticonResponseDTO;
+import yapp.buddycon.app.gifticon.adapter.client.request.SearchGifticonDTO;
+import yapp.buddycon.app.gifticon.adapter.client.response.GifticonResponseDTO;
 import yapp.buddycon.app.gifticon.application.port.in.GifticonUseCase;
 import yapp.buddycon.app.gifticon.application.port.out.GifticonQueryPort;
 

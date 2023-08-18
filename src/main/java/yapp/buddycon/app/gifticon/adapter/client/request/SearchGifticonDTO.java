@@ -1,4 +1,4 @@
-package yapp.buddycon.app.gifticon.adapter.request;
+package yapp.buddycon.app.gifticon.adapter.client.request;
 
 import lombok.Getter;
 import lombok.Setter;
