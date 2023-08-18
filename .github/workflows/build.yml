@@ -24,6 +24,10 @@ jobs:
           mkdir -p src/main/resources
           echo "${{ secrets.APPLICATION_YML }}" | base64 --decode > src/main/resources/application.yml
           find src
+      - name: Install redis
+        run: sudo apt-get install -y redis-tools redis-server
+      - name: Verify that redis is up
+        run: redis-cli ping
       - name: Cache SonarCloud packages
         uses: actions/cache@v3
         with:
