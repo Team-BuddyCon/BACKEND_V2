@@ -8,7 +8,7 @@ import yapp.buddycon.app.user.domain.User;
 
 @Component
 @RequiredArgsConstructor
-public class Login {
+public class LoginService {
 
     private final SignUpDecider signUpDecider;
     private final TokenProvider tokenProvider;
