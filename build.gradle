@@ -2,10 +2,31 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.0.8-SNAPSHOT'
 	id 'io.spring.dependency-management' version '1.1.0'
+	id "jacoco"
+	id "org.sonarqube" version "4.2.1.3168"
+}
+
+sonar {
+	properties {
+		property "sonar.projectKey", "Team-BuddyCon_BACKEND_V2"
+		property "sonar.organization", "team-buddycon"
+		property "sonar.host.url", "https://sonarcloud.io"
+		property "sonar.tests", "src/test"
+//		property "sonar.coverage.jacoco.xmlReportPaths", "build/reports/jacoco.xml"
+//		property "sonar.testExecutionReportPaths", "build/reports/jacoco.xml"
+	}
 }
 
 group = 'yapp'
 version = '0.0.1-SNAPSHOT'
+
+jacocoTestReport {
+	reports {
+		xml.enabled true
+//		html.enabled true
+//		xml.destination file("${buildDir}/reports/jacoco.xml")
+	}
+}
 
 java {
 	sourceCompatibility = '17'
