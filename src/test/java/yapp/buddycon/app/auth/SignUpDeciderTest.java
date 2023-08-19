@@ -22,7 +22,7 @@ class SignUpDeciderTest {
   @Test
   void 신규_로그인_회원은_db에_저장한다(@Mock UserQueryStorage userQueryStorage, @Mock UserCommandStorage userCommandStorage, @Mock OAuthUserInfoApi oAuthUserInfoApi) {
     // given
-    var validAccessToken = "accessToken";
+    var validAccessToken = "oauthAccessToken";
     var signUp = new SignUpDecider(userQueryStorage, userCommandStorage, oAuthUserInfoApi);
     var memberInfo = new OAuthMemberInfo(1L);
     when(oAuthUserInfoApi.call(validAccessToken)).thenReturn(memberInfo);
@@ -39,7 +39,7 @@ class SignUpDeciderTest {
   void 기존_회원은_db에_저장하지않는다(@Mock UserQueryStorage userQueryStorage, @Mock UserCommandStorage userCommandStorage,
                           @Mock OAuthUserInfoApi oAuthUserInfoApi) {
     // given
-    var validAccessToken = "accessToken";
+    var validAccessToken = "oauthAccessToken";
     var signUp = new SignUpDecider(userQueryStorage, userCommandStorage, oAuthUserInfoApi);
     var memberInfo = new OAuthMemberInfo(1L);
     when(oAuthUserInfoApi.call(validAccessToken)).thenReturn(memberInfo);

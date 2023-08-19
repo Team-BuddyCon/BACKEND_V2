@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import yapp.buddycon.app.auth.application.service.LoginService;
+import yapp.buddycon.app.auth.application.service.AuthService;
 import yapp.buddycon.app.auth.application.service.Token;
 import yapp.buddycon.app.common.response.ApiResponse;
 
@@ -16,11 +16,11 @@ import yapp.buddycon.app.common.response.ApiResponse;
 @RequiredArgsConstructor
 public class LoginController {
 
-    private final LoginService loginService;
+    private final AuthService authService;
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody @Valid LoginRequest request) {
-        Token token = loginService.execute(request.accessToken());
+        Token token = authService.login(request.oauthAccessToken());
         return ApiResponse.success("로그인에 성공하였습니다.", token);
     }
 
