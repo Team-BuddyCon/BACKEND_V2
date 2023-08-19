@@ -39,7 +39,7 @@ class LoginControllerTest {
 
         // given
         final var validAccessToken = "valid_access_token";
-        final var body = "{\"accessToken\":\"" + validAccessToken + "\"}";
+        final var body = "{\"oauthAccessToken\":\"" + validAccessToken + "\"}";
 
         when(oAuthUserInfoApi.call(validAccessToken)).thenReturn(new OAuthMemberInfo(1L));
 
@@ -59,7 +59,7 @@ class LoginControllerTest {
 
         // given
         final var invalidAccessToken = "invalid_access_token";
-        final var body = "{\"accessToken\":\"" + invalidAccessToken + "\"}";
+        final var body = "{\"oauthAccessToken\":\"" + invalidAccessToken + "\"}";
 
         when(oAuthUserInfoApi.call(invalidAccessToken)).thenThrow(new OAuthRequestException("올바르지않은 액세스토큰입니다."));
 
