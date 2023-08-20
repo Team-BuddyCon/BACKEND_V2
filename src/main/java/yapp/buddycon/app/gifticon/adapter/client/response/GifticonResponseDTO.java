@@ -4,40 +4,33 @@ import com.querydsl.core.annotations.QueryProjection;
 import java.time.LocalDate;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import yapp.buddycon.app.gifticon.adapter.infra.entity.GifticonStore;
+import yapp.buddycon.app.gifticon.adapter.infra.entity.GifticonStoreCategory;
 
 @Getter
 @NoArgsConstructor
 public class GifticonResponseDTO {
 
-  // gifticon
   private Long gifticonId;
   private String barcode;
   private String imageUrl;
   private String name;
   private String memo;
   private LocalDate expireDate;
-
-  // store
-  private Long storeId;
-  private String storeName;
-
-  // store category
-  private Long storeCategoryId;
-  private String storeCategoryName;
+  private GifticonStore gifticonStore;
+  private GifticonStoreCategory gifticonStoreCategory;
 
   @QueryProjection
-  public GifticonResponseDTO(Long gifticonId, String barcode, String imageUrl, String name, String memo,
-      LocalDate expireDate, Long storeId, String storeName, Long storeCategoryId,
-      String storeCategoryName) {
+  public GifticonResponseDTO(Long gifticonId, String barcode, String imageUrl, String name,
+      String memo, LocalDate expireDate, GifticonStore gifticonStore,
+      GifticonStoreCategory gifticonStoreCategory) {
     this.gifticonId = gifticonId;
     this.barcode = barcode;
     this.imageUrl = imageUrl;
     this.name = name;
     this.memo = memo;
     this.expireDate = expireDate;
-    this.storeId = storeId;
-    this.storeName = storeName;
-    this.storeCategoryId = storeCategoryId;
-    this.storeCategoryName = storeCategoryName;
+    this.gifticonStore = gifticonStore;
+    this.gifticonStoreCategory = gifticonStoreCategory;
   }
 }
