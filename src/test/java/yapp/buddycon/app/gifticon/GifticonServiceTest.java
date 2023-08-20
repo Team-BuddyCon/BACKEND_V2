@@ -18,14 +18,14 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import yapp.buddycon.app.gifticon.adapter.client.request.SearchGifticonDTO;
 import yapp.buddycon.app.gifticon.adapter.client.response.GifticonResponseDTO;
-import yapp.buddycon.app.gifticon.application.port.out.GifticonQueryPort;
+import yapp.buddycon.app.gifticon.application.port.out.GifticonQueryStoragePort;
 import yapp.buddycon.app.gifticon.application.service.GifticonService;
 
 @ExtendWith(MockitoExtension.class)
 public class GifticonServiceTest {
 
   @Mock
-  private GifticonQueryPort gifticonQueryPort;
+  private GifticonQueryStoragePort gifticonQueryStoragePort;
   @InjectMocks
   private GifticonService gifticonService;
 
@@ -45,7 +45,7 @@ public class GifticonServiceTest {
           new GifticonResponseDTO(),
           new GifticonResponseDTO(),
           new GifticonResponseDTO()))
-      ).when(gifticonQueryPort).findAll(any(), any(Pageable.class));
+      ).when(gifticonQueryStoragePort).findAll(any(), any(Pageable.class));
 
       // when
       Page<GifticonResponseDTO> resultList = gifticonService.getGifticons(searchGifticonDTO);
@@ -60,7 +60,7 @@ public class GifticonServiceTest {
       doReturn(rowCount).when(searchGifticonDTO).getRowCount();
       doReturn(pageNumber).when(searchGifticonDTO).getPageNumber();
       doReturn(Page.empty())
-          .when(gifticonQueryPort).findAll(any(), any(Pageable.class));
+          .when(gifticonQueryStoragePort).findAll(any(), any(Pageable.class));
 
       // when
       Page<GifticonResponseDTO> resultList = gifticonService.getGifticons(searchGifticonDTO);

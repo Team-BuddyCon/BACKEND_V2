@@ -7,11 +7,11 @@ import org.springframework.stereotype.Repository;
 import yapp.buddycon.app.gifticon.adapter.client.request.SearchGifticonDTO;
 import yapp.buddycon.app.gifticon.adapter.client.response.GifticonResponseDTO;
 import yapp.buddycon.app.gifticon.adapter.infra.jpa.GifticonJpaRepository;
-import yapp.buddycon.app.gifticon.application.port.out.GifticonQueryPort;
+import yapp.buddycon.app.gifticon.application.port.out.GifticonQueryStoragePort;
 
 @RequiredArgsConstructor
 @Repository
-public class GifticonRepository implements GifticonQueryPort {
+public class GifticonQueryStorage implements GifticonQueryStoragePort {
 
   private final GifticonJpaRepository gifticonJpaRepository;
 
