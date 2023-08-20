@@ -20,3 +20,15 @@ spring:
       hibernate:
         format_sql: true
         show-sql: true
+  data:
+    redis:
+      port: 6379
+      host: localhost
+
+security:
+  jwt:
+    token:
+      bearer-type: Bearer
+      secret-key: BuddyconApplicationSecretkeyExampleBuddyBuddyBuddyBuddyBuddy
+      access-token-expire-time: 43200000 # 12시간
+      refresh-token-expire-time: 604800000 # 7일
