@@ -2,22 +2,16 @@ package yapp.buddycon.app.gifticon.adapter.infra.jpa;
 
 import static yapp.buddycon.app.gifticon.adapter.infra.entity.QGifticonEntity.gifticonEntity;
 
-import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.dsl.BooleanExpression;
-import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
 import java.util.List;
-import java.util.Objects;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.domain.Slice;
+import org.springframework.data.domain.SliceImpl;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
-import yapp.buddycon.app.gifticon.adapter.client.request.SearchGifticonDTO;
 import yapp.buddycon.app.gifticon.adapter.client.response.GifticonResponseDTO;
 import yapp.buddycon.app.gifticon.adapter.client.response.QGifticonResponseDTO;
-import yapp.buddycon.app.gifticon.adapter.client.request.SearchGifticonSortType;
 import yapp.buddycon.app.gifticon.adapter.infra.entity.GifticonEntity;
 
 public class GifticonJpaRepositoryImpl extends QuerydslRepositorySupport implements
@@ -31,8 +25,8 @@ public class GifticonJpaRepositoryImpl extends QuerydslRepositorySupport impleme
   }
 
   @Override
-  public Page<GifticonResponseDTO> findAll(SearchGifticonDTO dto, Pageable pageable) {
-    JPAQuery<GifticonResponseDTO> jpaQuery = query.select(
+  public Slice<GifticonResponseDTO> findAllByUsedIsTrue(Pageable pageable) {
+    List<GifticonResponseDTO> results = query.select(
             new QGifticonResponseDTO(
                 gifticonEntity.id,
                 gifticonEntity.barcode,
@@ -44,45 +38,37 @@ public class GifticonJpaRepositoryImpl extends QuerydslRepositorySupport impleme
                 gifticonEntity.gifticonStoreCategory
             )).from(gifticonEntity)
         .where(
-            eqGifticonUsed(dto.getUsed())
-//            eqStoreId(dto.getStoreId()),
-//            eqStoreCategoryId(dto.getStoreCategoryId())
-        );
-//        .orderBy(orderByGifticonSortType(dto.getSortDirection(), dto.getSortType()));
+            eqGifticonUsed(true)
+        )
+        .offset(pageable.getOffset())
+        .limit(pageable.getPageNumber() + 1).fetch();
 
-    long totalCount = jpaQuery.fetchCount();
-    List<GifticonResponseDTO> results = getQuerydsl().applyPagination(pageable, jpaQuery).fetch();
-    return new PageImpl<>(results, pageable, totalCount);
-  }
-
-  private BooleanExpression eqGifticonUsed(Boolean used) {
-    if (Objects.nonNull(used)) {
-      return Boolean.TRUE.equals(used) ? gifticonEntity.used.isTrue() : gifticonEntity.used.isFalse();
+    boolean hasNext = false;
+    if (results.size() > pageable.getPageSize()) {
+      hasNext = true;
+      results.remove(pageable.getPageSize());
     }
-    return null;
+
+    return new SliceImpl<>(results, pageable, hasNext);
   }
 
-//  private BooleanExpression eqStoreId(Long storeId) {
-//    return Objects.nonNull(storeId) ? store.id.eq(storeId) : null;
+  private BooleanExpression eqGifticonUsed(boolean used) {
+    return used ? gifticonEntity.used.isTrue() : gifticonEntity.used.isFalse();
+  }
+
+//  private OrderSpecifier orderByGifticonSortType(Direction sortDirection, SearchGifticonSortType searchGifticonSortType) {
+//    if (SearchGifticonSortType.EXPIRE_DATE.equals(searchGifticonSortType)) {
+//      return Direction.ASC.equals(sortDirection) ? gifticonEntity.expireDate.asc() : gifticonEntity.expireDate.desc();
+//    }
+//    if (SearchGifticonSortType.CREATED_AT.equals(searchGifticonSortType)) {
+//      return Direction.ASC.equals(sortDirection) ? gifticonEntity.createdAt.asc() : gifticonEntity.createdAt.desc();
+//    }
+//    if (SearchGifticonSortType.NAME.equals(searchGifticonSortType)) {
+//      return Direction.ASC.equals(sortDirection) ? gifticonEntity.name.asc() : gifticonEntity.name.desc();
+//    }
+//
+//    // default
+//    return gifticonEntity.expireDate.desc();
 //  }
-
-//  private BooleanExpression eqStoreCategoryId(Long storeCategoryId) {
-//    return Objects.nonNull(storeCategoryId) ? storeCategory.id.eq(storeCategoryId) : null;
-//  }
-
-  private OrderSpecifier orderByGifticonSortType(Direction sortDirection, SearchGifticonSortType searchGifticonSortType) {
-    if (SearchGifticonSortType.EXPIRE_DATE.equals(searchGifticonSortType)) {
-      return Direction.ASC.equals(sortDirection) ? gifticonEntity.expireDate.asc() : gifticonEntity.expireDate.desc();
-    }
-    if (SearchGifticonSortType.CREATED_AT.equals(searchGifticonSortType)) {
-      return Direction.ASC.equals(sortDirection) ? gifticonEntity.createdAt.asc() : gifticonEntity.createdAt.desc();
-    }
-    if (SearchGifticonSortType.NAME.equals(searchGifticonSortType)) {
-      return Direction.ASC.equals(sortDirection) ? gifticonEntity.name.asc() : gifticonEntity.name.desc();
-    }
-
-    // default
-    return gifticonEntity.expireDate.desc();
-  }
 
 }

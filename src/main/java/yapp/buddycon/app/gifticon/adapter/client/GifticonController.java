@@ -2,12 +2,10 @@ package yapp.buddycon.app.gifticon.adapter.client;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Slice;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import yapp.buddycon.app.gifticon.adapter.client.request.SearchGifticonDTO;
 import yapp.buddycon.app.gifticon.adapter.client.response.GifticonResponseDTO;
 import yapp.buddycon.app.gifticon.application.port.in.GifticonUseCase;
 import yapp.buddycon.common.request.PagingDTO;
@@ -18,11 +16,6 @@ import yapp.buddycon.common.request.PagingDTO;
 public class GifticonController {
 
   private final GifticonUseCase gifticonUseCase;
-
-  @GetMapping("")
-  public Page<GifticonResponseDTO> getGifticons(@Valid SearchGifticonDTO dto) {
-    return gifticonUseCase.getGifticons(dto);
-  }
 
   @GetMapping("/unavailable")
   public Slice<GifticonResponseDTO> getUnavailableGifticons(@Valid PagingDTO dto) {

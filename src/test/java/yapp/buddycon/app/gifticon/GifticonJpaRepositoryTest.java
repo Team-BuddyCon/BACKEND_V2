@@ -11,6 +11,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Slice;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import yapp.buddycon.app.gifticon.adapter.client.response.GifticonResponseDTO;
 import yapp.buddycon.app.gifticon.adapter.infra.entity.GifticonEntity;
 import yapp.buddycon.app.gifticon.adapter.infra.entity.GifticonStore;
 import yapp.buddycon.app.gifticon.adapter.infra.jpa.GifticonJpaRepository;
@@ -32,7 +33,7 @@ public class GifticonJpaRepositoryTest {
       GifticonEntity 사용한_기프티콘 = createGifticonEntity("name2", true, GifticonStore.STARBUCKS);
 
       // when
-      Slice<GifticonEntity> result = gifticonJpaRepository.findAllByUsedIsTrue(
+      Slice<GifticonResponseDTO> result = gifticonJpaRepository.findAllByUsedIsTrue(
           PageRequest.of(0, 10));
 
       // then

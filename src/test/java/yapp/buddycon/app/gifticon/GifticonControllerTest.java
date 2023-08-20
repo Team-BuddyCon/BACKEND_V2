@@ -8,8 +8,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.SliceImpl;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
@@ -22,7 +20,6 @@ import yapp.buddycon.app.gifticon.adapter.client.response.GifticonResponseDTO;
 import yapp.buddycon.app.gifticon.application.port.in.GifticonUseCase;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -86,7 +83,7 @@ public class GifticonControllerTest {
     }
 
     @Test
-    void rowCount가_1보다_작을_경우_valiation에_의해_BAD_REQUEST() throws Exception {
+    void rowCount가_1보다_작을_경우_valiation에_의해_404반환() throws Exception {
       // given
 
       // when
@@ -98,47 +95,6 @@ public class GifticonControllerTest {
 
       // then
       resultActions.andExpect(status().isBadRequest());
-    }
-  }
-
-  @Nested
-  class getGifticons {
-
-    @Test
-    void 정상조회() throws Exception {
-      // given
-      doReturn(new PageImpl<>(Arrays.asList(
-          new GifticonResponseDTO(),
-          new GifticonResponseDTO(),
-          new GifticonResponseDTO()))
-      ).when(gifticonUseCase).getGifticons(any());
-
-      // when
-      final ResultActions resultActions = mockMvc.perform(
-          MockMvcRequestBuilders.get(BASE_URL + "")
-      );
-
-      // then
-      resultActions
-          .andExpect(status().isOk())
-          .andExpect(jsonPath("$.totalElements").value("3"));
-    }
-
-    @Test
-    void 빈리스트() throws Exception {
-      // given
-      doReturn(Page.empty()).when(gifticonUseCase)
-          .getGifticons(any());
-
-      // when
-      final ResultActions resultActions = mockMvc.perform(
-          MockMvcRequestBuilders.get(BASE_URL + "")
-      );
-
-      // then
-      resultActions
-          .andExpect(status().isOk())
-          .andExpect(jsonPath("$.totalElements").value("0"));
     }
   }
 
