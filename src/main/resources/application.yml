@@ -29,6 +29,6 @@ security:
   jwt:
     token:
       bearer-type: Bearer
-      secret-key: BuddyconApplicationSecretkeyExampleBuddyBuddyBuddyBuddyBuddy
+      secret-key: secretKeysecretKeysecretKeysecretKeysecretKeysecretKeysecretKeysecretKeysecretKeysecretKey
       access-token-expire-time: 43200000 # 12시간
       refresh-token-expire-time: 604800000 # 7일

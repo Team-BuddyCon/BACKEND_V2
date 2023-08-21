@@ -2,6 +2,7 @@ package yapp.buddycon.app.gifticon.adapter.infra.jpa;
 
 import static yapp.buddycon.app.gifticon.adapter.infra.entity.QGifticonEntity.gifticonEntity;
 
+import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
@@ -13,10 +14,12 @@ import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.SliceImpl;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
 import yapp.buddycon.app.gifticon.adapter.client.request.SearchAvailableGifticonDTO;
+import yapp.buddycon.app.gifticon.adapter.client.request.SearchGifticonSortType;
 import yapp.buddycon.app.gifticon.adapter.client.response.GifticonResponseDTO;
 import yapp.buddycon.app.gifticon.adapter.client.response.QGifticonResponseDTO;
 import yapp.buddycon.app.gifticon.adapter.infra.entity.GifticonEntity;
 import yapp.buddycon.app.gifticon.adapter.infra.entity.GifticonStoreCategory;
+import yapp.buddycon.common.request.PagingDTO;
 
 public class GifticonJpaRepositoryImpl extends QuerydslRepositorySupport implements
     GifticonJpaCustomRepository {
@@ -57,8 +60,9 @@ public class GifticonJpaRepositoryImpl extends QuerydslRepositorySupport impleme
   }
 
   @Override
-  public Slice<GifticonResponseDTO> findAllByUsedIsFalseAndExpiredDateBefore(
-      SearchAvailableGifticonDTO dto, Pageable pageable) {
+  public Slice<GifticonResponseDTO> findAllAvailableGifticons(LocalDate today,
+      GifticonStoreCategory gifticonStoreCategory, SearchGifticonSortType searchGifticonSortType,
+      Pageable pageable) {
     List<GifticonResponseDTO> results = query.select(
             new QGifticonResponseDTO(
                 gifticonEntity.id,
@@ -72,10 +76,10 @@ public class GifticonJpaRepositoryImpl extends QuerydslRepositorySupport impleme
             )).from(gifticonEntity)
         .where(
             gifticonEntity.used.isFalse(),
-            gifticonEntity.expireDate.before(LocalDate.now().plusDays(1l)),
-            eqGifticonStoreCategory(dto.getGifticonStoreCategory())
+            gifticonEntity.expireDate.before(today.plusDays(1l)),
+            eqGifticonStoreCategory(gifticonStoreCategory)
         )
-        .orderBy(dto.getGifticonSortType().getOrderByQuery())
+        .orderBy(createOrderByCondition(searchGifticonSortType))
         .offset(pageable.getOffset())
         .limit(pageable.getPageSize() + 1).fetch();
 
@@ -91,6 +95,19 @@ public class GifticonJpaRepositoryImpl extends QuerydslRepositorySupport impleme
   private BooleanExpression eqGifticonStoreCategory(GifticonStoreCategory gifticonStoreCategory) {
     return Objects.nonNull(gifticonStoreCategory) ?
         gifticonEntity.gifticonStoreCategory.eq(gifticonStoreCategory) : null;
+  }
+
+  private OrderSpecifier createOrderByCondition(SearchGifticonSortType gifticonSortType) {
+    switch (gifticonSortType) {
+      case EXPIRE_DATE:
+        return gifticonEntity.expireDate.desc();
+      case CREATED_AT:
+        return gifticonEntity.createdAt.desc();
+      case NAME:
+        return gifticonEntity.name.asc();
+      default:
+        return null;
+    }
   }
 
 }

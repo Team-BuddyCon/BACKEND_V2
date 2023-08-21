@@ -36,8 +36,8 @@ public class GifticonJpaRepositoryTest {
       GifticonEntity 사용한_기프티콘 = createGifticonEntity("name2", true, GifticonStore.STARBUCKS);
 
       // when
-      Slice<GifticonResponseDTO> result = gifticonJpaRepository.findAllByUsedIsTrue(
-          PageRequest.of(0, 10));
+      Slice<GifticonResponseDTO> result = gifticonJpaRepository
+          .findAllByUsedIsTrue(PageRequest.of(0, 10));
 
       // then
       assertThat(result.getContent().size()).isEqualTo(1);
@@ -46,7 +46,7 @@ public class GifticonJpaRepositoryTest {
   }
 
   @Nested
-  class findAllByUsedIsFalseAndExpiredDateBefore {
+  class findAllAvailableGifticons {
 
     @Test
     void 카테고리_필터링_없으면_전체_목록_조회() {
@@ -58,7 +58,8 @@ public class GifticonJpaRepositoryTest {
 
       // when
       Slice<GifticonResponseDTO> result = gifticonJpaRepository
-          .findAllByUsedIsFalseAndExpiredDateBefore(dto, PageRequest.of(0, 10));
+          .findAllAvailableGifticons(LocalDate.now(), dto.getGifticonStoreCategory(),
+              dto.getGifticonSortType(), PageRequest.of(0, 10));
 
       // then
       assertThat(result.getContent().size()).isEqualTo(2);
@@ -75,7 +76,8 @@ public class GifticonJpaRepositoryTest {
 
       // when
       Slice<GifticonResponseDTO> result = gifticonJpaRepository
-          .findAllByUsedIsFalseAndExpiredDateBefore(dto, PageRequest.of(0, 10));
+          .findAllAvailableGifticons(LocalDate.now(), dto.getGifticonStoreCategory(),
+              dto.getGifticonSortType(), PageRequest.of(0, 10));
 
       // then
       assertThat(result.getContent().size()).isEqualTo(1);
@@ -93,7 +95,8 @@ public class GifticonJpaRepositoryTest {
 
       // when
       Slice<GifticonResponseDTO> result = gifticonJpaRepository
-          .findAllByUsedIsFalseAndExpiredDateBefore(dto, PageRequest.of(0, 10));
+          .findAllAvailableGifticons(LocalDate.now(), dto.getGifticonStoreCategory(),
+              dto.getGifticonSortType(), PageRequest.of(0, 10));
 
       // then
       assertThat(result.getContent().size()).isEqualTo(3);

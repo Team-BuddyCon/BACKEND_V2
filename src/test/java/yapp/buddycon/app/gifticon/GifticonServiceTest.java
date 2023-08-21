@@ -40,7 +40,7 @@ public class GifticonServiceTest {
     void 정상조회() {
       // given
       when(requestDTO.toPageable()).thenReturn(PageRequest.of(pageNumber, rowCount));
-      when(gifticonQueryStoragePort.findAllUnavailableGifticons(any())).thenReturn(
+      when(gifticonQueryStoragePort.findAllUsedGifticons(any())).thenReturn(
           new SliceImpl<>(Arrays.asList(
               new GifticonResponseDTO(),
               new GifticonResponseDTO()))

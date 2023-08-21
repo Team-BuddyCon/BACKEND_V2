@@ -1,5 +1,6 @@
 package yapp.buddycon.app.gifticon.application.service;
 
+import java.time.LocalDate;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
@@ -19,11 +20,15 @@ public class GifticonService implements GifticonUseCase {
 
   @Override
   public Slice<GifticonResponseDTO> getUnavailableGifticons(PagingDTO dto) {
-    return gifticonQueryStoragePort.findAllUnavailableGifticons(dto.toPageable());
+    return gifticonQueryStoragePort.findAllUsedGifticons(dto.toPageable());
   }
 
   @Override
   public Slice<GifticonResponseDTO> getAvailableGifticons(SearchAvailableGifticonDTO dto) {
-    return gifticonQueryStoragePort.findAllAvailableGifticons(dto, dto.toPageable());
+    return gifticonQueryStoragePort.findAllAvailableGifticons(
+        LocalDate.now(),
+        dto.getGifticonStoreCategory(),
+        dto.getGifticonSortType(),
+        dto.toPageable());
   }
 }
