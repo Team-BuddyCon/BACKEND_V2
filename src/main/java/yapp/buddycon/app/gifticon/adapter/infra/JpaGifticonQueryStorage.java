@@ -9,11 +9,11 @@ import yapp.buddycon.app.gifticon.adapter.client.request.SearchGifticonSortType;
 import yapp.buddycon.app.gifticon.adapter.client.response.GifticonResponseDTO;
 import yapp.buddycon.app.gifticon.adapter.infra.entity.GifticonStoreCategory;
 import yapp.buddycon.app.gifticon.adapter.infra.jpa.GifticonJpaRepository;
-import yapp.buddycon.app.gifticon.application.port.out.GifticonQueryStoragePort;
+import yapp.buddycon.app.gifticon.application.port.out.GifticonQueryStorage;
 
 @RequiredArgsConstructor
 @Repository
-public class GifticonQueryStorage implements GifticonQueryStoragePort {
+public class JpaGifticonQueryStorage implements GifticonQueryStorage {
 
   private final GifticonJpaRepository gifticonJpaRepository;
 

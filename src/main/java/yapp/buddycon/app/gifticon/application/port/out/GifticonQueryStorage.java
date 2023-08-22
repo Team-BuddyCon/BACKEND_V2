@@ -7,7 +7,7 @@ import yapp.buddycon.app.gifticon.adapter.client.request.SearchGifticonSortType;
 import yapp.buddycon.app.gifticon.adapter.client.response.GifticonResponseDTO;
 import yapp.buddycon.app.gifticon.adapter.infra.entity.GifticonStoreCategory;
 
-public interface GifticonQueryStoragePort {
+public interface GifticonQueryStorage {
 
   Slice<GifticonResponseDTO> findAllUsedGifticons(Pageable pageable);
 

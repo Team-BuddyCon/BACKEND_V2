@@ -17,7 +17,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.SliceImpl;
 import yapp.buddycon.app.gifticon.adapter.client.response.GifticonResponseDTO;
-import yapp.buddycon.app.gifticon.application.port.out.GifticonQueryStoragePort;
+import yapp.buddycon.app.gifticon.application.port.out.GifticonQueryStorage;
 import yapp.buddycon.app.gifticon.application.service.GifticonService;
 import yapp.buddycon.common.request.PagingDTO;
 
@@ -25,7 +25,7 @@ import yapp.buddycon.common.request.PagingDTO;
 public class GifticonServiceTest {
 
   @Mock
-  private GifticonQueryStoragePort gifticonQueryStoragePort;
+  private GifticonQueryStorage gifticonQueryStoragePort;
   @InjectMocks
   private GifticonService gifticonService;
 
