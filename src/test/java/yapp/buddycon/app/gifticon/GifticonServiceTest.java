@@ -16,6 +16,7 @@ import java.util.Arrays;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.SliceImpl;
+import yapp.buddycon.app.gifticon.adapter.client.request.SearchAvailableGifticonDTO;
 import yapp.buddycon.app.gifticon.adapter.client.response.GifticonResponseDTO;
 import yapp.buddycon.app.gifticon.application.port.out.GifticonQueryStorage;
 import yapp.buddycon.app.gifticon.application.service.GifticonService;
@@ -48,6 +49,31 @@ public class GifticonServiceTest {
 
       // when
       Slice<GifticonResponseDTO> resultList = gifticonService.getUnavailableGifticons(requestDTO);
+
+      // then
+      assertThat(resultList.getSize()).isEqualTo(2);
+    }
+  }
+
+  @Nested
+  class getAvailableGifticons {
+
+    private SearchAvailableGifticonDTO requestDTO = mock(SearchAvailableGifticonDTO.class);
+    private int rowCount = 10;
+    private int pageNumber = 1;
+
+    @Test
+    void 정상조회() {
+      // given
+      when(requestDTO.toPageable()).thenReturn(PageRequest.of(pageNumber, rowCount));
+      when(gifticonQueryStoragePort.findAllAvailableGifticons(any(), any(), any(), any())).thenReturn(
+              new SliceImpl<>(Arrays.asList(
+                      new GifticonResponseDTO(),
+                      new GifticonResponseDTO()))
+      );
+
+      // when
+      Slice<GifticonResponseDTO> resultList = gifticonService.getAvailableGifticons(requestDTO);
 
       // then
       assertThat(resultList.getSize()).isEqualTo(2);
