@@ -1,21 +1,19 @@
 package yapp.buddycon.app.gifticon.adapter.client.request;
 
-import static yapp.buddycon.app.gifticon.adapter.infra.entity.QGifticonEntity.gifticonEntity;
-
-import com.querydsl.core.types.OrderSpecifier;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import org.springframework.data.domain.Sort;
 
 @Getter
 @AllArgsConstructor
 public enum SearchGifticonSortType {
 
-  EXPIRE_DATE("유효 기간 순", gifticonEntity.expireDate.desc()),
-  CREATED_AT("생성 일시 순", gifticonEntity.createdAt.desc()),
-  NAME("이름 순", gifticonEntity.name.asc()),
+  EXPIRE_DATE("유효 기간 순", Sort.by("expireDate").descending()),
+  CREATED_AT("생성 일시 순", Sort.by("createdAt").descending()),
+  NAME("이름 순", Sort.by("name").ascending()),
   ;
 
   private String description;
-  private OrderSpecifier orderByQuery;
+  private Sort sort;
 
 }

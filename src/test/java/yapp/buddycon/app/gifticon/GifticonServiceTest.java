@@ -2,7 +2,6 @@ package yapp.buddycon.app.gifticon;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.Nested;
@@ -13,7 +12,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Arrays;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.SliceImpl;
 import yapp.buddycon.app.gifticon.adapter.client.request.SearchAvailableGifticonDTO;
@@ -33,15 +31,11 @@ public class GifticonServiceTest {
   @Nested
   class getUnavailableGifticons {
 
-    private PagingDTO requestDTO = mock(PagingDTO.class);
-    private int rowCount = 10;
-    private int pageNumber = 1;
-
     @Test
     void 정상조회() {
       // given
-      when(requestDTO.toPageable()).thenReturn(PageRequest.of(pageNumber, rowCount));
-      when(gifticonQueryStoragePort.findAllUsedGifticons(any())).thenReturn(
+      PagingDTO requestDTO = new PagingDTO();
+      when(gifticonQueryStoragePort.findAllUnavailableGifticons(any())).thenReturn(
           new SliceImpl<>(Arrays.asList(
               new GifticonResponseDTO(),
               new GifticonResponseDTO()))
@@ -58,18 +52,14 @@ public class GifticonServiceTest {
   @Nested
   class getAvailableGifticons {
 
-    private SearchAvailableGifticonDTO requestDTO = mock(SearchAvailableGifticonDTO.class);
-    private int rowCount = 10;
-    private int pageNumber = 1;
-
     @Test
     void 정상조회() {
       // given
-      when(requestDTO.toPageable()).thenReturn(PageRequest.of(pageNumber, rowCount));
-      when(gifticonQueryStoragePort.findAllAvailableGifticons(any(), any(), any(), any())).thenReturn(
-              new SliceImpl<>(Arrays.asList(
-                      new GifticonResponseDTO(),
-                      new GifticonResponseDTO()))
+      SearchAvailableGifticonDTO requestDTO = new SearchAvailableGifticonDTO();
+      when(gifticonQueryStoragePort.findAllAvailableGifticons(any(), any())).thenReturn(
+          new SliceImpl<>(Arrays.asList(
+              new GifticonResponseDTO(),
+              new GifticonResponseDTO()))
       );
 
       // when

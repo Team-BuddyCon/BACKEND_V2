@@ -1,6 +1,5 @@
 package yapp.buddycon.app.gifticon.adapter.client.response;
 
-import com.querydsl.core.annotations.QueryProjection;
 import java.time.LocalDate;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,7 +19,6 @@ public class GifticonResponseDTO {
   private GifticonStore gifticonStore;
   private GifticonStoreCategory gifticonStoreCategory;
 
-  @QueryProjection
   public GifticonResponseDTO(Long gifticonId, String barcode, String imageUrl, String name,
       String memo, LocalDate expireDate, GifticonStore gifticonStore,
       GifticonStoreCategory gifticonStoreCategory) {
