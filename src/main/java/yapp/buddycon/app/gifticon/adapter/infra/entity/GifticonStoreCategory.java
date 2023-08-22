@@ -8,7 +8,7 @@ import lombok.Getter;
 public enum GifticonStoreCategory {
 
   CAFE("카페"),
-  STORE("편의점"),
+  CONVENIENCE_STORE("편의점"),
   OTHERS("기타"),
   ;
 

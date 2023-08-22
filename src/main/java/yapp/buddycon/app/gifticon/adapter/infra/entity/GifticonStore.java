@@ -11,8 +11,8 @@ public enum GifticonStore {
   TWOSOME_PLACE("투썸 플레이스", GifticonStoreCategory.CAFE),
   GONG_CHA("공차", GifticonStoreCategory.CAFE),
 
-  GS25("지에스 25", GifticonStoreCategory.STORE),
-  CU("씨유", GifticonStoreCategory.STORE),
+  GS25("지에스 25", GifticonStoreCategory.CONVENIENCE_STORE),
+  CU("씨유", GifticonStoreCategory.CONVENIENCE_STORE),
 
   MACDONALD("맥도날드", GifticonStoreCategory.OTHERS),
   BASKIN_ROBBINS("배스킨 라빈스", GifticonStoreCategory.OTHERS),
