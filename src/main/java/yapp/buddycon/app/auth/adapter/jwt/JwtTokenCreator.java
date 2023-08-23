@@ -4,7 +4,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import yapp.buddycon.app.auth.application.service.Token;
+import yapp.buddycon.app.auth.application.service.TokenDto;
 import yapp.buddycon.app.user.domain.User;
 
 import java.time.Instant;
@@ -16,7 +16,7 @@ public class JwtTokenCreator {
 
   private final JwtTokenSecretKey jwtTokenSecretKey;
 
-  public Token createToken(User user, Instant accessTokenExpiresIn, Instant refreshTokenExpiresIn, Instant now) {
+  public TokenDto createToken(User user, Instant accessTokenExpiresIn, Instant refreshTokenExpiresIn, Instant now) {
     var key = jwtTokenSecretKey.getSecretKey();
 
     var accessToken = Jwts.builder()
@@ -30,6 +30,6 @@ public class JwtTokenCreator {
       .signWith(key, SignatureAlgorithm.HS512)
       .compact();
 
-    return new Token(accessToken, refreshToken);
+    return new TokenDto(accessToken, refreshToken);
   }
 }

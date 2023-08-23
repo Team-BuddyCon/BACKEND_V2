@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import yapp.buddycon.app.auth.application.service.AuthService;
-import yapp.buddycon.app.auth.application.service.Token;
+import yapp.buddycon.app.auth.application.service.TokenDto;
 import yapp.buddycon.app.common.response.ApiResponse;
 
 @RestController
@@ -20,8 +20,8 @@ public class LoginController {
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody @Valid LoginRequest request) {
-        Token token = authService.login(request.oauthAccessToken());
-        return ApiResponse.success("로그인에 성공하였습니다.", token);
+        TokenDto tokenDto = authService.login(request.oauthAccessToken());
+        return ApiResponse.success("로그인에 성공하였습니다.", tokenDto);
     }
 
 }
