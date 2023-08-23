@@ -18,6 +18,8 @@ import java.lang.reflect.Type;
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -28,7 +30,7 @@ class JwtTokenCreatorTest {
 
     // given
     final var jwtTokenCreator = new JwtTokenCreator(jwtTokenSecretKey);
-    final var user = new User(1L, 12345678L);
+    final var user = new User(1L, 12345678L, "nickname", "email", "FEMALE", "10-20");
     final var testTime = new LocalTime().getNow();
     final var secretKey = "abcdefghijklmnopqrstuvwxyz12345678901234567890abcdefghijklmnopqrstuvwxyz12345678901234567890";
 

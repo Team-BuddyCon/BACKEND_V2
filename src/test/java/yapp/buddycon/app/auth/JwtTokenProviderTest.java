@@ -28,7 +28,8 @@ class JwtTokenProviderTest {
   @Test
   void 토큰을_생성할때_token_creator는_한번_invocation_된다() {
     // given
-    final var user = new User(1L, 12345678L);
+//    final var user = new User(1L, 12345678L);
+    final var user = new User(1L, 12345678L, "nickname", "email", "FEMALE", "10-20");
     final var testTime = new LocalTime().getNow();
 
     when(time.getNow()).thenReturn(testTime);
@@ -44,7 +45,7 @@ class JwtTokenProviderTest {
   @Test
   void 토큰을_생성할때_refresh_token을_한번_저장한다() {
     // given
-    final var user = new User(1L, 12345678L);
+    final var user = new User(1L, 12345678L, "nickname", "email", "FEMALE", "10-20");
     final var testTime = new LocalTime().getNow();
 
     when(time.getNow()).thenReturn(testTime);
