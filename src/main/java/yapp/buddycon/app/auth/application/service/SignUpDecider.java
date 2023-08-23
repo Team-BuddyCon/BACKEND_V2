@@ -15,9 +15,10 @@ public class SignUpDecider {
   private final UserCommandStorage userCommandStorage;
   private final OAuthUserInfoApi oAuthUserInfoApi;
 
-  public User decide(String oauthAccessToken) {
-    OAuthMemberInfo memberInfo = oAuthUserInfoApi.call(oauthAccessToken);
+  public User decide(LoginRequest request) {
+    OAuthMemberInfo memberInfo = oAuthUserInfoApi.call(request.oauthAccessToken());
     Long clientId = memberInfo.id();
-    return userQueryStorage.findByClientId(clientId).orElseGet(() -> userCommandStorage.save(new User(null, clientId)));
+    return userQueryStorage.findByClientId(clientId).orElseGet(()
+            -> userCommandStorage.save(new User(null, clientId, request.nickname(), request.email(), request.gender(), request.age())));
   }
 }

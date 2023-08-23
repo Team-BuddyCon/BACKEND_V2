@@ -13,8 +13,8 @@ public class AuthService {
     private final SignUpDecider signUpDecider;
     private final TokenProvider tokenProvider;
     @Transactional
-    public TokenDto login(String oauthAccessToken) {
-        User user = signUpDecider.decide(oauthAccessToken);
+    public TokenDto login(LoginRequest request) {
+        User user = signUpDecider.decide(request);
         return tokenProvider.provide(user);
     }
 }

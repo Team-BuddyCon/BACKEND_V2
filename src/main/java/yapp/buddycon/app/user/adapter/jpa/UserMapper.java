@@ -9,14 +9,14 @@ import java.util.Optional;
 public class UserMapper {
 
     public User toUser(UserEntity entity) {
-        return new User(entity.getId(), entity.getClientId());
+        return new User(entity.getId(), entity.getClientId(), entity.getNickname(), entity.getEmail(), entity.getGender(), entity.getAge());
     }
 
     public Optional<User> toUser(Optional<UserEntity> entity) {
-        return entity.map(userEntity -> new User(userEntity.getId(), userEntity.getClientId()));
+        return entity.map(userEntity -> new User(userEntity.getId(), userEntity.getClientId(), userEntity.getNickname(), userEntity.getEmail(), userEntity.getGender(), userEntity.getAge()));
     }
 
     public UserEntity toEntity(User user) {
-        return new UserEntity(user.id(), user.clientId());
+        return new UserEntity(user.id(), user.clientId(), user.nickname(), user.email(), user.gender(), user.age());
     }
 }
