@@ -42,7 +42,7 @@ public class GifticonJpaRepositoryTest {
           .findAllByUsedIsTrue(PageRequest.of(0, 10));
 
       // then
-      assertThat(result.getContent().size()).isEqualTo(2);
+      assertThat(result.getContent()).hasSize(2);
       assertThat(result.getContent().get(0).getName()).isEqualTo(사용한_기프티콘1.getName());
     }
   }
@@ -62,7 +62,7 @@ public class GifticonJpaRepositoryTest {
           PageRequest.of(0, 10));
 
       // then
-      assertThat(result.getContent().size()).isEqualTo(2);
+      assertThat(result.getContent()).hasSize(2);
     }
 
     @Test
@@ -77,7 +77,7 @@ public class GifticonJpaRepositoryTest {
           PageRequest.of(0, 10, SearchGifticonSortType.NAME.getSort()));
 
       // then
-      assertThat(result.getContent().size()).isEqualTo(3);
+      assertThat(result.getContent()).hasSize(3);
       assertThat(result.getContent().get(0).getName()).isEqualTo(조회대상_기프티콘.getName());
     }
   }
@@ -96,7 +96,7 @@ public class GifticonJpaRepositoryTest {
           .findAllByUsedIsFalseAndGifticonStoreCategory(GifticonStoreCategory.CAFE, PageRequest.of(0, 10));
 
       // then
-      assertThat(result.getContent().size()).isEqualTo(1);
+      assertThat(result.getContent()).hasSize(1);
     }
   }
 
