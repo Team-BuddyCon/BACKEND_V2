@@ -26,6 +26,6 @@ public class GifticonService implements GifticonUseCase {
   public Slice<GifticonResponseDTO> getAvailableGifticons(SearchAvailableGifticonDTO dto) {
     return gifticonQueryStorage.findAllAvailableGifticons(
         dto.getGifticonStoreCategory(),
-        dto.toPageable(dto.getGifticonSortType().getSort()));
+        dto.toPageable());
   }
 }
