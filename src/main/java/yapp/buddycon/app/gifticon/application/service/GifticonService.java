@@ -15,16 +15,16 @@ import yapp.buddycon.common.request.PagingDTO;
 @Transactional(readOnly = true)
 public class GifticonService implements GifticonUseCase {
 
-  private final GifticonQueryStorage gifticonQueryStoragePort;
+  private final GifticonQueryStorage gifticonQueryStorage;
 
   @Override
   public Slice<GifticonResponseDTO> getUnavailableGifticons(PagingDTO dto) {
-    return gifticonQueryStoragePort.findAllUnavailableGifticons(dto.toPageable());
+    return gifticonQueryStorage.findAllUnavailableGifticons(dto.toPageable());
   }
 
   @Override
   public Slice<GifticonResponseDTO> getAvailableGifticons(SearchAvailableGifticonDTO dto) {
-    return gifticonQueryStoragePort.findAllAvailableGifticons(
+    return gifticonQueryStorage.findAllAvailableGifticons(
         dto.getGifticonStoreCategory(),
         dto.toPageable(dto.getGifticonSortType().getSort()));
   }
