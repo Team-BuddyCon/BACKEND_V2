@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import yapp.buddycon.app.auth.application.service.LoginRequest;
 import yapp.buddycon.app.auth.application.service.AuthService;
 import yapp.buddycon.app.auth.application.service.TokenDto;
 import yapp.buddycon.app.common.response.ApiResponse;

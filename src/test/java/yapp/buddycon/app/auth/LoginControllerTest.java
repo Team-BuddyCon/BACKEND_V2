@@ -11,11 +11,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import yapp.buddycon.app.auth.adapter.oauth.OAuthRequestException;
 import yapp.buddycon.app.auth.application.service.AuthService;
-import yapp.buddycon.app.auth.application.service.LoginRequest;
+import yapp.buddycon.app.auth.adapter.LoginRequest;
 import yapp.buddycon.app.auth.application.service.OAuthMemberInfo;
 import yapp.buddycon.app.auth.application.port.out.OAuthUserInfoApi;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -41,7 +41,7 @@ class LoginControllerTest {
 
         // given
         final var validAccessToken = "valid_access_token";
-        final var request = new LoginRequest(validAccessToken, "nickname", "email", "gender", "age");
+        final var request = new LoginRequest(validAccessToken, "nickname", "email@buddycon.com", "gender", "age");
 
         when(oAuthUserInfoApi.call(validAccessToken)).thenReturn(new OAuthMemberInfo(1L));
 
@@ -63,7 +63,7 @@ class LoginControllerTest {
 
         // given
         final var invalidAccessToken = "invalid_access_token";
-        final var request = new LoginRequest(invalidAccessToken, "nickname", "email", "gender", "age");
+        final var request = new LoginRequest(invalidAccessToken, "nickname", "email@buddycon.com", "gender", "age");
 
         when(authService.login(request)).thenThrow(new OAuthRequestException("올바르지않은 액세스토큰입니다."));
 
@@ -84,7 +84,7 @@ class LoginControllerTest {
 
         // given
         final var invalidAccessToken = "";
-        final var request = new LoginRequest(invalidAccessToken, "nickname", "email", "gender", "age");
+        final var request = new LoginRequest(invalidAccessToken, "nickname", "email@buddycon.com", "gender", "age");
 
         // when
         final var response = RestAssured.given().log().all()
@@ -103,7 +103,7 @@ class LoginControllerTest {
 
         // given
         final var validAccessToken = "valid_access_token";
-        final var request = new LoginRequest(validAccessToken, "", "email", "gender", "age");
+        final var request = new LoginRequest(validAccessToken, "", "email@buddycon.com", "gender", "age");
 
         // when
         final var response = RestAssured.given().log().all()
@@ -118,11 +118,12 @@ class LoginControllerTest {
     }
 
     @Test
-    void 이메일이_blank라면_bad_request를_던진다() {
+    void 이메일이_형식에_맞지_않다면_bad_request를_던진다() {
 
         // given
         final var validAccessToken = "valid_access_token";
-        final var request = new LoginRequest(validAccessToken, "nickname", "", "gender", "age");
+        final var invalidEmail = "invalidEmail";
+        final var request = new LoginRequest(validAccessToken, "nickname", invalidEmail, "gender", "age");
 
         // when
         final var response = RestAssured.given().log().all()

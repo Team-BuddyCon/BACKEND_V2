@@ -2,6 +2,7 @@ package yapp.buddycon.app.auth.application.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import yapp.buddycon.app.auth.adapter.LoginRequest;
 import yapp.buddycon.app.auth.application.port.out.OAuthUserInfoApi;
 import yapp.buddycon.app.user.application.port.out.UserCommandStorage;
 import yapp.buddycon.app.user.application.port.out.UserQueryStorage;
