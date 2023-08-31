@@ -1,4 +1,4 @@
-package yapp.buddycon.app.auth.adapter;
+package yapp.buddycon.app.auth.adapter.client;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

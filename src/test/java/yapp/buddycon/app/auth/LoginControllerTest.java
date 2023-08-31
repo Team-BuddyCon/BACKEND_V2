@@ -11,7 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import yapp.buddycon.app.auth.adapter.oauth.OAuthRequestException;
 import yapp.buddycon.app.auth.application.service.AuthService;
-import yapp.buddycon.app.auth.adapter.LoginRequest;
+import yapp.buddycon.app.auth.adapter.client.LoginRequest;
 import yapp.buddycon.app.auth.application.service.OAuthMemberInfo;
 import yapp.buddycon.app.auth.application.port.out.OAuthUserInfoApi;
 
