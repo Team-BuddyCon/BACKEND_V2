@@ -5,6 +5,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import yapp.buddycon.app.auth.application.service.AuthService;
+import yapp.buddycon.app.auth.adapter.LoginRequest;
 import yapp.buddycon.app.auth.application.service.SignUpDecider;
 import yapp.buddycon.app.auth.application.port.out.TokenProvider;
 
@@ -19,12 +20,13 @@ class AuthServiceTest {
         // given
         var oauthAccessToken = "oauthAccessToken";
         var authService = new AuthService(signUpDecider, tokenProvider);
+        var request = new LoginRequest(oauthAccessToken, "nickname", "email", "FEMALE", "10-20");
 
         // when
-        authService.login(oauthAccessToken);
+        authService.login(request);
 
         // then
-        verify(signUpDecider, times(1)).decide(oauthAccessToken);
+        verify(signUpDecider, times(1)).decide(request);
 
     }
 

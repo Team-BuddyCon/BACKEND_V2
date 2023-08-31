@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.reactive.result.method.annotation.ResponseEntityExceptionHandler;
 import yapp.buddycon.app.common.response.ApiResponse;
 import yapp.buddycon.app.common.response.ApplicationException;
+import yapp.buddycon.app.common.response.BadRequestException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -16,6 +17,12 @@ import java.util.Map;
 @Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
+
+    @ExceptionHandler(value = {BadRequestException.class})
+    protected ResponseEntity<?> handleBadRequestException(BadRequestException e) {
+        log.error("handleApplicationException throw BadRequestException : {}", e.getMessage());
+        return ApiResponse.badRequest(e.getMessage(), null);
+    }
 
     @ExceptionHandler(value = {ApplicationException.class})
     protected ResponseEntity<?> handleApplicationException(ApplicationException e) {
