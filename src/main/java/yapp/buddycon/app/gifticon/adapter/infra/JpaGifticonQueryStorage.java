@@ -17,17 +17,17 @@ public class JpaGifticonQueryStorage implements GifticonQueryStorage {
 
 
   @Override
-  public Slice<GifticonResponseDTO> findAllUnavailableGifticons(Pageable pageable) {
-    return gifticonJpaRepository.findAllByUsedIsTrue(pageable);
+  public Slice<GifticonResponseDTO> findAllUnavailableGifticons(long userId, Pageable pageable) {
+    return gifticonJpaRepository.findAllByUsedIsTrueAndUserId(userId, pageable);
   }
 
   @Override
   public Slice<GifticonResponseDTO> findAllAvailableGifticons(
-      GifticonStoreCategory gifticonStoreCategory, Pageable pageable) {
+      long userId, GifticonStoreCategory gifticonStoreCategory, Pageable pageable) {
     if (gifticonStoreCategory == null) {
-      return gifticonJpaRepository.findAllByUsedIsFalse(pageable);
+      return gifticonJpaRepository.findAllByUsedIsFalseAndUserId(userId, pageable);
     } else {
-      return gifticonJpaRepository.findAllByUsedIsFalseAndGifticonStoreCategory(gifticonStoreCategory, pageable);
+      return gifticonJpaRepository.findAllByUsedIsFalseAndUserIdAndGifticonStoreCategory(userId, gifticonStoreCategory, pageable);
     }
   }
 
