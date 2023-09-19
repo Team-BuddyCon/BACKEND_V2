@@ -15,7 +15,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.Arrays;
 import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.SliceImpl;
-import yapp.buddycon.app.auth.application.service.OAuthMemberInfo;
 import yapp.buddycon.app.gifticon.adapter.client.request.SearchAvailableGifticonDTO;
 import yapp.buddycon.app.gifticon.adapter.client.response.GifticonResponseDTO;
 import yapp.buddycon.app.gifticon.application.port.out.GifticonQueryStorage;
@@ -36,7 +35,6 @@ public class GifticonServiceTest {
     @Test
     void 정상조회() {
       // given
-      OAuthMemberInfo oAuthMemberInfo = new OAuthMemberInfo(1l);
       PagingDTO requestDTO = new PagingDTO();
       when(gifticonQueryStoragePort.findAllUnavailableGifticons(anyLong(), any())).thenReturn(
           new SliceImpl<>(Arrays.asList(
@@ -45,7 +43,7 @@ public class GifticonServiceTest {
       );
 
       // when
-      Slice<GifticonResponseDTO> resultList = gifticonService.getUnavailableGifticons(oAuthMemberInfo, requestDTO);
+      Slice<GifticonResponseDTO> resultList = gifticonService.getUnavailableGifticons(1l, requestDTO);
 
       // then
       assertThat(resultList.getSize()).isEqualTo(2);
@@ -58,7 +56,6 @@ public class GifticonServiceTest {
     @Test
     void 정상조회() {
       // given
-      OAuthMemberInfo oAuthMemberInfo = new OAuthMemberInfo(1l);
       SearchAvailableGifticonDTO requestDTO = new SearchAvailableGifticonDTO();
       when(gifticonQueryStoragePort.findAllAvailableGifticons(anyLong(), any(), any())).thenReturn(
           new SliceImpl<>(Arrays.asList(
@@ -67,7 +64,7 @@ public class GifticonServiceTest {
       );
 
       // when
-      Slice<GifticonResponseDTO> resultList = gifticonService.getAvailableGifticons(oAuthMemberInfo, requestDTO);
+      Slice<GifticonResponseDTO> resultList = gifticonService.getAvailableGifticons(1l, requestDTO);
 
       // then
       assertThat(resultList.getSize()).isEqualTo(2);

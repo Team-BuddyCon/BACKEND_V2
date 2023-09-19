@@ -22,13 +22,13 @@ public class GifticonController {
   @GetMapping("/unavailable")
   public Slice<GifticonResponseDTO> getUnavailableGifticons(
       OAuthMemberInfo oAuthMemberInfo, @Valid PagingDTO dto) {
-    return gifticonUseCase.getUnavailableGifticons(oAuthMemberInfo, dto);
+    return gifticonUseCase.getUnavailableGifticons(oAuthMemberInfo.id(), dto);
   }
 
   @GetMapping("/available")
   public Slice<GifticonResponseDTO> getAvailableGifticons(
       OAuthMemberInfo oAuthMemberInfo, @Valid SearchAvailableGifticonDTO dto) {
-    return gifticonUseCase.getAvailableGifticons(oAuthMemberInfo, dto);
+    return gifticonUseCase.getAvailableGifticons(oAuthMemberInfo.id(), dto);
   }
 
 }
