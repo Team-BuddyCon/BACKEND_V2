@@ -6,10 +6,10 @@ import org.springframework.data.domain.Slice;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import yapp.buddycon.app.auth.application.service.OAuthMemberInfo;
 import yapp.buddycon.app.gifticon.adapter.client.request.SearchAvailableGifticonDTO;
 import yapp.buddycon.app.gifticon.adapter.client.response.GifticonResponseDTO;
 import yapp.buddycon.app.gifticon.application.port.in.GifticonUseCase;
+import yapp.buddycon.common.AuthUser;
 import yapp.buddycon.common.request.PagingDTO;
 
 @RestController
@@ -21,14 +21,14 @@ public class GifticonController {
 
   @GetMapping("/unavailable")
   public Slice<GifticonResponseDTO> getUnavailableGifticons(
-      OAuthMemberInfo oAuthMemberInfo, @Valid PagingDTO dto) {
-    return gifticonUseCase.getUnavailableGifticons(oAuthMemberInfo.id(), dto);
+      AuthUser authUser, @Valid PagingDTO dto) {
+    return gifticonUseCase.getUnavailableGifticons(authUser.id(), dto);
   }
 
   @GetMapping("/available")
   public Slice<GifticonResponseDTO> getAvailableGifticons(
-      OAuthMemberInfo oAuthMemberInfo, @Valid SearchAvailableGifticonDTO dto) {
-    return gifticonUseCase.getAvailableGifticons(oAuthMemberInfo.id(), dto);
+      AuthUser authUser, @Valid SearchAvailableGifticonDTO dto) {
+    return gifticonUseCase.getAvailableGifticons(authUser.id(), dto);
   }
 
 }
