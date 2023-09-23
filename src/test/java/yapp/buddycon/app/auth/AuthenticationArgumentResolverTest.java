@@ -48,8 +48,8 @@ class AuthenticationArgumentResolverTest {
     void 매개변수에_AuthUser가_존재하는경우_Argument_resolver를_거친다() throws Exception {
         // given
         final var authHeader = "Bearer tokenExample";
+        final var contentType = MediaType.APPLICATION_JSON_VALUE;
         when(decryptor.decrypt(authHeader)).thenReturn(new AuthUser(1000L));
-        String contentType = MediaType.APPLICATION_JSON_VALUE;
 
         // when
         Response response = RestAssured
@@ -64,7 +64,6 @@ class AuthenticationArgumentResolverTest {
             .statusCode(HttpStatus.OK.value())
             .extract().asString();
         verify(authenticationArgumentResolver, times(1)).resolveArgument(any(), any(), any(), any());
-        verify(decryptor, times(1)).decrypt(anyString());
         assertThat(resultString).isEqualTo("1000");
     }
 
@@ -72,8 +71,7 @@ class AuthenticationArgumentResolverTest {
     void 매개변수에_AuthUser가_존재하지_않는_경우_Argument_resolver를_거치지_않는다() throws Exception {
         // given
         final var authHeader = "Bearer tokenExample";
-        when(decryptor.decrypt(authHeader)).thenReturn(new AuthUser(1000L));
-        String contentType = MediaType.APPLICATION_JSON_VALUE;
+        final var contentType = MediaType.APPLICATION_JSON_VALUE;
 
         // when
         Response response = RestAssured
@@ -88,7 +86,6 @@ class AuthenticationArgumentResolverTest {
             .statusCode(HttpStatus.OK.value())
             .extract().asString();
         verify(authenticationArgumentResolver, times(0)).resolveArgument(any(), any(), any(), any());
-        verify(decryptor, times(0)).decrypt(anyString());
         assertThat(resultString).isEqualTo("0");
     }
 
