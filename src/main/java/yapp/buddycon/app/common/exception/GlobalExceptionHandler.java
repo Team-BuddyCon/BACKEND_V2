@@ -10,6 +10,7 @@ import org.springframework.web.reactive.result.method.annotation.ResponseEntityE
 import yapp.buddycon.app.common.response.ApiResponse;
 import yapp.buddycon.app.common.response.ApplicationException;
 import yapp.buddycon.app.common.response.BadRequestException;
+import yapp.buddycon.app.common.response.ForbiddenRequestException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -20,7 +21,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(value = {BadRequestException.class})
     protected ResponseEntity<?> handleBadRequestException(BadRequestException e) {
-        log.error("handleApplicationException throw BadRequestException : {}", e.getMessage());
+        log.error("handleBadRequestException throw BadRequestException : {}", e.getMessage());
         return ApiResponse.badRequest(e.getMessage(), null);
     }
 
@@ -28,6 +29,12 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     protected ResponseEntity<?> handleApplicationException(ApplicationException e) {
         log.error("handleApplicationException throw ApplicationException : {}", e.getMessage());
         return ApiResponse.serverError(e.getMessage(), null);
+    }
+
+    @ExceptionHandler(value = ForbiddenRequestException.class)
+    protected ResponseEntity<?> handleForbiddenRequestException(ForbiddenRequestException e) {
+        log.error("handleForbiddenRequestException throw ForbiddenRequestException : {}", e.getMessage());
+        return ApiResponse.forbidden(e.getMessage(), null);
     }
 
     @ExceptionHandler(value = {MethodArgumentNotValidException.class})

@@ -14,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import yapp.buddycon.app.auth.adapter.jwt.JwtTokenDecryptor;
 import yapp.buddycon.app.common.response.BadRequestException;
+import yapp.buddycon.app.common.response.ForbiddenRequestException;
 import yapp.buddycon.app.gifticon.adapter.client.response.GifticonResponseDTO;
 import yapp.buddycon.app.gifticon.application.port.in.GifticonUseCase;
 import yapp.buddycon.common.AuthUser;

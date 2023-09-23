@@ -11,4 +11,6 @@ public interface GifticonUseCase {
 
   Slice<GifticonResponseDTO> getAvailableGifticons(Long userId, SearchAvailableGifticonDTO dto);
 
+  GifticonResponseDTO getGifticon(Long userId, Long gifticonId);
+
 }

@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Slice;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import yapp.buddycon.app.gifticon.adapter.client.request.SearchAvailableGifticonDTO;
@@ -29,6 +30,12 @@ public class GifticonController {
   public Slice<GifticonResponseDTO> getAvailableGifticons(
       AuthUser authUser, @Valid SearchAvailableGifticonDTO dto) {
     return gifticonUseCase.getAvailableGifticons(authUser.id(), dto);
+  }
+
+  @GetMapping("/{gifticon-id}")
+  public GifticonResponseDTO getGifticon(
+      AuthUser authUser, @PathVariable("gifticon-id") long gidticonId) {
+    return gifticonUseCase.getGifticon(authUser.id(), gidticonId);
   }
 
 }

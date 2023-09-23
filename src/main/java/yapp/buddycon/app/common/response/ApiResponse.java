@@ -20,4 +20,9 @@ public class ApiResponse {
     public static ResponseEntity<?> badRequest(String message, Object body) {
         return ResponseEntity.badRequest().body(new ResponseBody(HttpStatus.BAD_REQUEST.value(), message, body));
     }
+
+
+    public static ResponseEntity<?> forbidden(String message, Object body) {
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new ResponseBody(HttpStatus.FORBIDDEN.value(), message, body));
+    }
 }

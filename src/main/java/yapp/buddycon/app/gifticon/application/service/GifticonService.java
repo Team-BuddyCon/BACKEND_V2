@@ -29,4 +29,9 @@ public class GifticonService implements GifticonUseCase {
         dto.getGifticonStoreCategory(),
         dto.toPageable());
   }
+
+  @Override
+  public GifticonResponseDTO getGifticon(Long userId, Long gifticonId) {
+    return null;
+  }
 }
