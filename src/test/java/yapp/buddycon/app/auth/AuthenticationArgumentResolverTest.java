@@ -68,6 +68,30 @@ class AuthenticationArgumentResolverTest {
         assertThat(resultString).isEqualTo("1000");
     }
 
+    @Test
+    void 매개변수에_AuthUser가_존재하지_않는_경우_Argument_resolver를_거치지_않는다() throws Exception {
+        // given
+        final var authHeader = "Bearer tokenExample";
+        when(decryptor.decrypt(authHeader)).thenReturn(new AuthUser(1000L));
+        String contentType = MediaType.APPLICATION_JSON_VALUE;
+
+        // when
+        Response response = RestAssured
+            .given()
+                .log().all()
+                .contentType(contentType)
+            .when()
+                .header("Authorization", authHeader).get("/test/no-auth");
+
+        // then
+        String resultString = response.then().log().all()
+            .statusCode(HttpStatus.OK.value())
+            .extract().asString();
+        verify(authenticationArgumentResolver, times(0)).resolveArgument(any(), any(), any(), any());
+        verify(decryptor, times(0)).decrypt(anyString());
+        assertThat(resultString).isEqualTo("0");
+    }
+
 }
 
 @RestController
@@ -77,5 +101,10 @@ class TestController {
     @GetMapping("/auth")
     private Long authUserMethod(AuthUser authUser) {
         return authUser.id();
+    }
+
+    @GetMapping("/no-auth")
+    private Long noAuthUserMethod() {
+        return 0l;
     }
 }
