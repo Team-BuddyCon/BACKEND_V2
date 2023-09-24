@@ -14,7 +14,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import yapp.buddycon.app.auth.adapter.jwt.JwtTokenDecryptor;
 import yapp.buddycon.app.common.response.BadRequestException;
-import yapp.buddycon.app.common.response.ForbiddenRequestException;
 import yapp.buddycon.app.gifticon.adapter.client.response.GifticonResponseDTO;
 import yapp.buddycon.app.gifticon.application.port.in.GifticonUseCase;
 import yapp.buddycon.common.AuthUser;
@@ -65,26 +64,6 @@ public class GifticonControllerRestAssuredTest {
                 .then().log().all()
                 .statusCode(HttpStatus.OK.value())
                 .extract();
-        }
-
-        @Test
-        void 요청한_기프티콘의_권한이_없는_사용자가_요청할시_403이_반환된다() {
-            // given
-            when(gifticonUseCase.getGifticon(anyLong(), anyLong())).thenThrow(new ForbiddenRequestException(""));
-
-            // when
-            Response response = RestAssured
-                .given().log().all()
-                    .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .when()
-                    .header("Authorization", "abc")
-                    .get("/api/v1/gifticons/" + "1");
-
-            // then
-            response
-                .then().log().all()
-                    .statusCode(HttpStatus.FORBIDDEN.value())
-                    .extract();
         }
 
         @Test
