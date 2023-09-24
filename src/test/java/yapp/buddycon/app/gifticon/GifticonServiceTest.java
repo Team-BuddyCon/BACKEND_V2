@@ -1,9 +1,10 @@
 package yapp.buddycon.app.gifticon;
 
 import static org.assertj.core.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -11,14 +12,16 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-
 import java.util.Arrays;
+import java.util.Optional;
 import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.SliceImpl;
+import yapp.buddycon.app.gifticon.adapter.GifticonException;
 import yapp.buddycon.app.gifticon.adapter.client.request.SearchAvailableGifticonDTO;
 import yapp.buddycon.app.gifticon.adapter.client.response.GifticonResponseDTO;
 import yapp.buddycon.app.gifticon.application.port.out.GifticonQueryStorage;
 import yapp.buddycon.app.gifticon.application.service.GifticonService;
+import yapp.buddycon.app.gifticon.domain.Gifticon;
 import yapp.buddycon.common.request.PagingDTO;
 
 @ExtendWith(MockitoExtension.class)
@@ -71,4 +74,39 @@ public class GifticonServiceTest {
     }
   }
 
+  @Nested
+  class getGifticon {
+
+    private final Long REQUEST_USER_ID = 1l;
+    private final Long REQUEST_GIFTICON_ID = 1000l;
+
+    @Test
+    void 요청한_기프티콘이_있을_경우_DTO를_반환한다() {
+      // given
+      Gifticon gifticon = new Gifticon(REQUEST_GIFTICON_ID, "", "", "", "", null, false, null, null);
+      when(gifticonQueryStoragePort.findByGifticonIdAndUserId(REQUEST_GIFTICON_ID, REQUEST_USER_ID))
+          .thenReturn(Optional.of(gifticon));
+
+      // when
+      GifticonResponseDTO result = gifticonService.getGifticon(REQUEST_USER_ID, REQUEST_GIFTICON_ID);
+
+      // then
+      assertThat(result.getGifticonId()).isEqualTo(REQUEST_GIFTICON_ID);
+    }
+
+    @Test
+    void 요청한_기프티콘을_찾을_수_없을시_Exception을_던진다() {
+      // given
+      when(gifticonQueryStoragePort.findByGifticonIdAndUserId(REQUEST_GIFTICON_ID, REQUEST_USER_ID))
+          .thenReturn(Optional.empty());
+
+      // when
+      Throwable exception = assertThrows(GifticonException.class, () -> {
+        gifticonService.getGifticon(REQUEST_USER_ID, REQUEST_GIFTICON_ID);
+      });
+
+      // then
+      assertEquals("기프티콘을 찾을 수 없습니다", exception.getMessage());
+    }
+  }
 }

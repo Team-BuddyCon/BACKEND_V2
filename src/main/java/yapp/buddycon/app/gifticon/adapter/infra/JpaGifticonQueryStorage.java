@@ -8,6 +8,9 @@ import yapp.buddycon.app.gifticon.adapter.client.response.GifticonResponseDTO;
 import yapp.buddycon.app.gifticon.adapter.infra.entity.GifticonStoreCategory;
 import yapp.buddycon.app.gifticon.adapter.infra.jpa.GifticonJpaRepository;
 import yapp.buddycon.app.gifticon.application.port.out.GifticonQueryStorage;
+import yapp.buddycon.app.gifticon.domain.Gifticon;
+
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Repository
@@ -31,4 +34,8 @@ public class JpaGifticonQueryStorage implements GifticonQueryStorage {
     }
   }
 
+  @Override
+  public Optional<Gifticon> findByGifticonIdAndUserId(long gifticonId, long userId) {
+    return null;
+  }
 }

@@ -1,12 +1,16 @@
 package yapp.buddycon.app.gifticon.adapter.client.response;
 
 import java.time.LocalDate;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import yapp.buddycon.app.gifticon.adapter.infra.entity.GifticonStore;
 import yapp.buddycon.app.gifticon.adapter.infra.entity.GifticonStoreCategory;
+import yapp.buddycon.app.gifticon.domain.Gifticon;
 
 @Getter
+@Setter(AccessLevel.PRIVATE)
 @NoArgsConstructor
 public class GifticonResponseDTO {
 
@@ -30,5 +34,18 @@ public class GifticonResponseDTO {
     this.expireDate = expireDate;
     this.gifticonStore = gifticonStore;
     this.gifticonStoreCategory = gifticonStoreCategory;
+  }
+
+  public static GifticonResponseDTO valueOf(Gifticon gifticon) {
+    GifticonResponseDTO dto = new GifticonResponseDTO();
+    dto.setGifticonId(gifticon.id());
+    dto.setBarcode(gifticon.barcode());
+    dto.setImageUrl(dto.getImageUrl());
+    dto.setName(gifticon.name());
+    dto.setMemo(gifticon.memo());
+    dto.setExpireDate(gifticon.expireDate());
+    dto.setGifticonStore(gifticon.gifticonStore());
+    dto.setGifticonStoreCategory(gifticon.gifticonStoreCategory());
+    return dto;
   }
 }
