@@ -3,8 +3,6 @@ package yapp.buddycon.app.common.response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import java.time.LocalDateTime;
-
 import static org.springframework.http.HttpStatus.OK;
 
 public class ApiResponse {
@@ -21,8 +19,4 @@ public class ApiResponse {
         return ResponseEntity.badRequest().body(new ResponseBody(HttpStatus.BAD_REQUEST.value(), message, body));
     }
 
-
-    public static ResponseEntity<?> forbidden(String message, Object body) {
-        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new ResponseBody(HttpStatus.FORBIDDEN.value(), message, body));
-    }
 }
