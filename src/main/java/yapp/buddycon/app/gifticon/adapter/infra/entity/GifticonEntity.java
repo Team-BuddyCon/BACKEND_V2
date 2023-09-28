@@ -37,7 +37,7 @@ public class GifticonEntity extends BaseEntity {
   private GifticonStoreCategory gifticonStoreCategory;
 
   @ManyToOne
-  @JoinColumn(name = "user_id", nullable = false)
+  @JoinColumn(name = "users_id", nullable = false)
   private UserEntity user;
 
   @Builder
