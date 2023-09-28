@@ -8,6 +8,8 @@ import yapp.buddycon.app.gifticon.adapter.client.response.GifticonResponseDTO;
 import yapp.buddycon.app.gifticon.adapter.infra.entity.GifticonEntity;
 import yapp.buddycon.app.gifticon.adapter.infra.entity.GifticonStoreCategory;
 
+import java.util.Optional;
+
 public interface GifticonJpaRepository extends JpaRepository<GifticonEntity, Long> {
 
   @Query(value = """
@@ -38,5 +40,7 @@ public interface GifticonJpaRepository extends JpaRepository<GifticonEntity, Lon
   """)
   Slice<GifticonResponseDTO> findAllByUsedIsFalseAndUserIdAndGifticonStoreCategory(
       long userId, GifticonStoreCategory gifticonStoreCategory, Pageable pageable);
+
+  Optional<GifticonEntity> findByIdAndUserId(long gifticonId, long userId);
 
 }
