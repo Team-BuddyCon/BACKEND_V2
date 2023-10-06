@@ -3,14 +3,16 @@ package yapp.buddycon.app.common.response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import java.time.LocalDateTime;
-
 import static org.springframework.http.HttpStatus.OK;
 
 public class ApiResponse {
 
-    public static ResponseEntity<?> success(String message, Object body) {
+    public static ResponseEntity<?> successWithBody(String message, Object body) {
         return ResponseEntity.ok(new ResponseBody(OK.value(), message, body));
+    }
+
+    public static ResponseEntity<?> success(String message) {
+        return successWithBody(message, null);
     }
 
     public static ResponseEntity<?> serverError(String message, Object body) {
