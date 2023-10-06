@@ -21,7 +21,7 @@ public class LoginController {
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody @Valid LoginRequest request) {
         TokenDto tokenDto = authService.login(request);
-        return ApiResponse.success("로그인에 성공하였습니다.", tokenDto);
+        return ApiResponse.successWithBody("로그인에 성공하였습니다.", tokenDto);
     }
 
 }
