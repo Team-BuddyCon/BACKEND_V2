@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import yapp.buddycon.app.gifticon.adapter.infra.entity.GifticonStoreCategory;
+import yapp.buddycon.app.gifticon.domain.GifticonStoreCategory;
 import yapp.buddycon.common.request.PagingDTO;
 
 @Getter
