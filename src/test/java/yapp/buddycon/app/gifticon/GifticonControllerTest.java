@@ -48,7 +48,7 @@ public class GifticonControllerTest {
     @Test
     void 정상_조회() throws Exception {
       // given
-      when(gifticonUseCase.getUnavailableGifticons(any())).thenReturn(
+      when(gifticonUseCase.getUnavailableGifticons(any(), any())).thenReturn(
           new SliceImpl<>(Arrays.asList(
           new GifticonResponseDTO(),
           new GifticonResponseDTO()))
@@ -68,7 +68,7 @@ public class GifticonControllerTest {
     @Test
     void 빈_리스트() throws Exception {
       // given
-      when(gifticonUseCase.getUnavailableGifticons(any())).thenReturn(
+      when(gifticonUseCase.getUnavailableGifticons(any(), any())).thenReturn(
           new SliceImpl<>(Collections.emptyList()));
 
       // when

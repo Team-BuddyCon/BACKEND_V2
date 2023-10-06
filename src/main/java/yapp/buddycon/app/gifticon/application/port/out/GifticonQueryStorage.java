@@ -7,11 +7,10 @@ import yapp.buddycon.app.gifticon.adapter.infra.entity.GifticonStoreCategory;
 
 public interface GifticonQueryStorage {
 
-  Slice<GifticonResponseDTO> findAllUnavailableGifticons(Pageable pageable);
+  Slice<GifticonResponseDTO> findAllUnavailableGifticons(long userId, Pageable pageable);
 
   Slice<GifticonResponseDTO> findAllAvailableGifticons(
-      GifticonStoreCategory gifticonStoreCategory,
-      Pageable pageable
+      long userId, GifticonStoreCategory gifticonStoreCategory, Pageable pageable
   );
 
 }

@@ -2,6 +2,7 @@ package yapp.buddycon.app.gifticon;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.Nested;
@@ -35,14 +36,14 @@ public class GifticonServiceTest {
     void 정상조회() {
       // given
       PagingDTO requestDTO = new PagingDTO();
-      when(gifticonQueryStoragePort.findAllUnavailableGifticons(any())).thenReturn(
+      when(gifticonQueryStoragePort.findAllUnavailableGifticons(anyLong(), any())).thenReturn(
           new SliceImpl<>(Arrays.asList(
               new GifticonResponseDTO(),
               new GifticonResponseDTO()))
       );
 
       // when
-      Slice<GifticonResponseDTO> resultList = gifticonService.getUnavailableGifticons(requestDTO);
+      Slice<GifticonResponseDTO> resultList = gifticonService.getUnavailableGifticons(1l, requestDTO);
 
       // then
       assertThat(resultList.getSize()).isEqualTo(2);
@@ -56,14 +57,14 @@ public class GifticonServiceTest {
     void 정상조회() {
       // given
       SearchAvailableGifticonDTO requestDTO = new SearchAvailableGifticonDTO();
-      when(gifticonQueryStoragePort.findAllAvailableGifticons(any(), any())).thenReturn(
+      when(gifticonQueryStoragePort.findAllAvailableGifticons(anyLong(), any(), any())).thenReturn(
           new SliceImpl<>(Arrays.asList(
               new GifticonResponseDTO(),
               new GifticonResponseDTO()))
       );
 
       // when
-      Slice<GifticonResponseDTO> resultList = gifticonService.getAvailableGifticons(requestDTO);
+      Slice<GifticonResponseDTO> resultList = gifticonService.getAvailableGifticons(1l, requestDTO);
 
       // then
       assertThat(resultList.getSize()).isEqualTo(2);

@@ -7,8 +7,8 @@ import yapp.buddycon.common.request.PagingDTO;
 
 public interface GifticonUseCase {
 
-  Slice<GifticonResponseDTO> getUnavailableGifticons(PagingDTO dto);
+  Slice<GifticonResponseDTO> getUnavailableGifticons(Long userId, PagingDTO dto);
 
-  Slice<GifticonResponseDTO> getAvailableGifticons(SearchAvailableGifticonDTO dto);
+  Slice<GifticonResponseDTO> getAvailableGifticons(Long userId, SearchAvailableGifticonDTO dto);
 
 }

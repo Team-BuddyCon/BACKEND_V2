@@ -18,13 +18,14 @@ public class GifticonService implements GifticonUseCase {
   private final GifticonQueryStorage gifticonQueryStorage;
 
   @Override
-  public Slice<GifticonResponseDTO> getUnavailableGifticons(PagingDTO dto) {
-    return gifticonQueryStorage.findAllUnavailableGifticons(dto.toPageable());
+  public Slice<GifticonResponseDTO> getUnavailableGifticons(Long userId, PagingDTO dto) {
+    return gifticonQueryStorage.findAllUnavailableGifticons(userId, dto.toPageable());
   }
 
   @Override
-  public Slice<GifticonResponseDTO> getAvailableGifticons(SearchAvailableGifticonDTO dto) {
+  public Slice<GifticonResponseDTO> getAvailableGifticons(Long userId, SearchAvailableGifticonDTO dto) {
     return gifticonQueryStorage.findAllAvailableGifticons(
+        userId,
         dto.getGifticonStoreCategory(),
         dto.toPageable());
   }
