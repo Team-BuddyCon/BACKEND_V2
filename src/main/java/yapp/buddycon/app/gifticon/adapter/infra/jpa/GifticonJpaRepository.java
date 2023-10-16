@@ -41,6 +41,13 @@ public interface GifticonJpaRepository extends JpaRepository<GifticonEntity, Lon
   Slice<GifticonResponseDTO> findAllByUsedIsFalseAndUserIdAndGifticonStoreCategory(
       long userId, GifticonStoreCategory gifticonStoreCategory, Pageable pageable);
 
-  Optional<GifticonEntity> findByIdAndUserId(long gifticonId, long userId);
+  @Query(value = """
+    select new yapp.buddycon.app.gifticon.adapter.client.response.GifticonResponseDTO
+      (g.id, g.barcode, g.imageUrl, g.name, g.memo, g.expireDate, g.gifticonStore, g.gifticonStoreCategory)
+    from GifticonEntity g
+    where g.id = :gifticonId
+    and g.user.id = :userId
+  """)
+  Optional<GifticonResponseDTO> findByIdAndUserId(long gifticonId, long userId);
 
 }

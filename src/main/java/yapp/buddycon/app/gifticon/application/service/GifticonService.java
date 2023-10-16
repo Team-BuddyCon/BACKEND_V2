@@ -10,7 +10,6 @@ import yapp.buddycon.app.gifticon.adapter.client.request.SearchAvailableGifticon
 import yapp.buddycon.app.gifticon.adapter.client.response.GifticonResponseDTO;
 import yapp.buddycon.app.gifticon.application.port.in.GifticonUseCase;
 import yapp.buddycon.app.gifticon.application.port.out.GifticonQueryStorage;
-import yapp.buddycon.app.gifticon.domain.Gifticon;
 import yapp.buddycon.common.request.PagingDTO;
 
 @Service
@@ -35,8 +34,7 @@ public class GifticonService implements GifticonUseCase {
 
   @Override
   public GifticonResponseDTO getGifticon(Long userId, Long gifticonId) {
-    Gifticon gifticon = gifticonQueryStorage.findByGifticonIdAndUserId(gifticonId, userId)
+    return gifticonQueryStorage.findByGifticonIdAndUserId(gifticonId, userId)
         .orElseThrow(() -> new GifticonException(GifticonExceptionCode.GIFTICON_NOT_FOUND));
-    return GifticonResponseDTO.valueOf(gifticon);
   }
 }
