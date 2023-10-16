@@ -17,11 +17,11 @@ import java.util.Optional;
 import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.SliceImpl;
 import yapp.buddycon.app.gifticon.adapter.GifticonException;
+import yapp.buddycon.app.gifticon.adapter.GifticonException.GifticonExceptionCode;
 import yapp.buddycon.app.gifticon.adapter.client.request.SearchAvailableGifticonDTO;
 import yapp.buddycon.app.gifticon.adapter.client.response.GifticonResponseDTO;
 import yapp.buddycon.app.gifticon.application.port.out.GifticonQueryStorage;
 import yapp.buddycon.app.gifticon.application.service.GifticonService;
-import yapp.buddycon.app.gifticon.domain.Gifticon;
 import yapp.buddycon.common.request.PagingDTO;
 
 @ExtendWith(MockitoExtension.class)
@@ -106,7 +106,7 @@ public class GifticonServiceTest {
       });
 
       // then
-      assertEquals("기프티콘을 찾을 수 없습니다", exception.getMessage());
+      assertEquals(GifticonExceptionCode.GIFTICON_NOT_FOUND.getMessage(), exception.getMessage());
     }
   }
 }

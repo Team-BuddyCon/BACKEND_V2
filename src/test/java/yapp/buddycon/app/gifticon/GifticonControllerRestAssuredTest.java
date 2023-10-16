@@ -13,7 +13,8 @@ import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import yapp.buddycon.app.auth.adapter.jwt.JwtTokenDecryptor;
-import yapp.buddycon.app.common.response.BadRequestException;
+import yapp.buddycon.app.gifticon.adapter.GifticonException;
+import yapp.buddycon.app.gifticon.adapter.GifticonException.GifticonExceptionCode;
 import yapp.buddycon.app.gifticon.adapter.client.response.GifticonResponseDTO;
 import yapp.buddycon.app.gifticon.application.port.in.GifticonUseCase;
 import yapp.buddycon.common.AuthUser;
@@ -71,7 +72,8 @@ public class GifticonControllerRestAssuredTest {
         @Test
         void 요청한_기프티콘을_찾을_수_없을시_404가_반환된다() {
             // given
-            when(gifticonUseCase.getGifticon(anyLong(), anyLong())).thenThrow(new BadRequestException(""));
+            when(gifticonUseCase.getGifticon(anyLong(), anyLong())).thenThrow(
+                new GifticonException(GifticonExceptionCode.GIFTICON_NOT_FOUND));
 
             // when
             Response response = RestAssured
