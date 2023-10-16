@@ -3,7 +3,7 @@ package yapp.buddycon.app.gifticon.adapter.infra;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Component;
 import yapp.buddycon.app.gifticon.adapter.client.response.GifticonResponseDTO;
 import yapp.buddycon.app.gifticon.adapter.infra.entity.GifticonStoreCategory;
 import yapp.buddycon.app.gifticon.adapter.infra.jpa.GifticonJpaRepository;
@@ -13,7 +13,7 @@ import yapp.buddycon.app.gifticon.application.port.out.GifticonQueryStorage;
 import java.util.Optional;
 
 @RequiredArgsConstructor
-@Repository
+@Component
 public class JpaGifticonQueryStorage implements GifticonQueryStorage {
 
   private final GifticonJpaRepository gifticonJpaRepository;
