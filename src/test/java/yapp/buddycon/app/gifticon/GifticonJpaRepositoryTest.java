@@ -50,7 +50,7 @@ public class GifticonJpaRepositoryTest {
 
       // then
       assertThat(result.getContent()).hasSize(2);
-      assertThat(result.getContent().get(0).getName()).isEqualTo(사용한_기프티콘1.getName());
+      assertThat(result.getContent().get(0).name()).isEqualTo(사용한_기프티콘1.getName());
     }
 
     @Test
@@ -69,7 +69,7 @@ public class GifticonJpaRepositoryTest {
 
       // then
       assertThat(result.getContent()).hasSize(1);
-      assertThat(result.getContent().get(0).getName()).isEqualTo(사용한_기프티콘1.getName());
+      assertThat(result.getContent().get(0).name()).isEqualTo(사용한_기프티콘1.getName());
     }
   }
 
@@ -108,7 +108,7 @@ public class GifticonJpaRepositoryTest {
 
       // then
       assertThat(result.getContent()).hasSize(3);
-      assertThat(result.getContent().get(0).getName()).isEqualTo(조회대상_기프티콘.getName());
+      assertThat(result.getContent().get(0).name()).isEqualTo(조회대상_기프티콘.getName());
     }
   }
 
@@ -143,10 +143,10 @@ public class GifticonJpaRepositoryTest {
       GifticonEntity target = createGifticonEntity("name1", false, GifticonStore.STARBUCKS, user);
 
       // when
-      Optional<GifticonEntity> result = gifticonJpaRepository.findByIdAndUserId(target.getId(), user.getId());
+      Optional<GifticonResponseDTO> result = gifticonJpaRepository.findByIdAndUserId(target.getId(), user.getId());
 
       // then
-      assertThat(result.get()).isEqualTo(target);
+      assertThat(result.get().gifticonId()).isEqualTo(target.getId());
     }
 
     @Test
@@ -154,7 +154,7 @@ public class GifticonJpaRepositoryTest {
       // given
 
       // when
-      Optional<GifticonEntity> result = gifticonJpaRepository.findByIdAndUserId(1l, 1l);
+      Optional<GifticonResponseDTO> result = gifticonJpaRepository.findByIdAndUserId(1l, 1l);
 
       // then
       assertThat(result).isEqualTo(Optional.empty());

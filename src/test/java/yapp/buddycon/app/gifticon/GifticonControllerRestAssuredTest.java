@@ -49,7 +49,9 @@ public class GifticonControllerRestAssuredTest {
         @Test
         void 요청한_기프티콘의_권한을_가진_사용자가_요청할시_200이_반환된다() {
             // given
-            when(gifticonUseCase.getGifticon(anyLong(), anyLong())).thenReturn(new GifticonResponseDTO());
+            GifticonResponseDTO gifticonResponseDTO =
+                new GifticonResponseDTO(1L, "", "", "", "", null, null, null);
+            when(gifticonUseCase.getGifticon(anyLong(), anyLong())).thenReturn(gifticonResponseDTO);
 
             // when
             Response response = RestAssured

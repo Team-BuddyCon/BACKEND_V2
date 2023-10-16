@@ -41,8 +41,8 @@ public class GifticonServiceTest {
       PagingDTO requestDTO = new PagingDTO();
       when(gifticonQueryStoragePort.findAllUnavailableGifticons(anyLong(), any())).thenReturn(
           new SliceImpl<>(Arrays.asList(
-              new GifticonResponseDTO(),
-              new GifticonResponseDTO()))
+              new GifticonResponseDTO(1L, "", "", "", "", null, null, null),
+              new GifticonResponseDTO(2L, "", "", "", "", null, null, null)))
       );
 
       // when
@@ -62,8 +62,8 @@ public class GifticonServiceTest {
       SearchAvailableGifticonDTO requestDTO = new SearchAvailableGifticonDTO();
       when(gifticonQueryStoragePort.findAllAvailableGifticons(anyLong(), any(), any())).thenReturn(
           new SliceImpl<>(Arrays.asList(
-              new GifticonResponseDTO(),
-              new GifticonResponseDTO()))
+              new GifticonResponseDTO(1L, "", "", "", "", null, null, null),
+              new GifticonResponseDTO(2L, "", "", "", "", null, null, null)))
       );
 
       // when
@@ -83,15 +83,15 @@ public class GifticonServiceTest {
     @Test
     void 요청한_기프티콘이_있을_경우_DTO를_반환한다() {
       // given
-      Gifticon gifticon = new Gifticon(REQUEST_GIFTICON_ID, "", "", "", "", null, false, null, null);
+      GifticonResponseDTO gifticonResponseDTO = new GifticonResponseDTO(REQUEST_GIFTICON_ID, "", "", "", "", null, null, null);
       when(gifticonQueryStoragePort.findByGifticonIdAndUserId(REQUEST_GIFTICON_ID, REQUEST_USER_ID))
-          .thenReturn(Optional.of(gifticon));
+          .thenReturn(Optional.of(gifticonResponseDTO));
 
       // when
       GifticonResponseDTO result = gifticonService.getGifticon(REQUEST_USER_ID, REQUEST_GIFTICON_ID);
 
       // then
-      assertThat(result.getGifticonId()).isEqualTo(REQUEST_GIFTICON_ID);
+      assertThat(result.gifticonId()).isEqualTo(REQUEST_GIFTICON_ID);
     }
 
     @Test
