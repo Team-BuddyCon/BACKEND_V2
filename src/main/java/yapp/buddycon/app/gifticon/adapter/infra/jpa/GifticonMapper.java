@@ -11,10 +11,28 @@ import yapp.buddycon.app.user.adapter.jpa.UserMapper;
 public class GifticonMapper {
 
     public Gifticon toGifticon(GifticonEntity entity) {
-        return new Gifticon(entity.getId(), entity.getUserId(), entity.getImageUrl(), entity.getName(), entity.getMemo(), entity.getExpireDate(), entity.isUsed(), entity.getGifticonStore(), entity.getGifticonStoreCategory());
+        return Gifticon.builder()
+                .id(entity.getId())
+                .userId(entity.getUserId())
+                .imageUrl(entity.getImageUrl())
+                .name(entity.getName())
+                .memo(entity.getMemo())
+                .expireDate(entity.getExpireDate())
+                .used(entity.isUsed())
+                .gifticonStore(entity.getGifticonStore())
+                .build();
     }
 
     public GifticonEntity toEntity(Gifticon gifticon) {
-        return new GifticonEntity(gifticon.id(), gifticon.userId(), gifticon.imageUrl(), gifticon.name(), gifticon.memo(), gifticon.expireDate(), gifticon.used(), gifticon.gifticonStore());
+        return GifticonEntity.builder()
+                .id(gifticon.id())
+                .userId(gifticon.userId())
+                .imageUrl(gifticon.imageUrl())
+                .name(gifticon.name())
+                .memo(gifticon.memo())
+                .expireDate(gifticon.expireDate())
+                .used(gifticon.used())
+                .gifticonStore(gifticon.gifticonStore())
+                .build();
     }
 }
