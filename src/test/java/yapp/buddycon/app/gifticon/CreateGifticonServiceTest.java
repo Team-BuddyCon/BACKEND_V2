@@ -9,17 +9,12 @@ import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
 import yapp.buddycon.app.gifticon.adapter.client.request.GifticonCreationDto;
 import yapp.buddycon.app.gifticon.application.port.out.GifticonCommandStorage;
-import yapp.buddycon.app.gifticon.application.port.out.ImageUploader;
+import yapp.buddycon.app.common.s3.application.port.out.ImageUploader;
 import yapp.buddycon.app.gifticon.application.service.CreateGifticonService;
 import yapp.buddycon.app.gifticon.domain.GifticonStore;
-import yapp.buddycon.app.user.application.port.out.UserQueryStorage;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.time.LocalDate;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 

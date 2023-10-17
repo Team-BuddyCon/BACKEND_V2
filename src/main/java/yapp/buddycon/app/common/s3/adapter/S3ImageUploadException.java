@@ -1,4 +1,4 @@
-package yapp.buddycon.app.gifticon.adapter;
+package yapp.buddycon.app.common.s3.adapter;
 
 import yapp.buddycon.app.common.response.ApplicationException;
 

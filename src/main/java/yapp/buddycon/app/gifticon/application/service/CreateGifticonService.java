@@ -7,7 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 import yapp.buddycon.app.gifticon.adapter.client.request.GifticonCreationDto;
 import yapp.buddycon.app.gifticon.application.port.in.CreateGifticonUsecase;
 import yapp.buddycon.app.gifticon.application.port.out.GifticonCommandStorage;
-import yapp.buddycon.app.gifticon.application.port.out.ImageUploader;
+import yapp.buddycon.app.common.s3.application.port.out.ImageUploader;
 import yapp.buddycon.app.gifticon.domain.Gifticon;
 
 @Service

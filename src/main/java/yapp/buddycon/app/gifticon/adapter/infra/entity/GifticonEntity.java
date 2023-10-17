@@ -9,7 +9,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import yapp.buddycon.app.gifticon.domain.GifticonStore;
 import yapp.buddycon.app.gifticon.domain.GifticonStoreCategory;
-import yapp.buddycon.app.user.adapter.jpa.UserEntity;
 import yapp.buddycon.common.BaseEntity;
 
 @Getter
