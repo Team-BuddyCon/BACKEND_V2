@@ -103,6 +103,7 @@ public class GifticonJpaRepositoryTest {
   // TODO Entity 메소드로 분리 예정
   private GifticonEntity createGifticonEntity(String name, boolean used, GifticonStore gifticonStore) {
     GifticonEntity gifticonEntity = GifticonEntity.builder()
+        .userId(1L)
         .imageUrl("url1")
         .name(name)
         .expireDate(LocalDate.now())
