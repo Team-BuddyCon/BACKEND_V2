@@ -50,8 +50,8 @@ public class GifticonControllerTest {
       // given
       when(gifticonUseCase.getUnavailableGifticons(any(), any())).thenReturn(
           new SliceImpl<>(Arrays.asList(
-          new GifticonResponseDTO(),
-          new GifticonResponseDTO()))
+              new GifticonResponseDTO(1L, "", "", "", "", null, null, null),
+              new GifticonResponseDTO(2L, "", "", "", "", null, null, null)))
       );
 
       // when

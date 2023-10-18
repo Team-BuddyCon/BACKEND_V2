@@ -8,6 +8,8 @@ import yapp.buddycon.app.gifticon.adapter.client.response.GifticonResponseDTO;
 import yapp.buddycon.app.gifticon.adapter.infra.entity.GifticonEntity;
 import yapp.buddycon.app.gifticon.adapter.infra.entity.GifticonStoreCategory;
 
+import java.util.Optional;
+
 public interface GifticonJpaRepository extends JpaRepository<GifticonEntity, Long> {
 
   @Query(value = """
@@ -38,5 +40,14 @@ public interface GifticonJpaRepository extends JpaRepository<GifticonEntity, Lon
   """)
   Slice<GifticonResponseDTO> findAllByUsedIsFalseAndUserIdAndGifticonStoreCategory(
       long userId, GifticonStoreCategory gifticonStoreCategory, Pageable pageable);
+
+  @Query(value = """
+    select new yapp.buddycon.app.gifticon.adapter.client.response.GifticonResponseDTO
+      (g.id, g.barcode, g.imageUrl, g.name, g.memo, g.expireDate, g.gifticonStore, g.gifticonStoreCategory)
+    from GifticonEntity g
+    where g.id = :gifticonId
+    and g.user.id = :userId
+  """)
+  Optional<GifticonResponseDTO> findByIdAndUserId(long gifticonId, long userId);
 
 }
