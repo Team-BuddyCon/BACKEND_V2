@@ -9,7 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 import yapp.buddycon.app.common.response.ApiResponse;
 import yapp.buddycon.app.gifticon.adapter.client.request.GifticonCreationDto;
 import yapp.buddycon.app.gifticon.application.port.in.CreateGifticonUsecase;
-import yapp.buddycon.common.AuthUser;
+import yapp.buddycon.app.common.AuthUser;
 
 @RestController
 @RequiredArgsConstructor

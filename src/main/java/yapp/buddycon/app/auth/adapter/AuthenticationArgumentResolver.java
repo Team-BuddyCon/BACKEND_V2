@@ -9,7 +9,7 @@ import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 import yapp.buddycon.app.auth.adapter.jwt.JwtTokenDecryptor;
-import yapp.buddycon.common.AuthUser;
+import yapp.buddycon.app.common.AuthUser;
 
 @Slf4j
 @Component

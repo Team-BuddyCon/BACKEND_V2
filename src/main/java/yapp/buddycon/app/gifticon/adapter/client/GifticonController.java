@@ -12,8 +12,8 @@ import yapp.buddycon.app.common.response.ApiResponse;
 import yapp.buddycon.app.gifticon.adapter.client.request.SearchAvailableGifticonDTO;
 import yapp.buddycon.app.gifticon.adapter.client.response.GifticonResponseDTO;
 import yapp.buddycon.app.gifticon.application.port.in.GifticonUseCase;
-import yapp.buddycon.common.AuthUser;
-import yapp.buddycon.common.request.PagingDTO;
+import yapp.buddycon.app.common.AuthUser;
+import yapp.buddycon.app.common.request.PagingDTO;
 
 @RestController
 @RequiredArgsConstructor

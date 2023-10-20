@@ -1,4 +1,4 @@
-package yapp.buddycon.common.request;
+package yapp.buddycon.app.common.request;
 
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;

@@ -17,7 +17,7 @@ import yapp.buddycon.app.gifticon.adapter.GifticonException;
 import yapp.buddycon.app.gifticon.adapter.GifticonException.GifticonExceptionCode;
 import yapp.buddycon.app.gifticon.adapter.client.response.GifticonResponseDTO;
 import yapp.buddycon.app.gifticon.application.port.in.GifticonUseCase;
-import yapp.buddycon.common.AuthUser;
+import yapp.buddycon.app.common.AuthUser;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.when;
 

@@ -4,7 +4,7 @@ import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import yapp.buddycon.app.auth.adapter.jwt.exception.*;
-import yapp.buddycon.common.AuthUser;
+import yapp.buddycon.app.common.AuthUser;
 
 @Component
 public class JwtTokenDecryptor {

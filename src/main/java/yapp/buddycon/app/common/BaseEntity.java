@@ -1,4 +1,4 @@
-package yapp.buddycon.common;
+package yapp.buddycon.app.common;
 
 import jakarta.persistence.*;
 import lombok.Getter;

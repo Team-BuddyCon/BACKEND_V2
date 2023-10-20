@@ -22,7 +22,7 @@ import yapp.buddycon.app.gifticon.adapter.client.request.SearchAvailableGifticon
 import yapp.buddycon.app.gifticon.adapter.client.response.GifticonResponseDTO;
 import yapp.buddycon.app.gifticon.application.port.out.GifticonQueryStorage;
 import yapp.buddycon.app.gifticon.application.service.GifticonService;
-import yapp.buddycon.common.request.PagingDTO;
+import yapp.buddycon.app.common.request.PagingDTO;
 
 @ExtendWith(MockitoExtension.class)
 public class GifticonServiceTest {

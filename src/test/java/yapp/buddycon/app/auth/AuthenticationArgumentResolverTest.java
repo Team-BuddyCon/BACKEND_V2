@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.NativeWebRequest;
 import yapp.buddycon.app.auth.adapter.AuthenticationArgumentResolver;
 import yapp.buddycon.app.auth.adapter.jwt.JwtTokenDecryptor;
-import yapp.buddycon.common.AuthUser;
+import yapp.buddycon.app.common.AuthUser;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
