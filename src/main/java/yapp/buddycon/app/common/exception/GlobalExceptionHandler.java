@@ -20,7 +20,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(value = {BadRequestException.class})
     protected ResponseEntity<?> handleBadRequestException(BadRequestException e) {
-        log.error("handleApplicationException throw BadRequestException : {}", e.getMessage());
+        log.error("handleBadRequestException throw BadRequestException : {}", e.getMessage());
         return ApiResponse.badRequest(e.getMessage(), null);
     }
 

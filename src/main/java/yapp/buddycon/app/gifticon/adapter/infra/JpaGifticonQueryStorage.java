@@ -3,32 +3,40 @@ package yapp.buddycon.app.gifticon.adapter.infra;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Component;
 import yapp.buddycon.app.gifticon.adapter.client.response.GifticonResponseDTO;
 import yapp.buddycon.app.gifticon.domain.GifticonStoreCategory;
 import yapp.buddycon.app.gifticon.adapter.infra.jpa.GifticonJpaRepository;
+import yapp.buddycon.app.gifticon.adapter.infra.jpa.GifticonMapper;
 import yapp.buddycon.app.gifticon.application.port.out.GifticonQueryStorage;
 
+import java.util.Optional;
+
 @RequiredArgsConstructor
-@Repository
+@Component
 public class JpaGifticonQueryStorage implements GifticonQueryStorage {
 
   private final GifticonJpaRepository gifticonJpaRepository;
-
+  private final GifticonMapper mapper;
 
   @Override
-  public Slice<GifticonResponseDTO> findAllUnavailableGifticons(Pageable pageable) {
-    return gifticonJpaRepository.findAllByUsedIsTrue(pageable);
+  public Slice<GifticonResponseDTO> findAllUnavailableGifticons(long userId, Pageable pageable) {
+    return gifticonJpaRepository.findAllByUsedIsTrueAndUserId(userId, pageable);
   }
 
   @Override
   public Slice<GifticonResponseDTO> findAllAvailableGifticons(
-      GifticonStoreCategory gifticonStoreCategory, Pageable pageable) {
+      long userId, GifticonStoreCategory gifticonStoreCategory, Pageable pageable) {
     if (gifticonStoreCategory == null) {
-      return gifticonJpaRepository.findAllByUsedIsFalse(pageable);
+      return gifticonJpaRepository.findAllByUsedIsFalseAndUserId(userId, pageable);
     } else {
-      return gifticonJpaRepository.findAllByUsedIsFalseAndGifticonStoreCategory(gifticonStoreCategory, pageable);
+      return gifticonJpaRepository.findAllByUsedIsFalseAndUserIdAndGifticonStoreCategory(userId, gifticonStoreCategory, pageable);
     }
+  }
+
+  @Override
+  public Optional<GifticonResponseDTO> findByGifticonIdAndUserId(long gifticonId, long userId) {
+    return gifticonJpaRepository.findByIdAndUserId(gifticonId, userId);
   }
 
 }

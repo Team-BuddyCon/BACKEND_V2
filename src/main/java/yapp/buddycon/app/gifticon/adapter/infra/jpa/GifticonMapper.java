@@ -4,7 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import yapp.buddycon.app.gifticon.adapter.infra.entity.GifticonEntity;
 import yapp.buddycon.app.gifticon.domain.Gifticon;
-import yapp.buddycon.app.user.adapter.jpa.UserMapper;
+
+import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor
@@ -21,6 +22,21 @@ public class GifticonMapper {
                 .used(entity.isUsed())
                 .gifticonStore(entity.getGifticonStore())
                 .build();
+    }
+
+    public Optional<Gifticon> toGifticon(Optional<GifticonEntity> optionalEntity) {
+        return optionalEntity.map(entity ->
+                Gifticon.builder()
+                        .id(entity.getId())
+                        .userId(entity.getUserId())
+                        .imageUrl(entity.getImageUrl())
+                        .name(entity.getName())
+                        .memo(entity.getMemo())
+                        .expireDate(entity.getExpireDate())
+                        .used(entity.isUsed())
+                        .gifticonStore(entity.getGifticonStore())
+                        .gifticonStoreCategory(entity.getGifticonStoreCategory())
+                        .build());
     }
 
     public GifticonEntity toEntity(Gifticon gifticon) {
