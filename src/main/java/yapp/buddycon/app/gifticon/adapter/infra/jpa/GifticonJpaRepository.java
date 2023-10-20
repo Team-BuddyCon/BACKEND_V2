@@ -17,7 +17,7 @@ public interface GifticonJpaRepository extends JpaRepository<GifticonEntity, Lon
       (g.id, g.imageUrl, g.name, g.memo, g.expireDate, g.gifticonStore, g.gifticonStoreCategory)
     from GifticonEntity g
     where g.used = true
-    and g.user.id = :userId
+    and g.userId = :userId
   """)
   Slice<GifticonResponseDTO> findAllByUsedIsTrueAndUserId(long userId, Pageable pageable);
 
@@ -26,7 +26,7 @@ public interface GifticonJpaRepository extends JpaRepository<GifticonEntity, Lon
       (g.id, g.imageUrl, g.name, g.memo, g.expireDate, g.gifticonStore, g.gifticonStoreCategory)
     from GifticonEntity g
     where g.used = false
-    and g.user.id = :userId
+    and g.userId = :userId
   """)
   Slice<GifticonResponseDTO> findAllByUsedIsFalseAndUserId(long userId, Pageable pageable);
 
@@ -35,7 +35,7 @@ public interface GifticonJpaRepository extends JpaRepository<GifticonEntity, Lon
       (g.id, g.imageUrl, g.name, g.memo, g.expireDate, g.gifticonStore, g.gifticonStoreCategory)
     from GifticonEntity g
     where g.used = false
-    and g.user.id = :userId
+    and g.userId = :userId
     and g.gifticonStoreCategory = :gifticonStoreCategory
   """)
   Slice<GifticonResponseDTO> findAllByUsedIsFalseAndUserIdAndGifticonStoreCategory(
@@ -43,10 +43,10 @@ public interface GifticonJpaRepository extends JpaRepository<GifticonEntity, Lon
 
   @Query(value = """
     select new yapp.buddycon.app.gifticon.adapter.client.response.GifticonResponseDTO
-      (g.id, g.barcode, g.imageUrl, g.name, g.memo, g.expireDate, g.gifticonStore, g.gifticonStoreCategory)
+      (g.id, g.imageUrl, g.name, g.memo, g.expireDate, g.gifticonStore, g.gifticonStoreCategory)
     from GifticonEntity g
     where g.id = :gifticonId
-    and g.user.id = :userId
+    and g.userId = :userId
   """)
   Optional<GifticonResponseDTO> findByIdAndUserId(long gifticonId, long userId);
 

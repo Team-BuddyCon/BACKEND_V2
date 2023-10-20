@@ -37,7 +37,7 @@ public class GifticonController {
   @GetMapping("/{gifticon-id}")
   public ResponseEntity<?> getGifticon(
       AuthUser authUser, @PathVariable("gifticon-id") long gifticonId) {
-    return ApiResponse.success("기프티콘 목록을 성공적으로 조회하였습니다.",
+    return ApiResponse.successWithBody("기프티콘 목록을 성공적으로 조회하였습니다.",
         gifticonUseCase.getGifticon(authUser.id(), gifticonId));
   }
 

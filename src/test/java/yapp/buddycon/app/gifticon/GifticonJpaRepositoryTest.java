@@ -36,13 +36,13 @@ public class GifticonJpaRepositoryTest {
     @Test
     void 사용한_기프티콘_목록만_반환() {
       // given
-      UserEntity user = new UserEntity(null, 123l, "nickname", "dd@domain.com", "male", "20");
+      UserEntity user = new UserEntity(null, 123L, "nickname", "dd@domain.com", "male", "20");
       userRepository.save(user);
-      GifticonEntity 사용하지_않은_기프티콘1 = createGifticonEntity("사용하지 않은 기프티콘 1", false, GifticonStore.STARBUCKS, user);
-      GifticonEntity 사용하지_않은_기프티콘2 = createGifticonEntity("사용하지 않은 기프티콘 2", false, GifticonStore.STARBUCKS, user);
-      GifticonEntity 사용하지_않은_기프티콘3 = createGifticonEntity("사용하지 않은 기프티콘 3", false, GifticonStore.STARBUCKS, user);
-      GifticonEntity 사용한_기프티콘1 = createGifticonEntity("사용한 기프티콘 1", true, GifticonStore.STARBUCKS, user);
-      GifticonEntity 사용한_기프티콘2 = createGifticonEntity("사용한 기프티콘 2", true, GifticonStore.STARBUCKS, user);
+      GifticonEntity 사용하지_않은_기프티콘1 = createGifticonEntity("사용하지 않은 기프티콘 1", false, GifticonStore.STARBUCKS, user.getId());
+      GifticonEntity 사용하지_않은_기프티콘2 = createGifticonEntity("사용하지 않은 기프티콘 2", false, GifticonStore.STARBUCKS, user.getId());
+      GifticonEntity 사용하지_않은_기프티콘3 = createGifticonEntity("사용하지 않은 기프티콘 3", false, GifticonStore.STARBUCKS, user.getId());
+      GifticonEntity 사용한_기프티콘1 = createGifticonEntity("사용한 기프티콘 1", true, GifticonStore.STARBUCKS, user.getId());
+      GifticonEntity 사용한_기프티콘2 = createGifticonEntity("사용한 기프티콘 2", true, GifticonStore.STARBUCKS, user.getId());
 
       // when
       Slice<GifticonResponseDTO> result = gifticonJpaRepository
@@ -55,13 +55,13 @@ public class GifticonJpaRepositoryTest {
 
     @Test
     void 유저_필터링() {
-      UserEntity user = new UserEntity(null, 111l, "nickname1", "dd1@domain.com", "male", "20");
+      UserEntity user = new UserEntity(null, 111L, "nickname1", "dd1@domain.com", "male", "20");
       user = userRepository.save(user);
-      GifticonEntity 사용한_기프티콘1 = createGifticonEntity("사용한 기프티콘 1", true, GifticonStore.STARBUCKS, user);
+      GifticonEntity 사용한_기프티콘1 = createGifticonEntity("사용한 기프티콘 1", true, GifticonStore.STARBUCKS, user.getId());
 
-      UserEntity user2 = new UserEntity(null, 222l, "nickname2", "dd2@domain.com", "male", "20");
+      UserEntity user2 = new UserEntity(null, 222L, "nickname2", "dd2@domain.com", "male", "20");
       user2 = userRepository.save(user2);
-      GifticonEntity 사용한_기프티콘2 = createGifticonEntity("사용한 기프티콘 2", true, GifticonStore.STARBUCKS, user2);
+      GifticonEntity 사용한_기프티콘2 = createGifticonEntity("사용한 기프티콘 2", true, GifticonStore.STARBUCKS, user2.getId());
 
       // when
       Slice<GifticonResponseDTO> result = gifticonJpaRepository
@@ -79,11 +79,11 @@ public class GifticonJpaRepositoryTest {
     @Test
     void 사용_이전의_기프티콘_목록_조회() {
       // given
-      UserEntity user = new UserEntity(null, 123l, "nickname", "dd@domain.com", "male", "20");
+      UserEntity user = new UserEntity(null, 123L, "nickname", "dd@domain.com", "male", "20");
       user = userRepository.save(user);
-      createGifticonEntity("name1", false, GifticonStore.STARBUCKS, user);
-      createGifticonEntity("name2", false, GifticonStore.CU, user);
-      createGifticonEntity("name3", true, GifticonStore.CU, user);
+      createGifticonEntity("name1", false, GifticonStore.STARBUCKS, user.getId());
+      createGifticonEntity("name2", false, GifticonStore.CU, user.getId());
+      createGifticonEntity("name3", true, GifticonStore.CU, user.getId());
 
       // when
       Slice<GifticonResponseDTO> result = gifticonJpaRepository.findAllByUsedIsFalseAndUserId(
@@ -96,11 +96,11 @@ public class GifticonJpaRepositoryTest {
     @Test
     void 이름_순서로_정렬_목록_조회() {
       // given
-      UserEntity user = new UserEntity(null, 123l, "nickname", "dd@domain.com", "male", "20");
+      UserEntity user = new UserEntity(null, 123L, "nickname", "dd@domain.com", "male", "20");
       user = userRepository.save(user);
-      createGifticonEntity("name5", false, GifticonStore.STARBUCKS, user);
-      GifticonEntity 조회대상_기프티콘 = createGifticonEntity("name1", false, GifticonStore.CU, user);
-      createGifticonEntity("name4", false, GifticonStore.MACDONALD, user);
+      createGifticonEntity("name5", false, GifticonStore.STARBUCKS, user.getId());
+      GifticonEntity 조회대상_기프티콘 = createGifticonEntity("name1", false, GifticonStore.CU, user.getId());
+      createGifticonEntity("name4", false, GifticonStore.MACDONALD, user.getId());
 
       // when
       Slice<GifticonResponseDTO> result = gifticonJpaRepository.findAllByUsedIsFalseAndUserId(
@@ -118,10 +118,10 @@ public class GifticonJpaRepositoryTest {
     @Test
     void 카테고리_필터링_지정_목록_조회() {
       // given
-      UserEntity user = new UserEntity(null, 123l, "nickname", "dd@domain.com", "male", "20");
+      UserEntity user = new UserEntity(null, 123L, "nickname", "dd@domain.com", "male", "20");
       user = userRepository.save(user);
-      createGifticonEntity("name1", false, GifticonStore.STARBUCKS, user);
-      createGifticonEntity("name2", false, GifticonStore.CU, user);
+      createGifticonEntity("name1", false, GifticonStore.STARBUCKS, user.getId());
+      createGifticonEntity("name2", false, GifticonStore.CU, user.getId());
 
       // when
       Slice<GifticonResponseDTO> result = gifticonJpaRepository
@@ -138,9 +138,9 @@ public class GifticonJpaRepositoryTest {
     @Test
     void 정상조회() {
       // given
-      UserEntity user = new UserEntity(null, 123l, "nickname", "dd@domain.com", "male", "20");
+      UserEntity user = new UserEntity(null, 123L, "nickname", "dd@domain.com", "male", "20");
       user = userRepository.save(user);
-      GifticonEntity target = createGifticonEntity("name1", false, GifticonStore.STARBUCKS, user);
+      GifticonEntity target = createGifticonEntity("name1", false, GifticonStore.STARBUCKS, user.getId());
 
       // when
       Optional<GifticonResponseDTO> result = gifticonJpaRepository.findByIdAndUserId(target.getId(), user.getId());
@@ -154,7 +154,7 @@ public class GifticonJpaRepositoryTest {
       // given
 
       // when
-      Optional<GifticonResponseDTO> result = gifticonJpaRepository.findByIdAndUserId(1l, 1l);
+      Optional<GifticonResponseDTO> result = gifticonJpaRepository.findByIdAndUserId(1L, 1L);
 
       // then
       assertThat(result).isEqualTo(Optional.empty());
@@ -162,15 +162,14 @@ public class GifticonJpaRepositoryTest {
   }
 
   // TODO Entity 메소드로 분리 예정
-  private GifticonEntity createGifticonEntity(String name, boolean used, GifticonStore gifticonStore, UserEntity userEntity) {
+  private GifticonEntity createGifticonEntity(String name, boolean used, GifticonStore gifticonStore, Long userId) {
     GifticonEntity gifticonEntity = GifticonEntity.builder()
-        .userId(1L)
+        .userId(userId)
         .imageUrl("url1")
         .name(name)
         .expireDate(LocalDate.now())
         .used(used)
         .gifticonStore(gifticonStore)
-        .user(userEntity)
         .build();
     return gifticonJpaRepository.save(gifticonEntity);
   }
