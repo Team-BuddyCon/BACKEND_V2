@@ -9,7 +9,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import yapp.buddycon.app.gifticon.domain.GifticonStore;
 import yapp.buddycon.app.gifticon.domain.GifticonStoreCategory;
-import yapp.buddycon.common.BaseEntity;
+import yapp.buddycon.app.common.BaseEntity;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)

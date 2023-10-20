@@ -6,7 +6,6 @@ import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.ModelAndViewContainer;
 import yapp.buddycon.app.auth.adapter.AuthenticationArgumentResolver;
 import yapp.buddycon.app.auth.adapter.jwt.JwtTokenDecryptor;
-import yapp.buddycon.common.AuthUser;
 
 public class MockAuthenticationArgumentResolver extends AuthenticationArgumentResolver {
 

@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import yapp.buddycon.common.BaseEntity;
+import yapp.buddycon.app.common.BaseEntity;
 
 @Entity
 @Getter
