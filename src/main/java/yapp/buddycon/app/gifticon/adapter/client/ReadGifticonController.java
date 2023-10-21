@@ -11,16 +11,16 @@ import org.springframework.web.bind.annotation.RestController;
 import yapp.buddycon.app.common.response.ApiResponse;
 import yapp.buddycon.app.gifticon.adapter.client.request.SearchAvailableGifticonDTO;
 import yapp.buddycon.app.gifticon.adapter.client.response.GifticonResponseDTO;
-import yapp.buddycon.app.gifticon.application.port.in.GifticonUseCase;
+import yapp.buddycon.app.gifticon.application.port.in.ReadGifticonUseCase;
 import yapp.buddycon.app.common.AuthUser;
 import yapp.buddycon.app.common.request.PagingDTO;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/gifticons")
-public class GifticonController {
+public class ReadGifticonController {
 
-  private final GifticonUseCase gifticonUseCase;
+  private final ReadGifticonUseCase gifticonUseCase;
 
   @GetMapping("/unavailable")
   public Slice<GifticonResponseDTO> getUnavailableGifticons(

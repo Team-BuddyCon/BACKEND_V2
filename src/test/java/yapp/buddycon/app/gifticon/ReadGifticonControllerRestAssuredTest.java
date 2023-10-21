@@ -16,17 +16,17 @@ import yapp.buddycon.app.auth.adapter.jwt.JwtTokenDecryptor;
 import yapp.buddycon.app.gifticon.adapter.GifticonException;
 import yapp.buddycon.app.gifticon.adapter.GifticonException.GifticonExceptionCode;
 import yapp.buddycon.app.gifticon.adapter.client.response.GifticonResponseDTO;
-import yapp.buddycon.app.gifticon.application.port.in.GifticonUseCase;
+import yapp.buddycon.app.gifticon.application.port.in.ReadGifticonUseCase;
 import yapp.buddycon.app.common.AuthUser;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class GifticonControllerRestAssuredTest {
+public class ReadGifticonControllerRestAssuredTest {
 
     @MockBean
-    private GifticonUseCase gifticonUseCase;
+    private ReadGifticonUseCase gifticonUseCase;
 
     @MockBean
     private JwtTokenDecryptor decryptor;

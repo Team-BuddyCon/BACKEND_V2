@@ -21,16 +21,16 @@ import yapp.buddycon.app.gifticon.adapter.GifticonException.GifticonExceptionCod
 import yapp.buddycon.app.gifticon.adapter.client.request.SearchAvailableGifticonDTO;
 import yapp.buddycon.app.gifticon.adapter.client.response.GifticonResponseDTO;
 import yapp.buddycon.app.gifticon.application.port.out.GifticonQueryStorage;
-import yapp.buddycon.app.gifticon.application.service.GifticonService;
+import yapp.buddycon.app.gifticon.application.service.ReadGifticonService;
 import yapp.buddycon.app.common.request.PagingDTO;
 
 @ExtendWith(MockitoExtension.class)
-public class GifticonServiceTest {
+public class ReadGifticonServiceTest {
 
   @Mock
   private GifticonQueryStorage gifticonQueryStoragePort;
   @InjectMocks
-  private GifticonService gifticonService;
+  private ReadGifticonService gifticonService;
 
   @Nested
   class getUnavailableGifticons {
