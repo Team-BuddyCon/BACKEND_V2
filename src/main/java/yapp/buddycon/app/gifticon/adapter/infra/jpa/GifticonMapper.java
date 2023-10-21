@@ -2,7 +2,6 @@ package yapp.buddycon.app.gifticon.adapter.infra.jpa;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import yapp.buddycon.app.gifticon.adapter.infra.entity.GifticonEntity;
 import yapp.buddycon.app.gifticon.domain.Gifticon;
 
 import java.util.Optional;

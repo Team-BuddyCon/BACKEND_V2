@@ -1,4 +1,4 @@
-package yapp.buddycon.app.gifticon.adapter.infra.entity;
+package yapp.buddycon.app.gifticon.adapter.infra.jpa;
 
 import jakarta.persistence.*;
 

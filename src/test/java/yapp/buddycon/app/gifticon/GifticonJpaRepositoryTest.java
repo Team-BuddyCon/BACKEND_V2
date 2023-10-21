@@ -14,7 +14,7 @@ import org.springframework.data.domain.Slice;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import yapp.buddycon.app.gifticon.adapter.client.request.SearchGifticonSortType;
 import yapp.buddycon.app.gifticon.adapter.client.response.GifticonResponseDTO;
-import yapp.buddycon.app.gifticon.adapter.infra.entity.GifticonEntity;
+import yapp.buddycon.app.gifticon.adapter.infra.jpa.GifticonEntity;
 import yapp.buddycon.app.gifticon.domain.GifticonStore;
 import yapp.buddycon.app.gifticon.domain.GifticonStoreCategory;
 import yapp.buddycon.app.gifticon.adapter.infra.jpa.GifticonJpaRepository;
