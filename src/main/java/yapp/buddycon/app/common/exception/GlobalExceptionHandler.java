@@ -7,7 +7,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.reactive.result.method.annotation.ResponseEntityExceptionHandler;
-import yapp.buddycon.app.common.response.ApiResponse;
+import yapp.buddycon.app.common.response.ResponseEntityApi;
 import yapp.buddycon.app.common.response.ApplicationException;
 import yapp.buddycon.app.common.response.BadRequestException;
 
@@ -21,13 +21,13 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(value = {BadRequestException.class})
     protected ResponseEntity<?> handleBadRequestException(BadRequestException e) {
         log.error("handleBadRequestException throw BadRequestException : {}", e.getMessage());
-        return ApiResponse.badRequest(e.getMessage(), null);
+        return ResponseEntityApi.badRequest(e.getMessage(), null);
     }
 
     @ExceptionHandler(value = {ApplicationException.class})
     protected ResponseEntity<?> handleApplicationException(ApplicationException e) {
         log.error("handleApplicationException throw ApplicationException : {}", e.getMessage());
-        return ApiResponse.serverError(e.getMessage(), null);
+        return ResponseEntityApi.serverError(e.getMessage(), null);
     }
 
     @ExceptionHandler(value = {MethodArgumentNotValidException.class})
@@ -39,6 +39,6 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
             String errorMessage = error.getDefaultMessage();
             errors.put(fieldName, errorMessage);
         });
-        return ApiResponse.badRequest(e.getBody().getDetail(), errors);
+        return ResponseEntityApi.badRequest(e.getBody().getDetail(), errors);
     }
 }

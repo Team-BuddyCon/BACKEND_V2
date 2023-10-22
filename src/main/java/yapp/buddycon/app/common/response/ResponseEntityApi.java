@@ -5,7 +5,7 @@ import org.springframework.http.ResponseEntity;
 
 import static org.springframework.http.HttpStatus.OK;
 
-public class ApiResponse {
+public class ResponseEntityApi {
 
     public static ResponseEntity<?> successWithBody(String message, Object body) {
         return ResponseEntity.ok(new ResponseBody(OK.value(), message, body));
