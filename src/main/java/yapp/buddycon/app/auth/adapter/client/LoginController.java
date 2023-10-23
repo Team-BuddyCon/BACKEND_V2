@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import yapp.buddycon.app.auth.application.service.AuthService;
 import yapp.buddycon.app.auth.application.service.TokenDto;
 import yapp.buddycon.app.common.response.ResponseBody;
-import yapp.buddycon.app.common.response.ResponseEntityApi;
+import yapp.buddycon.app.common.response.ApiResponse;
 
 @Tag(name = "로그인", description = "로그인 API")
 @RestController
@@ -26,7 +26,7 @@ public class LoginController {
     @PostMapping("/login")
     public ResponseEntity<ResponseBody> login(@RequestBody @Valid LoginRequest request) {
         TokenDto tokenDto = authService.login(request);
-        return ResponseEntityApi.successWithBody("로그인에 성공하였습니다.", tokenDto);
+        return ApiResponse.successWithBody("로그인에 성공하였습니다.", tokenDto);
     }
 
 }

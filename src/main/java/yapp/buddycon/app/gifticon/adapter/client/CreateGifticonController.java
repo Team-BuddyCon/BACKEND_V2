@@ -10,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import yapp.buddycon.app.common.response.ResponseBody;
-import yapp.buddycon.app.common.response.ResponseEntityApi;
+import yapp.buddycon.app.common.response.ApiResponse;
 import yapp.buddycon.app.gifticon.adapter.client.request.GifticonCreationDto;
 import yapp.buddycon.app.gifticon.application.port.in.CreateGifticonUsecase;
 import yapp.buddycon.app.common.AuthUser;
@@ -30,6 +30,6 @@ public class CreateGifticonController {
             @Parameter(name = "기프티콘 이미지 파일") @RequestPart(name = "image") MultipartFile image,
             @Parameter(hidden = true) AuthUser user) {
         usecase.createGifticon(dto, image, user.id());
-        return ResponseEntityApi.success("기프티콘을 성공적으로 등록하였습니다");
+        return ApiResponse.success("기프티콘을 성공적으로 등록하였습니다");
     }
 }
