@@ -48,11 +48,8 @@ public class ReadGifticonControllerTest {
     @Test
     void 정상_조회() throws Exception {
       // given
-      when(gifticonUseCase.getUnavailableGifticons(any(), any())).thenReturn(
-          new SliceImpl<>(Arrays.asList(
-              new GifticonResponseDTO(1L, "", "", "", null, null, null),
-              new GifticonResponseDTO(2L, "", "", "", null, null, null)))
-      );
+      when(gifticonUseCase.getUnavailableGifticons(any(), any()))
+              .thenReturn(new SliceImpl<>(Arrays.asList(any(GifticonResponseDTO.class), any(GifticonResponseDTO.class))));
 
       // when
       final ResultActions resultActions = mockMvc.perform(
@@ -62,7 +59,7 @@ public class ReadGifticonControllerTest {
       // then
       resultActions
           .andExpect(status().isOk())
-          .andExpect(jsonPath("$.size").value("2"));
+          .andExpect(jsonPath("$.body.size").value("2"));
     }
 
     @Test
@@ -79,7 +76,7 @@ public class ReadGifticonControllerTest {
       // then
       resultActions
           .andExpect(status().isOk())
-          .andExpect(jsonPath("$.size").value("0"));
+          .andExpect(jsonPath("$.body.size").value("0"));
     }
 
     @Test
