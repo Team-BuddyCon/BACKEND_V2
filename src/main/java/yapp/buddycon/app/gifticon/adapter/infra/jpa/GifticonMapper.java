@@ -35,20 +35,19 @@ public class GifticonMapper {
                         .expireDate(entity.getExpireDate())
                         .used(entity.isUsed())
                         .gifticonStore(entity.getGifticonStore())
-                        .gifticonStoreCategory(entity.getGifticonStoreCategory())
                         .build());
     }
 
     public GifticonEntity toEntity(Gifticon gifticon) {
         return GifticonEntity.builder()
-                .id(gifticon.id())
-                .userId(gifticon.userId())
-                .imageUrl(gifticon.imageUrl())
-                .name(gifticon.name())
-                .memo(gifticon.memo())
-                .expireDate(gifticon.expireDate())
-                .used(gifticon.used())
-                .gifticonStore(gifticon.gifticonStore())
+                .id(gifticon.getId())
+                .userId(gifticon.getUserId())
+                .imageUrl(gifticon.getImageUrl())
+                .name(gifticon.getName())
+                .memo(gifticon.getMemo())
+                .expireDate(gifticon.getExpireDate())
+                .used(gifticon.isUsed())
+                .gifticonStore(gifticon.getGifticonStore())
                 .build();
     }
 }
