@@ -50,4 +50,6 @@ public interface GifticonJpaRepository extends JpaRepository<GifticonEntity, Lon
   """)
   Optional<GifticonResponseDTO> findByIdAndUserId(long gifticonId, long userId);
 
+  Long countByUserIdAndUsed(Long userId, boolean used);
+
 }
