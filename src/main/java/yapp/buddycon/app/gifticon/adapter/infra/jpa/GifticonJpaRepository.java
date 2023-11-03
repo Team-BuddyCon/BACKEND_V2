@@ -50,4 +50,12 @@ public interface GifticonJpaRepository extends JpaRepository<GifticonEntity, Lon
   """)
   Optional<GifticonResponseDTO> findByIdAndUserId(long gifticonId, long userId);
 
+  @Query(value = """
+    select g
+    from GifticonEntity g
+    where g.id = :gifticonId
+    and g.userId = :userId
+  """)
+  Optional<GifticonEntity> getByIdAndUserId(long gifticonId, long userId);
+
 }

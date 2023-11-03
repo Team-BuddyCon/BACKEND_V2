@@ -24,28 +24,28 @@ import yapp.buddycon.app.common.request.PagingDTO;
 @RequestMapping("/api/v1/gifticons")
 public class GifticonController {
 
-  private final GifticonUseCase gifticonUseCase;
+    private final GifticonUseCase gifticonUseCase;
 
-  @Operation(summary = "사용완료 기프티콘 목록 조회")
-  @GetMapping("/unavailable")
-  public ResponseEntity<?> getUnavailableGifticons(
-          @Parameter(hidden = true) AuthUser authUser, @Valid PagingDTO dto) {
-    return ApiResponse.successWithBody("사용완료 기프티콘 목록을 성공적으로 조회하였습니다.", gifticonUseCase.getUnavailableGifticons(authUser.id(), dto));
-  }
+    @Operation(summary = "사용완료 기프티콘 목록 조회")
+    @GetMapping("/unavailable")
+    public ResponseEntity<?> getUnavailableGifticons(
+            @Parameter(hidden = true) AuthUser authUser, @Valid PagingDTO dto) {
+        return ApiResponse.successWithBody("사용완료 기프티콘 목록을 성공적으로 조회하였습니다.", gifticonUseCase.getUnavailableGifticons(authUser.id(), dto));
+    }
 
-  @Operation(summary = "사용가능 기프티콘 목록 조회")
-  @GetMapping("/available")
-  public ResponseEntity<ResponseBody> getAvailableGifticons(
-          @Parameter(hidden = true) AuthUser authUser, @Valid SearchAvailableGifticonDTO dto) {
-    return ApiResponse.successWithBody("사용가능 기프티콘 목록을 성공적으로 조회하였습니다.", gifticonUseCase.getAvailableGifticons(authUser.id(), dto));
-  }
+    @Operation(summary = "사용가능 기프티콘 목록 조회")
+    @GetMapping("/available")
+    public ResponseEntity<ResponseBody> getAvailableGifticons(
+            @Parameter(hidden = true) AuthUser authUser, @Valid SearchAvailableGifticonDTO dto) {
+        return ApiResponse.successWithBody("사용가능 기프티콘 목록을 성공적으로 조회하였습니다.", gifticonUseCase.getAvailableGifticons(authUser.id(), dto));
+    }
 
-  @Operation(summary = "특정 기프티콘 단건 조회")
-  @GetMapping("/{gifticon-id}")
-  public ResponseEntity<ResponseBody> getGifticon(
-          @Parameter(hidden = true) AuthUser authUser, @PathVariable("gifticon-id") long gifticonId) {
-    return ApiResponse.successWithBody("기프티콘을 성공적으로 조회하였습니다.",
-        gifticonUseCase.getGifticon(authUser.id(), gifticonId));
-  }
+    @Operation(summary = "특정 기프티콘 단건 조회")
+    @GetMapping("/{gifticon-id}")
+    public ResponseEntity<ResponseBody> getGifticon(
+            @Parameter(hidden = true) AuthUser authUser, @PathVariable("gifticon-id") long gifticonId) {
+        return ApiResponse.successWithBody("기프티콘을 성공적으로 조회하였습니다.",
+                gifticonUseCase.getGifticon(authUser.id(), gifticonId));
+    }
 
 }
