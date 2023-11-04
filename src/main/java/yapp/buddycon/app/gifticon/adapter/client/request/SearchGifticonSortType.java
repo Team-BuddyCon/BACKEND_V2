@@ -3,7 +3,7 @@ package yapp.buddycon.app.gifticon.adapter.client.request;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.data.domain.Sort;
-import yapp.buddycon.app.gifticon.adapter.infra.entity.GifticonEntity;
+import yapp.buddycon.app.gifticon.adapter.infra.jpa.GifticonEntity;
 
 @Getter
 @AllArgsConstructor

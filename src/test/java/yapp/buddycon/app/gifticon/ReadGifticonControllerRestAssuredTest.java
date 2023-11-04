@@ -2,6 +2,7 @@ package yapp.buddycon.app.gifticon;
 
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -12,40 +13,38 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import yapp.buddycon.app.auth.adapter.jwt.JwtTokenDecryptor;
+import yapp.buddycon.app.auth.adapter.AuthenticationArgumentResolver;
+import yapp.buddycon.app.common.AuthUser;
 import yapp.buddycon.app.gifticon.adapter.GifticonException;
 import yapp.buddycon.app.gifticon.adapter.GifticonException.GifticonExceptionCode;
 import yapp.buddycon.app.gifticon.adapter.client.response.GifticonResponseDTO;
-import yapp.buddycon.app.gifticon.application.port.in.GifticonUseCase;
-import yapp.buddycon.app.common.AuthUser;
+import yapp.buddycon.app.gifticon.application.port.in.ReadGifticonUseCase;
+
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class GifticonControllerRestAssuredTest {
+public class ReadGifticonControllerRestAssuredTest {
 
     @MockBean
-    private GifticonUseCase gifticonUseCase;
+    private ReadGifticonUseCase gifticonUseCase;
 
     @MockBean
-    private JwtTokenDecryptor decryptor;
+    private AuthenticationArgumentResolver argumentResolver;
 
     @LocalServerPort
     int port;
 
     @BeforeEach
-    void setUp() {
+    void setUp() throws Exception {
+        when(argumentResolver.resolveArgument(any(), any(), any(), any())).thenReturn(new AuthUser(1L));
+        when(argumentResolver.supportsParameter(any())).thenReturn(true);
         RestAssured.port = port;
     }
 
     @Nested
     class getGifticon {
-
-        @BeforeEach
-        void init() {
-            when(decryptor.decrypt(anyString())).thenReturn(new AuthUser(1000L));
-        }
 
         @Test
         void 요청한_기프티콘의_권한을_가진_사용자가_요청할시_200이_반환된다() {
@@ -56,15 +55,17 @@ public class GifticonControllerRestAssuredTest {
 
             // when
             Response response = RestAssured
-                .given().log().all()
-                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .given()
+                    .log().all()
+                    .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .when()
-                .header("Authorization", "abc")
-                .get("/api/v1/gifticons/" + "1");
+                    .header("Authorization", "abc")
+                    .get("/api/v1/gifticons/" + "1");
 
             // then
             response
                 .then().log().all()
+                .body("body.gifticonId", Matchers.is(gifticonResponseDTO.gifticonId().intValue()))
                 .statusCode(HttpStatus.OK.value())
                 .extract();
         }
@@ -77,11 +78,12 @@ public class GifticonControllerRestAssuredTest {
 
             // when
             Response response = RestAssured
-                .given().log().all()
-                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .given()
+                    .log().all()
+                    .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .when()
-                .header("Authorization", "abc")
-                .get("/api/v1/gifticons/" + "1");
+                    .header("Authorization", "abc")
+                    .get("/api/v1/gifticons/" + "1");
 
             // then
             response

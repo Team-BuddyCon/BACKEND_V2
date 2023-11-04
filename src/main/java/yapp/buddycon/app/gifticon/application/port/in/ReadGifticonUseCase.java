@@ -5,7 +5,7 @@ import yapp.buddycon.app.gifticon.adapter.client.request.SearchAvailableGifticon
 import yapp.buddycon.app.gifticon.adapter.client.response.GifticonResponseDTO;
 import yapp.buddycon.app.common.request.PagingDTO;
 
-public interface GifticonUseCase {
+public interface ReadGifticonUseCase {
 
   Slice<GifticonResponseDTO> getUnavailableGifticons(Long userId, PagingDTO dto);
 

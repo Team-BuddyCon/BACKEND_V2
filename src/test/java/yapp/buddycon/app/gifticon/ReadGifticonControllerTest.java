@@ -15,9 +15,9 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.Arrays;
-import yapp.buddycon.app.gifticon.adapter.client.GifticonController;
+import yapp.buddycon.app.gifticon.adapter.client.ReadGifticonController;
 import yapp.buddycon.app.gifticon.adapter.client.response.GifticonResponseDTO;
-import yapp.buddycon.app.gifticon.application.port.in.GifticonUseCase;
+import yapp.buddycon.app.gifticon.application.port.in.ReadGifticonUseCase;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
@@ -25,19 +25,19 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(MockitoExtension.class)
-public class GifticonControllerTest {
+public class ReadGifticonControllerTest {
 
   private MockMvc mockMvc;
   private final String BASE_URL = "/api/v1/gifticons";
 
   @Mock
-  private GifticonUseCase gifticonUseCase;
+  private ReadGifticonUseCase gifticonUseCase;
   @InjectMocks
-  private GifticonController gifticonController;
+  private ReadGifticonController readGifticonController;
 
   @BeforeEach
   void init() {
-    mockMvc = MockMvcBuilders.standaloneSetup(gifticonController).build();
+    mockMvc = MockMvcBuilders.standaloneSetup(readGifticonController).build();
   }
 
   @Nested

@@ -8,14 +8,14 @@ import yapp.buddycon.app.gifticon.adapter.GifticonException;
 import yapp.buddycon.app.gifticon.adapter.GifticonException.GifticonExceptionCode;
 import yapp.buddycon.app.gifticon.adapter.client.request.SearchAvailableGifticonDTO;
 import yapp.buddycon.app.gifticon.adapter.client.response.GifticonResponseDTO;
-import yapp.buddycon.app.gifticon.application.port.in.GifticonUseCase;
+import yapp.buddycon.app.gifticon.application.port.in.ReadGifticonUseCase;
 import yapp.buddycon.app.gifticon.application.port.out.GifticonQueryStorage;
 import yapp.buddycon.app.common.request.PagingDTO;
 
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
-public class GifticonService implements GifticonUseCase {
+public class ReadGifticonService implements ReadGifticonUseCase {
 
   private final GifticonQueryStorage gifticonQueryStorage;
 

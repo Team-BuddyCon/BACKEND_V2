@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import yapp.buddycon.app.common.response.ResponseBody;
 import yapp.buddycon.app.common.response.ApiResponse;
 import yapp.buddycon.app.gifticon.adapter.client.request.SearchAvailableGifticonDTO;
-import yapp.buddycon.app.gifticon.application.port.in.GifticonUseCase;
+import yapp.buddycon.app.gifticon.application.port.in.ReadGifticonUseCase;
 import yapp.buddycon.app.common.AuthUser;
 import yapp.buddycon.app.common.request.PagingDTO;
 
@@ -22,9 +22,9 @@ import yapp.buddycon.app.common.request.PagingDTO;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/gifticons")
-public class GifticonController {
+public class ReadGifticonController {
 
-  private final GifticonUseCase gifticonUseCase;
+  private final ReadGifticonUseCase gifticonUseCase;
 
   @Operation(summary = "사용완료 기프티콘 목록 조회")
   @GetMapping("/unavailable")
