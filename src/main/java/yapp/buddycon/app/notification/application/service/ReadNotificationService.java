@@ -18,6 +18,6 @@ public class ReadNotificationService implements ReadNotificationUseCase {
 
   @Override
   public Slice<NotificationResponseDTO> getNotifications(Long userId, PagingDTO dto) {
-    return queryStorage.findAll(userId, dto.toPageable());
+    return queryStorage.findAllByUserId(userId, dto.toPageable());
   }
 }

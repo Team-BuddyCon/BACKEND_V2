@@ -6,6 +6,6 @@ import yapp.buddycon.app.notification.adapter.client.response.NotificationRespon
 
 public interface NotificationQueryStorage {
 
-  Slice<NotificationResponseDTO> findAll(long userId, Pageable pageable);
+  Slice<NotificationResponseDTO> findAllByUserId(long userId, Pageable pageable);
 
 }

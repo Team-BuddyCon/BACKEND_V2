@@ -34,7 +34,7 @@ public class ReadNotificationServiceTest {
     @Test
     void 데이터가_없을_경우_빈_리스트를_반환한다() {
       // given
-      when(queryStorage.findAll(anyLong(), any())).thenReturn(
+      when(queryStorage.findAllByUserId(anyLong(), any())).thenReturn(
           new SliceImpl<>(Collections.emptyList())
       );
 
@@ -48,7 +48,7 @@ public class ReadNotificationServiceTest {
     @Test
     void 알림_목록을_반환한다() {
       // given
-      when(queryStorage.findAll(anyLong(), any())).thenReturn(
+      when(queryStorage.findAllByUserId(anyLong(), any())).thenReturn(
           new SliceImpl<>(Arrays.asList(
               new NotificationResponseDTO(1L, 1L, "title1", null, null, null, null),
               new NotificationResponseDTO(2L, null, null, 1L, 7, 1L, "name1")))
