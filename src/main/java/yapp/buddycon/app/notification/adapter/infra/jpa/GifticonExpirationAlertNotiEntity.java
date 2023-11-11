@@ -14,12 +14,12 @@ import yapp.buddycon.app.common.BaseEntity;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-@Table(name = "gifticon_expiration_noti")
-public class GifticonExpirationNotiEntity extends BaseEntity {
+@Table(name = "gifticon_expiration_alert_noti")
+public class GifticonExpirationAlertNotiEntity extends BaseEntity {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "gifticon_expiration_noti_id")
+  @Column(name = "gifticon_expiration_alert_noti_id")
   private Long id;
   @Column(name = "notification_id", nullable = false)
   private Long notificationId;
@@ -28,7 +28,7 @@ public class GifticonExpirationNotiEntity extends BaseEntity {
   @Column(name = "days_left", nullable = false)
   private Integer daysLeft;
 
-  public GifticonExpirationNotiEntity(Long id, Long notificationId, Long gifticonId,
+  public GifticonExpirationAlertNotiEntity(Long id, Long notificationId, Long gifticonId,
       Integer daysLeft) {
     this.id = id;
     this.notificationId = notificationId;

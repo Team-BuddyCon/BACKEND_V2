@@ -14,7 +14,7 @@ public interface NotificationJpaRepository extends JpaRepository<NotificationEnt
     FROM NotificationEntity n
     LEFT OUTER JOIN AnnouncementNotiEntity an
       ON n.id = an.notificationId
-    LEFT OUTER JOIN GifticonExpirationNotiEntity gen
+    LEFT OUTER JOIN GifticonExpirationAlertNotiEntity gen
       ON n.id = gen.notificationId
     LEFT OUTER JOIN GifticonEntity g
       ON gen.gifticonId = g.id
