@@ -2,9 +2,9 @@ package yapp.buddycon.app.notification.adapter.client.response;
 
 public record NotificationResponseDTO(
     Long notificationId,
-    Long notificationAnnouncementId,
-    String notificationAnnouncementTitle,
-    Long notificationGifticonExpirationAlertId,
+    Long announcementId,
+    String announcementTitle,
+    Long GifticonExpirationAlertId,
     Integer gifticonDaysLeft,
     Long gifticonId,
     String gifticonName
