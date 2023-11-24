@@ -15,6 +15,6 @@ public class JpaNotificationSettingQueryStorage implements NotificationSettingQu
 
   @Override
   public Optional<NotificationSettingResponseDTO> findByUserId(Long userId) {
-    return notificationSettingJpaRepository.findAllByUserId(userId);
+    return notificationSettingJpaRepository.findByUserId(userId);
   }
 }

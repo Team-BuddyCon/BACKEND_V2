@@ -30,7 +30,7 @@ public class NotificationSettingJpaRepositoryTest {
 
     // when
     Optional<NotificationSettingResponseDTO> result =
-        notificationSettingJpaRepository.findAllByUserId(1L);
+        notificationSettingJpaRepository.findByUserId(1L);
 
     // then
     assertThat(result).isNotEmpty();

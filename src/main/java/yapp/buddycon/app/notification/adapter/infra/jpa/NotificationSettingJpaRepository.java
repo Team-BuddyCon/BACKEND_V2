@@ -13,5 +13,5 @@ public interface NotificationSettingJpaRepository extends JpaRepository<Notifica
     from NotificationSettingEntity n
     where n.userId = :userId
   """)
-  Optional<NotificationSettingResponseDTO> findAllByUserId(Long userId);
+  Optional<NotificationSettingResponseDTO> findByUserId(Long userId);
 }
