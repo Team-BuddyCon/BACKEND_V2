@@ -3,6 +3,7 @@ package yapp.buddycon.app.gifticon.adapter.infra.jpa;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import yapp.buddycon.app.gifticon.adapter.client.response.GifticonResponseDTO;
 import yapp.buddycon.app.gifticon.domain.GifticonStoreCategory;
@@ -49,4 +50,12 @@ public interface GifticonJpaRepository extends JpaRepository<GifticonEntity, Lon
   """)
   Optional<GifticonResponseDTO> findByIdAndUserId(long gifticonId, long userId);
 
+  @Modifying
+  @Query(value = """
+    update GifticonEntity g
+    set g.deleted = true
+    where g.id = :gifticonId
+    and g.userId = :userId
+  """)
+  void delete(Long userId, Long gifticonId);
 }

@@ -19,4 +19,9 @@ public class JpaGifticonCommandStorage implements GifticonCommandStorage {
 
         return mapper.toGifticon(repository.save(mapper.toEntity(gifticon)));
     }
+
+    @Override
+    public void delete(Long userId, Long gifticonId) {
+        repository.delete(userId, gifticonId);
+    }
 }
