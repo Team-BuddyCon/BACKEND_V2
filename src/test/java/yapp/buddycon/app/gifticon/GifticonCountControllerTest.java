@@ -12,9 +12,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import yapp.buddycon.app.auth.adapter.AuthenticationArgumentResolver;
 import yapp.buddycon.app.common.AuthUser;
-import yapp.buddycon.app.gifticon.adapter.infra.jpa.GifticonCountDao;
+import yapp.buddycon.app.gifticon.application.port.in.GifticonCountUsecase;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
@@ -33,12 +32,12 @@ class GifticonCountControllerTest {
     @MockBean
     AuthenticationArgumentResolver argumentResolver;
     @MockBean
-    GifticonCountDao dao;
+    GifticonCountUsecase usecase;
 
     @Test
     void 정상적인_기프티콘_조회_요청시_200을_반환한다() throws Exception {
         when(argumentResolver.resolveArgument(any(), any(), any(), any())).thenReturn(new AuthUser(1L));
-        when(dao.countGifticons(1L, false)).thenReturn(5L);
+        when(usecase.countGifticons(1L, false)).thenReturn(5L);
 
         RestAssured.given().log().all()
                 .contentType(MediaType.APPLICATION_JSON_VALUE)

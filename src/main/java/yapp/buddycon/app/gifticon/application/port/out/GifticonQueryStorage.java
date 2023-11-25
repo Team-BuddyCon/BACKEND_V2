@@ -17,4 +17,6 @@ public interface GifticonQueryStorage {
 
   Optional<GifticonResponseDTO> findByGifticonIdAndUserId(long gifticonId, long userId);
 
+  Long countByUserIdAndUsed(long userId, boolean used);
+
 }
