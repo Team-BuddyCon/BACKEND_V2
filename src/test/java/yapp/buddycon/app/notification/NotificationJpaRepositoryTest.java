@@ -56,9 +56,9 @@ public class NotificationJpaRepositoryTest {
     void 기프티콘_만료_알림은_유저아이디를_기준으로_필터링된다() {
       // given
       GifticonEntity 사용자1_기프티콘 = gifticonJpaRepository.save(
-          new GifticonEntity(null, 사용자1.getId(), "url1", "name1", "memo1", LocalDate.now(), false, GifticonStore.STARBUCKS));
+          new GifticonEntity(null, 사용자1.getId(), "url1", "name1", "memo1", LocalDate.now(), false, false, GifticonStore.STARBUCKS));
       GifticonEntity 사용자2_기프티콘 = gifticonJpaRepository.save(
-          new GifticonEntity(null, 사용자2.getId(), "url2", "name2", "memo2", LocalDate.now(), false, GifticonStore.MACDONALD));
+          new GifticonEntity(null, 사용자2.getId(), "url2", "name2", "memo2", LocalDate.now(), false, false, GifticonStore.MACDONALD));
 
       NotificationEntity 알림1 = notificationRepository.save(new NotificationEntity(null));
       NotificationEntity 알림2 = notificationRepository.save(new NotificationEntity(null));

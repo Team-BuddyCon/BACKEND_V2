@@ -13,6 +13,7 @@ public record Gifticon(
         String memo,
         LocalDate expireDate,
         boolean used,
+        boolean deleted,
         GifticonStore gifticonStore,
         GifticonStoreCategory gifticonStoreCategory
 ) {
