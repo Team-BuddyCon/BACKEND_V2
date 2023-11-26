@@ -1,10 +1,9 @@
 package yapp.buddycon.app.notification.application.port.out;
 
-import java.util.Optional;
-import yapp.buddycon.app.notification.adapter.client.response.NotificationSettingResponseDTO;
+import yapp.buddycon.app.notification.domain.NotificationSetting;
 
 public interface NotificationSettingQueryStorage {
 
-  Optional<NotificationSettingResponseDTO> findByUserId(Long userId);
+  NotificationSetting getByUserId(Long userId);
 
 }
