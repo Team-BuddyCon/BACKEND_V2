@@ -8,17 +8,18 @@ import yapp.buddycon.app.notification.adapter.NotificationSettingException.Notif
 import yapp.buddycon.app.notification.adapter.client.response.NotificationSettingResponseDTO;
 import yapp.buddycon.app.notification.application.port.in.ReadNotificationSettingUseCase;
 import yapp.buddycon.app.notification.application.port.out.NotificationSettingQueryStorage;
+import yapp.buddycon.app.notification.domain.NotificationSetting;
 
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class ReadNotificationSettingService implements ReadNotificationSettingUseCase {
 
-  private final NotificationSettingQueryStorage notificationQueryStorage;
+  private final NotificationSettingQueryStorage notificationSettingQueryStorage;
 
   @Override
   public NotificationSettingResponseDTO getMyNotificationSetting(Long userId) {
-    return notificationQueryStorage.findByUserId(userId)
-        .orElseThrow(() -> new NotificationSettingException(NotificationExceptionCode.NOTIFICATION_SETTING_NOT_FOUND));
+    NotificationSetting notificationSetting = notificationSettingQueryStorage.getByUserId(userId);
+    return NotificationSettingResponseDTO.of(notificationSetting);
   }
 }

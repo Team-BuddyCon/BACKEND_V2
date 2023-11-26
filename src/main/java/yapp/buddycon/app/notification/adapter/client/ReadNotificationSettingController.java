@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import yapp.buddycon.app.common.AuthUser;
 import yapp.buddycon.app.common.response.ApiResponse;
+import yapp.buddycon.app.common.response.ResponseBody;
 import yapp.buddycon.app.notification.application.port.in.ReadNotificationSettingUseCase;
 
 @Tag(name = "내 알림 설정 조회", description = "내 알림 설정 조회 API")
@@ -22,7 +23,7 @@ public class ReadNotificationSettingController {
 
   @Operation(summary = "내 알림 설정 조회")
   @GetMapping("/me")
-  public ResponseEntity<?> getMyNotificationSetting(@Parameter(hidden = true) AuthUser authUser) {
+  public ResponseEntity<ResponseBody> getMyNotificationSetting(@Parameter(hidden = true) AuthUser authUser) {
     return ApiResponse.successWithBody("내 알림 설정을 성공적으로 조회하였습니다.",
         notificationUseCase.getMyNotificationSetting(authUser.id()));
   }

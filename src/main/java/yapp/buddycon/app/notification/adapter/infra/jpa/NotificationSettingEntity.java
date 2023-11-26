@@ -32,14 +32,16 @@ public class NotificationSettingEntity extends BaseEntity {
   private boolean theDay;
 
   @Builder
-  public NotificationSettingEntity(Long userId) {
+  public NotificationSettingEntity(Long id, Long userId, boolean activated,
+      boolean fourteenDaysBefore, boolean sevenDaysBefore, boolean threeDaysBefore,
+      boolean oneDayBefore, boolean theDay) {
+    this.id = id;
     this.userId = userId;
-    this.activated = true;
-    this.fourteenDaysBefore = false;
-    this.sevenDaysBefore = true;
-    this.threeDaysBefore = false;
-    this.oneDayBefore = true;
-    this.theDay = true;
+    this.activated = activated;
+    this.fourteenDaysBefore = fourteenDaysBefore;
+    this.sevenDaysBefore = sevenDaysBefore;
+    this.threeDaysBefore = threeDaysBefore;
+    this.oneDayBefore = oneDayBefore;
+    this.theDay = theDay;
   }
-
 }

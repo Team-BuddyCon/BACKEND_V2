@@ -5,19 +5,20 @@ import org.springframework.stereotype.Component;
 import yapp.buddycon.app.notification.adapter.infra.jpa.NotificationSettingEntity;
 import yapp.buddycon.app.notification.adapter.infra.jpa.NotificationSettingJpaRepository;
 import yapp.buddycon.app.notification.adapter.infra.jpa.NotificationSettingMapper;
-import yapp.buddycon.app.notification.application.port.out.NotificationSettingQueryStorage;
+import yapp.buddycon.app.notification.application.port.out.NotificationSettingCommandStorage;
 import yapp.buddycon.app.notification.domain.NotificationSetting;
 
 @RequiredArgsConstructor
 @Component
-public class JpaNotificationSettingQueryStorage implements NotificationSettingQueryStorage {
+public class JpaNotificationSettingCommandStorage implements NotificationSettingCommandStorage {
 
   private final NotificationSettingJpaRepository notificationSettingJpaRepository;
   private final NotificationSettingMapper mapper;
 
   @Override
-  public NotificationSetting getByUserId(Long userId) {
-    NotificationSettingEntity entity = notificationSettingJpaRepository.getByUserId(userId);
+  public NotificationSetting save(NotificationSetting notificationSetting) {
+    NotificationSettingEntity entity = notificationSettingJpaRepository
+        .save(mapper.toEntity(notificationSetting));
     return mapper.toNotificationSetting(entity);
   }
 
