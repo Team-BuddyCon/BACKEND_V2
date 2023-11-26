@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import yapp.buddycon.app.common.AuthUser;
 import yapp.buddycon.app.common.response.ApiResponse;
+import yapp.buddycon.app.common.response.ResponseBody;
 import yapp.buddycon.app.notification.adapter.client.request.UpdateNotificationSettingDTO;
 import yapp.buddycon.app.notification.application.port.in.UpdateNotificationSettingUseCase;
 
@@ -25,7 +26,7 @@ public class UpdateNotificationSettingController {
 
   @Operation(summary = "내 알림 설정 수정")
   @PutMapping("/me")
-  public ResponseEntity<?> updateMyNotificationSetting(
+  public ResponseEntity<ResponseBody> updateMyNotificationSetting(
       @Parameter(hidden = true) AuthUser authUser,
       @RequestBody @Valid UpdateNotificationSettingDTO dto) {
     updateNotificationSettingUseCase.updateNotificationSetting(dto, authUser.id());
