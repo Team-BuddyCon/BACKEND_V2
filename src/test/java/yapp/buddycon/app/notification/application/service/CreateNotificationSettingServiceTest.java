@@ -35,7 +35,7 @@ class CreateNotificationSettingServiceTest {
   }
 
   @Test
-  public void 추가되는_알림_설정은_기본값을_가지고_있다() {
+  void 추가되는_알림_설정은_기본값을_가지고_있다() {
     // given
     Long userId = 123L;
 
