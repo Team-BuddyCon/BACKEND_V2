@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import yapp.buddycon.app.auth.application.service.AuthService;
+import yapp.buddycon.app.auth.application.port.in.AuthUsecase;
 import yapp.buddycon.app.auth.application.service.TokenDto;
 import yapp.buddycon.app.common.response.ResponseBody;
 import yapp.buddycon.app.common.response.ApiResponse;
@@ -20,12 +20,12 @@ import yapp.buddycon.app.common.response.ApiResponse;
 @RequiredArgsConstructor
 public class LoginController {
 
-    private final AuthService authService;
+    private final AuthUsecase authUsecase;
 
     @Operation(summary = "로그인")
     @PostMapping("/login")
     public ResponseEntity<ResponseBody> login(@RequestBody @Valid LoginRequest request) {
-        TokenDto tokenDto = authService.login(request);
+        TokenDto tokenDto = authUsecase.login(request);
         return ApiResponse.successWithBody("로그인에 성공하였습니다.", tokenDto);
     }
 
