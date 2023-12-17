@@ -34,7 +34,6 @@ public class ReadGifticonService implements ReadGifticonUseCase {
 
   @Override
   public GifticonResponseDTO getGifticon(Long userId, Long gifticonId) {
-    return gifticonQueryStorage.findByGifticonIdAndUserId(gifticonId, userId)
-        .orElseThrow(() -> new GifticonException(GifticonExceptionCode.GIFTICON_NOT_FOUND));
+    return gifticonQueryStorage.findByGifticonIdAndUserId(gifticonId, userId);
   }
 }

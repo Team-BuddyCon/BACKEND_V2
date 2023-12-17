@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 import yapp.buddycon.app.common.response.ResponseBody;
 import yapp.buddycon.app.common.response.ApiResponse;
 import yapp.buddycon.app.gifticon.adapter.client.request.SearchAvailableGifticonDTO;
-import yapp.buddycon.app.gifticon.application.port.in.ReadGifticonUseCase;
 import yapp.buddycon.app.common.AuthUser;
+import yapp.buddycon.app.gifticon.application.port.in.ReadGifticonUseCase;
 import yapp.buddycon.app.common.request.PagingDTO;
 
 @Tag(name = "기프티콘 조회", description = "기프티콘 조회 API")

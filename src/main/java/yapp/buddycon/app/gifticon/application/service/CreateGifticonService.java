@@ -21,7 +21,7 @@ public class CreateGifticonService implements CreateGifticonUsecase {
     @Override
     public void createGifticon(GifticonCreationDto dto, MultipartFile image, Long userId) {
         String imageUrl = imageUploader.upload(image);
-        Gifticon gifticon = new Gifticon(null, userId, imageUrl, dto.name(), dto.memo(), dto.expireDate(), false, dto.store(), dto.store().getCategory());
+        Gifticon gifticon = new Gifticon(null, userId, imageUrl, dto.name(), dto.memo(), dto.expireDate(), false, dto.store());
         gifticonCommandStorage.save(gifticon);
     }
 }
