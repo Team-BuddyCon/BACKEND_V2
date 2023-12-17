@@ -1,4 +1,4 @@
-package yapp.buddycon.app.gifticon.application.service;
+package yapp.buddycon.app.gifticon;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -8,6 +8,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import yapp.buddycon.app.gifticon.adapter.client.request.GifticonUpdateDto;
 import yapp.buddycon.app.gifticon.application.port.out.GifticonCommandStorage;
 import yapp.buddycon.app.gifticon.application.port.out.GifticonQueryStorage;
+import yapp.buddycon.app.gifticon.application.service.UpdateGifticonService;
 import yapp.buddycon.app.gifticon.domain.Gifticon;
 import yapp.buddycon.app.gifticon.domain.GifticonStore;
 

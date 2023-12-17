@@ -143,10 +143,10 @@ public class GifticonJpaRepositoryTest {
       GifticonEntity target = createGifticonEntity("name1", false, GifticonStore.STARBUCKS, user.getId());
 
       // when
-      Optional<GifticonResponseDTO> result = gifticonJpaRepository.findByIdAndUserId(target.getId(), user.getId());
+      Optional<GifticonEntity> result = gifticonJpaRepository.findByIdAndUserId(target.getId(), user.getId());
 
       // then
-      assertThat(result.get().gifticonId()).isEqualTo(target.getId());
+      assertThat(result.get().getId()).isEqualTo(target.getId());
     }
 
     @Test
@@ -154,7 +154,7 @@ public class GifticonJpaRepositoryTest {
       // given
 
       // when
-      Optional<GifticonResponseDTO> result = gifticonJpaRepository.findByIdAndUserId(1L, 1L);
+      Optional<GifticonEntity> result = gifticonJpaRepository.findByIdAndUserId(1L, 1L);
 
       // then
       assertThat(result).isEqualTo(Optional.empty());

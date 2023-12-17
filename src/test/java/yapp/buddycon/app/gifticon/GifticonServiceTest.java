@@ -84,8 +84,7 @@ public class GifticonServiceTest {
     void 요청한_기프티콘이_있을_경우_DTO를_반환한다() {
       // given
       GifticonResponseDTO gifticonResponseDTO = new GifticonResponseDTO(REQUEST_GIFTICON_ID, "", "", "", null, null, null);
-      when(gifticonQueryStoragePort.findByGifticonIdAndUserId(REQUEST_GIFTICON_ID, REQUEST_USER_ID))
-          .thenReturn(Optional.of(gifticonResponseDTO));
+      when(gifticonQueryStoragePort.findByGifticonIdAndUserId(REQUEST_GIFTICON_ID, REQUEST_USER_ID)).thenReturn(gifticonResponseDTO);
 
       // when
       GifticonResponseDTO result = gifticonService.getGifticon(REQUEST_USER_ID, REQUEST_GIFTICON_ID);
@@ -97,8 +96,7 @@ public class GifticonServiceTest {
     @Test
     void 요청한_기프티콘을_찾을_수_없을시_Exception을_던진다() {
       // given
-      when(gifticonQueryStoragePort.findByGifticonIdAndUserId(REQUEST_GIFTICON_ID, REQUEST_USER_ID))
-          .thenReturn(Optional.empty());
+      doThrow(new GifticonException(GifticonExceptionCode.GIFTICON_NOT_FOUND)).when(gifticonQueryStoragePort).findByGifticonIdAndUserId(REQUEST_GIFTICON_ID, REQUEST_USER_ID);
 
       // when
       Throwable exception = assertThrows(GifticonException.class, () -> {

@@ -6,6 +6,7 @@ import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Component;
 import yapp.buddycon.app.gifticon.adapter.GifticonException;
 import yapp.buddycon.app.gifticon.adapter.client.response.GifticonResponseDTO;
+import yapp.buddycon.app.gifticon.adapter.infra.entity.GifticonEntity;
 import yapp.buddycon.app.gifticon.domain.Gifticon;
 import yapp.buddycon.app.gifticon.domain.GifticonStoreCategory;
 import yapp.buddycon.app.gifticon.adapter.infra.jpa.GifticonJpaRepository;
@@ -37,14 +38,15 @@ public class JpaGifticonQueryStorage implements GifticonQueryStorage {
     }
 
     @Override
-    public Optional<GifticonResponseDTO> findByGifticonIdAndUserId(long gifticonId, long userId) {
-        return gifticonJpaRepository.findByIdAndUserId(gifticonId, userId);
+    public GifticonResponseDTO findByGifticonIdAndUserId(long gifticonId, long userId) {
+        GifticonEntity gifticon = gifticonJpaRepository.findByIdAndUserId(gifticonId, userId).orElseThrow(() -> new GifticonException(GifticonException.GifticonExceptionCode.GIFTICON_NOT_FOUND));
+        return new GifticonResponseDTO(gifticon.getId(), gifticon.getImageUrl(), gifticon.getName(), gifticon.getMemo(), gifticon.getExpireDate(), gifticon.getGifticonStore(), gifticon.getGifticonStoreCategory());
     }
 
     @Override
     public Gifticon getByGifticonIdAndUserId(long gifticonId, long userId) {
         return mapper.toGifticon(
-                gifticonJpaRepository.getByIdAndUserId(gifticonId, userId)
+                gifticonJpaRepository.findByIdAndUserId(gifticonId, userId)
                         .orElseThrow(() -> new GifticonException(GifticonException.GifticonExceptionCode.GIFTICON_NOT_FOUND))
         );
     }

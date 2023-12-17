@@ -16,7 +16,7 @@ public interface GifticonQueryStorage {
           long userId, GifticonStoreCategory gifticonStoreCategory, Pageable pageable
   );
 
-  Optional<GifticonResponseDTO> findByGifticonIdAndUserId(long gifticonId, long userId);
+  GifticonResponseDTO findByGifticonIdAndUserId(long gifticonId, long userId);
 
   Gifticon getByGifticonIdAndUserId(long gifticonId, long userId);
 
