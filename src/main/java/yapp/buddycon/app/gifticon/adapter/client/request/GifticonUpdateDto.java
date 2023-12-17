@@ -10,7 +10,6 @@ import java.time.LocalDate;
 
 public record GifticonUpdateDto(
 
-        long gifticonId,
         @NotBlank
         String name,
 

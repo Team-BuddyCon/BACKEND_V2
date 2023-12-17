@@ -30,10 +30,10 @@ class UpdateGifticonServiceTest {
     void 기프티콘_수정시_query가_한번_나간다() {
         final var gifticonId = 1L;
         final var userId = 1L;
-        final var request = new GifticonUpdateDto(gifticonId, "name", LocalDate.now(), GifticonStore.GS25, "memo");
+        final var request = new GifticonUpdateDto("name", LocalDate.now(), GifticonStore.GS25, "memo");
 
         when(queryStorage.getByGifticonIdAndUserId(gifticonId, userId)).thenReturn(new Gifticon(gifticonId, userId, "imageUrl", "name", "memo", LocalDate.now(), false, GifticonStore.CU));
-        service.update(request, userId);
+        service.update(request, gifticonId, userId);
 
         verify(queryStorage, times(1)).getByGifticonIdAndUserId(gifticonId, userId);
     }
@@ -43,10 +43,10 @@ class UpdateGifticonServiceTest {
         final var gifticonId = 1L;
         final var userId = 1L;
         final var gifticon = new Gifticon(gifticonId, userId, "imageUrl", "name", "memo", LocalDate.now(), false, GifticonStore.CU);
-        final var request = new GifticonUpdateDto(gifticonId, "name", LocalDate.now(), GifticonStore.GS25, "memo");
+        final var request = new GifticonUpdateDto("name", LocalDate.now(), GifticonStore.GS25, "memo");
 
         when(queryStorage.getByGifticonIdAndUserId(gifticonId, userId)).thenReturn(gifticon);
-        service.update(request, userId);
+        service.update(request, gifticonId, userId);
 
         verify(commandStorage, times(1)).save(any(Gifticon.class));
     }

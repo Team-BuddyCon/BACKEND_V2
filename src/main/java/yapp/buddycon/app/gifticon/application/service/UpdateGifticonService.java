@@ -18,8 +18,8 @@ public class UpdateGifticonService implements UpdateGifticonUsecase {
     private final GifticonCommandStorage commandStorage;
 
     @Override
-    public void update(GifticonUpdateDto dto, Long userId) {
-        Gifticon gifticon = queryStorage.getByGifticonIdAndUserId(dto.gifticonId(), userId);
+    public void update(GifticonUpdateDto dto, Long gifticonId, Long userId) {
+        Gifticon gifticon = queryStorage.getByGifticonIdAndUserId(gifticonId, userId);
         gifticon.modify(dto.name(), dto.memo(), dto.expireDate(), dto.store());
         commandStorage.save(gifticon);
     }

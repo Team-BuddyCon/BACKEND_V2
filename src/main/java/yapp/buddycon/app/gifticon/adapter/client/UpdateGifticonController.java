@@ -22,12 +22,13 @@ public class UpdateGifticonController {
     private final UpdateGifticonUsecase usecase;
 
     @Operation(summary = "기프티콘 내용 변경")
-    @PutMapping("")
+    @PutMapping("{gifticon-id}")
     public ResponseEntity<ResponseBody> updateGifticonContent(
             @Parameter(hidden = true) AuthUser user,
+            @PathVariable("gifticon-id") long gifticonId,
             @Parameter(name = "기프티콘 수정 dto") @RequestBody @Valid GifticonUpdateDto dto
     ) {
-        usecase.update(dto, user.id());
+        usecase.update(dto, gifticonId, user.id());
         return ApiResponse.success("기프티콘 수정을 완료하였습니다.");
     }
 }

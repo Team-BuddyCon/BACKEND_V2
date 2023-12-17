@@ -45,16 +45,16 @@ class UpdateGifticonControllerTest {
     void 정상적인_기프티콘_수정_요청의_경우_200이_반환된다() throws Exception {
 
         // given
-        final var request = new GifticonUpdateDto(1L, "name", LocalDate.now(), GifticonStore.GS25, "memo");
+        final var request = new GifticonUpdateDto("name", LocalDate.now(), GifticonStore.GS25, "memo");
 
         when(authenticationArgumentResolver.resolveArgument(any(), any(), any(), any())).thenReturn(new AuthUser(1L));
-        doNothing().when(usecase).update(request, 1L);
+        doNothing().when(usecase).update(request, 1L, 1L);
 
         // when
         final var response = RestAssured.given().log().all()
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .body(request)
-                .when().put("/api/v1/gifticons")
+                .when().put("/api/v1/gifticons/1")
                 .then().statusCode(HttpStatus.OK.value())
                 .log().all()
                 .extract();
@@ -67,16 +67,16 @@ class UpdateGifticonControllerTest {
     void 입력값의_이름이_비어있을_경우_400을_반환한다() throws Exception {
 
         // given
-        final var request = new GifticonUpdateDto(1L, " ", LocalDate.now(), GifticonStore.GS25, "memo");
+        final var request = new GifticonUpdateDto(" ", LocalDate.now(), GifticonStore.GS25, "memo");
 
         when(authenticationArgumentResolver.resolveArgument(any(), any(), any(), any())).thenReturn(new AuthUser(1L));
-        doNothing().when(usecase).update(request, 1L);
+        doNothing().when(usecase).update(request, 1L, 1L);
 
         // when
         final var response = RestAssured.given().log().all()
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .body(request)
-                .when().put("/api/v1/gifticons")
+                .when().put("/api/v1/gifticons/1")
                 .then().log().all()
                 .extract();
 
@@ -88,14 +88,14 @@ class UpdateGifticonControllerTest {
     void 만료일이_형식에_맞지_않을경우_400을_반환한다() throws Exception {
 
         // given
-        final var request = new GifticonUpdateDto(1L, "name", null, GifticonStore.GS25, "memo");
+        final var request = new GifticonUpdateDto("name", null, GifticonStore.GS25, "memo");
         String body = new ObjectMapper().writeValueAsString(request);
 
         // when
         final var response = RestAssured.given().log().all()
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .body(body)
-                .when().put("/api/v1/gifticons")
+                .when().put("/api/v1/gifticons/1")
                 .then().log().all()
                 .extract();
 
@@ -108,14 +108,14 @@ class UpdateGifticonControllerTest {
 
         // given
         final var dto = """
-                {\\"gifticonId\\":1, \\"name\\":\\"name\\", \\"expireDate\\":\\"2022-04-01\\", \\"store\\":\\"GS24\\", \\"memo\\":\\"memo\\"}
+                {\\"name\\":\\"name\\", \\"expireDate\\":\\"2022-04-01\\", \\"store\\":\\"GS24\\", \\"memo\\":\\"memo\\"}
                 """;
 
         // when
         final var response = RestAssured.given().log().all()
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .body(dto)
-                .when().put("/api/v1/gifticons")
+                .when().put("/api/v1/gifticons/1")
                 .then().log().all()
                 .extract();
 

@@ -4,5 +4,5 @@ import yapp.buddycon.app.gifticon.adapter.client.request.GifticonUpdateDto;
 
 public interface UpdateGifticonUsecase {
 
-    void update(GifticonUpdateDto dto, Long userId);
+    void update(GifticonUpdateDto dto, Long gifticonId, Long userId);
 }
