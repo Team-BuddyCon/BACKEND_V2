@@ -1,5 +1,6 @@
 package yapp.buddycon.app.gifticon;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -87,14 +88,13 @@ class UpdateGifticonControllerTest {
     void 만료일이_형식에_맞지_않을경우_400을_반환한다() throws Exception {
 
         // given
-        final var dto = """
-                {\\"gifticonId\\":1, \\"name\\":\\"name\\", \\"expireDate\\":\\"20220401\\", \\"store\\":\\"GS25\\", \\"memo\\":\\"memo\\"}
-                """;
+        final var request = new GifticonUpdateDto(1L, "name", null, GifticonStore.GS25, "memo");
+        String body = new ObjectMapper().writeValueAsString(request);
 
         // when
         final var response = RestAssured.given().log().all()
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .body(dto)
+                .body(body)
                 .when().put("/api/v1/gifticons")
                 .then().log().all()
                 .extract();
