@@ -39,4 +39,10 @@ public class JpaGifticonQueryStorage implements GifticonQueryStorage {
     return gifticonJpaRepository.findByIdAndUserId(gifticonId, userId);
   }
 
+  @Override
+  public boolean existByUserIdAndGifticonId(long userId, long gifticonId) {
+    return gifticonJpaRepository.existsByUserIdAndId(userId, gifticonId);
+
+  }
+
 }

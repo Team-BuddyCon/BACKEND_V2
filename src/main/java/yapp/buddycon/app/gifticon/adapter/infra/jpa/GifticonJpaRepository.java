@@ -58,4 +58,6 @@ public interface GifticonJpaRepository extends JpaRepository<GifticonEntity, Lon
     and g.userId = :userId
   """)
   void delete(Long userId, Long gifticonId);
+
+  boolean existsByUserIdAndId(long userId, long gifticonId);
 }
