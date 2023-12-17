@@ -21,5 +21,4 @@ public interface GifticonQueryStorage {
   Gifticon getByGifticonIdAndUserId(long gifticonId, long userId);
 
   Long countByUserIdAndUsed(long userId, boolean used);
-
 }

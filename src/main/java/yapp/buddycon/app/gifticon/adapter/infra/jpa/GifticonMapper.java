@@ -33,6 +33,7 @@ public class GifticonMapper {
                         .memo(entity.getMemo())
                         .expireDate(entity.getExpireDate())
                         .used(entity.isUsed())
+                        .deleted(entity.isDeleted())
                         .gifticonStore(entity.getGifticonStore())
                         .build());
     }
@@ -46,6 +47,7 @@ public class GifticonMapper {
                 .memo(gifticon.getMemo())
                 .expireDate(gifticon.getExpireDate())
                 .used(gifticon.isUsed())
+                .deleted(gifticon.isDeleted())
                 .gifticonStore(gifticon.getGifticonStore())
                 .build();
     }

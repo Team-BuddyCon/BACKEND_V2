@@ -32,6 +32,7 @@ public class GifticonEntity extends BaseEntity {
   @Column(name = "expire_date", nullable = false)
   private LocalDate expireDate;
   private boolean used;
+  private boolean deleted;
   @Enumerated(EnumType.STRING)
   private GifticonStore gifticonStore;
   @Enumerated(EnumType.STRING)
@@ -39,7 +40,7 @@ public class GifticonEntity extends BaseEntity {
 
   @Builder
   public GifticonEntity(Long id, Long userId, String imageUrl, String name, String memo,
-      LocalDate expireDate, boolean used, GifticonStore gifticonStore) {
+                        LocalDate expireDate, boolean used, boolean deleted, GifticonStore gifticonStore) {
     this.id = id;
     this.userId = userId;
     this.imageUrl = imageUrl;
@@ -47,6 +48,7 @@ public class GifticonEntity extends BaseEntity {
     this.memo = memo;
     this.expireDate = expireDate;
     this.used = used;
+    this.deleted = deleted;
     this.gifticonStore = gifticonStore;
     this.gifticonStoreCategory = gifticonStore.getCategory();
   }

@@ -32,7 +32,7 @@ class UpdateGifticonServiceTest {
         final var userId = 1L;
         final var request = new GifticonUpdateDto("name", LocalDate.now(), GifticonStore.GS25, "memo");
 
-        when(queryStorage.getByGifticonIdAndUserId(gifticonId, userId)).thenReturn(new Gifticon(gifticonId, userId, "imageUrl", "name", "memo", LocalDate.now(), false, GifticonStore.CU));
+        when(queryStorage.getByGifticonIdAndUserId(gifticonId, userId)).thenReturn(new Gifticon(gifticonId, userId, "imageUrl", "name", "memo", LocalDate.now(), false, false, GifticonStore.CU));
         service.update(request, gifticonId, userId);
 
         verify(queryStorage, times(1)).getByGifticonIdAndUserId(gifticonId, userId);
@@ -42,7 +42,7 @@ class UpdateGifticonServiceTest {
     void 기프티콘_수정시_command가_한번_나간다() {
         final var gifticonId = 1L;
         final var userId = 1L;
-        final var gifticon = new Gifticon(gifticonId, userId, "imageUrl", "name", "memo", LocalDate.now(), false, GifticonStore.CU);
+        final var gifticon = new Gifticon(gifticonId, userId, "imageUrl", "name", "memo", LocalDate.now(), false, false, GifticonStore.CU);
         final var request = new GifticonUpdateDto("name", LocalDate.now(), GifticonStore.GS25, "memo");
 
         when(queryStorage.getByGifticonIdAndUserId(gifticonId, userId)).thenReturn(gifticon);

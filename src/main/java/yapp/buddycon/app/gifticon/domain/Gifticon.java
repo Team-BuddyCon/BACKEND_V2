@@ -16,12 +16,13 @@ public class Gifticon {
     private String memo;
     private LocalDate expireDate;
     private boolean used;
+    private boolean deleted;
     private GifticonStore gifticonStore;
     private GifticonStoreCategory gifticonStoreCategory;
 
     @Builder
     public Gifticon(Long id, Long userId, String imageUrl, String name, String memo,
-                    LocalDate expireDate, boolean used, GifticonStore gifticonStore) {
+                    LocalDate expireDate, boolean used, boolean deleted, GifticonStore gifticonStore) {
         this.id = id;
         this.userId = userId;
         this.imageUrl = imageUrl;
@@ -38,5 +39,9 @@ public class Gifticon {
         this.memo = memo;
         this.expireDate = expireDate;
         this.gifticonStore = store;
+    }
+
+    public void delete() {
+        this.deleted = true;
     }
 }

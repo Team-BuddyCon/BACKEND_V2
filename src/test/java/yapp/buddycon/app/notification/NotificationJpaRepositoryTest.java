@@ -56,20 +56,20 @@ public class NotificationJpaRepositoryTest {
     void 기프티콘_만료_알림은_유저아이디를_기준으로_필터링된다() {
       // given
       GifticonEntity 사용자1_기프티콘 = gifticonJpaRepository.save(
-          new GifticonEntity(null, 사용자1.getId(), "url1", "name1", "memo1", LocalDate.now(), false, GifticonStore.STARBUCKS));
+              new GifticonEntity(null, 사용자1.getId(), "url1", "name1", "memo1", LocalDate.now(), false, false, GifticonStore.STARBUCKS));
       GifticonEntity 사용자2_기프티콘 = gifticonJpaRepository.save(
-          new GifticonEntity(null, 사용자2.getId(), "url2", "name2", "memo2", LocalDate.now(), false, GifticonStore.MACDONALD));
+              new GifticonEntity(null, 사용자2.getId(), "url2", "name2", "memo2", LocalDate.now(), false, false, GifticonStore.MACDONALD));
 
       NotificationEntity 알림1 = notificationRepository.save(new NotificationEntity(null));
       NotificationEntity 알림2 = notificationRepository.save(new NotificationEntity(null));
       NotificationEntity 알림3 = notificationRepository.save(new NotificationEntity(null));
 
       GifticonExpirationAlertNotiEntity 조회_대상1 = gifticonExpirationNotiRepository.save(
-          new GifticonExpirationAlertNotiEntity(null, 알림1.getId(), 사용자1_기프티콘.getId(), 14));
+              new GifticonExpirationAlertNotiEntity(null, 알림1.getId(), 사용자1_기프티콘.getId(), 14));
       GifticonExpirationAlertNotiEntity 조회_대상2 = gifticonExpirationNotiRepository.save(
-          new GifticonExpirationAlertNotiEntity(null, 알림2.getId(), 사용자1_기프티콘.getId(), 7));
+              new GifticonExpirationAlertNotiEntity(null, 알림2.getId(), 사용자1_기프티콘.getId(), 7));
       GifticonExpirationAlertNotiEntity 필터링_대상 = gifticonExpirationNotiRepository.save(
-          new GifticonExpirationAlertNotiEntity(null, 알림3.getId(), 사용자2_기프티콘.getId(), 7));
+              new GifticonExpirationAlertNotiEntity(null, 알림3.getId(), 사용자2_기프티콘.getId(), 7));
 
       // when
       Slice<NotificationResponseDTO> result = notificationRepository.findAllByUserId(사용자1.getId(), PageRequest.of(0, 10));
@@ -84,7 +84,7 @@ public class NotificationJpaRepositoryTest {
       NotificationEntity 알림 = notificationRepository.save(new NotificationEntity(null));
 
       AnnouncementNotiEntity 공지사항 = announcementNotiRepository.save(
-          new AnnouncementNotiEntity(null, 알림.getId(), "title", "body"));
+              new AnnouncementNotiEntity(null, 알림.getId(), "title", "body"));
 
       // when
       Slice<NotificationResponseDTO> result = notificationRepository.findAllByUserId(1L, PageRequest.of(0, 10));
