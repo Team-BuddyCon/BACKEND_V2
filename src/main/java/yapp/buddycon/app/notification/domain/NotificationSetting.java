@@ -19,14 +19,13 @@ public class NotificationSetting {
   private LocalDateTime lastCheckedAt;
 
   public void update(boolean activated, boolean fourteenDaysBefore, boolean sevenDaysBefore,
-      boolean threeDaysBefore, boolean oneDayBefore, boolean theDay, LocalDateTime lastCheckedAt) {
+      boolean threeDaysBefore, boolean oneDayBefore, boolean theDay) {
     this.activated = activated;
     this.fourteenDaysBefore = fourteenDaysBefore;
     this.sevenDaysBefore = sevenDaysBefore;
     this.threeDaysBefore = threeDaysBefore;
     this.oneDayBefore = oneDayBefore;
     this.theDay = theDay;
-    this.lastCheckedAt = lastCheckedAt;
   }
 
 }
