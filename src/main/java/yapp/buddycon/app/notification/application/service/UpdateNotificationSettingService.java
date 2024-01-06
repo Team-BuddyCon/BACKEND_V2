@@ -1,6 +1,8 @@
 package yapp.buddycon.app.notification.application.service;
 
 import jakarta.transaction.Transactional;
+import jakarta.transaction.Transactional.TxType;
+import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import yapp.buddycon.app.notification.adapter.client.request.UpdateNotificationSettingDTO;
@@ -27,4 +29,13 @@ public class UpdateNotificationSettingService implements UpdateNotificationSetti
     notificationSettingCommandStorage.save(notificationSetting);
   }
 
+  @Transactional(value = TxType.REQUIRES_NEW)
+  @Override
+  public void updateNotificationLastCheckedAt(Long userId, LocalDateTime checkedAt) {
+    NotificationSetting notificationSetting = notificationSettingQueryStorage.getByUserId(userId);
+
+    notificationSetting.updateLastCheckedAt(checkedAt);
+
+    notificationSettingCommandStorage.save(notificationSetting);
+  }
 }
