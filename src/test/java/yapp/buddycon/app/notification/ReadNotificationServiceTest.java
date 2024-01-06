@@ -13,6 +13,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.SliceImpl;
 import yapp.buddycon.app.common.request.PagingDTO;
@@ -25,6 +26,8 @@ public class ReadNotificationServiceTest {
 
   @Mock
   private NotificationQueryStorage queryStorage;
+  @Mock
+  private ApplicationEventPublisher applicationEventPublisher;
   @InjectMocks
   private ReadNotificationService readService;
 
