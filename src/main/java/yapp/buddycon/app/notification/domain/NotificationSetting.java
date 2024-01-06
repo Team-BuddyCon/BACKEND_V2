@@ -28,4 +28,8 @@ public class NotificationSetting {
     this.theDay = theDay;
   }
 
+  public void updateLastCheckedAt(LocalDateTime lastCheckedAt) {
+    this.lastCheckedAt = lastCheckedAt;
+  }
+
 }
