@@ -5,6 +5,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.time.LocalDateTime;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -42,6 +43,23 @@ public class UpdateNotificationSettingServiceTest {
     // then
     verify(notificationSetting, times(1)).update(false, false, false, false, true, false);
     verify(notificationSettingCommandStorage, times(1)).save(notificationSetting);
+  }
+
+  @Test
+  void 알림_확인_일시를_변경한다() {
+    // given
+    final var userId = 1L;
+    final LocalDateTime dateTime = LocalDateTime.of(2021, 1, 1, 1, 10, 10);
+
+    NotificationSetting notificationSetting = mock(NotificationSetting.class);
+    when(notificationSettingQueryStorage.getByUserId(userId)).thenReturn(notificationSetting);
+
+    // when
+    service.updateNotificationLastCheckedAt(userId, dateTime);
+
+    // then
+    verify(notificationSetting).updateLastCheckedAt(dateTime);
+    verify(notificationSettingCommandStorage).save(notificationSetting);
   }
 
 }

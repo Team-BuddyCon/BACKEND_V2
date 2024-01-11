@@ -3,6 +3,7 @@ package yapp.buddycon.app.notification;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.Arrays;
@@ -17,6 +18,7 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.SliceImpl;
 import yapp.buddycon.app.common.request.PagingDTO;
+import yapp.buddycon.app.event.NotificationCheckingEvent;
 import yapp.buddycon.app.notification.adapter.client.response.NotificationResponseDTO;
 import yapp.buddycon.app.notification.application.port.out.NotificationQueryStorage;
 import yapp.buddycon.app.notification.application.service.ReadNotificationService;
@@ -62,6 +64,20 @@ public class ReadNotificationServiceTest {
 
       // then
       assertThat(resultList.getSize()).isEqualTo(2);
+    }
+
+    @Test
+    void 알림_확인_이벤트를_발생시킨다() {
+      // given
+      when(queryStorage.findAllByUserId(anyLong(), any())).thenReturn(
+          new SliceImpl<>(Collections.emptyList())
+      );
+
+      // when
+      readService.getNotifications(1l, new PagingDTO());
+
+      // then
+      verify(applicationEventPublisher).publishEvent(any(NotificationCheckingEvent.class));
     }
   }
 
