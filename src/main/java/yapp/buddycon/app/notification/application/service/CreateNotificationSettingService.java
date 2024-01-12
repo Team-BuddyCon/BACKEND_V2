@@ -1,5 +1,6 @@
 package yapp.buddycon.app.notification.application.service;
 
+import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,6 +25,7 @@ public class CreateNotificationSettingService implements CreateNotificationSetti
       .threeDaysBefore(false)
       .oneDayBefore(true)
       .theDay(true)
+      .lastCheckedAt(LocalDateTime.now())
       .build();
 
     notificationSettingCommandStorage.save(notificationSetting);

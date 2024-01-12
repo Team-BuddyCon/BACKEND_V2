@@ -16,6 +16,7 @@ public class NotificationSettingMapper {
         .threeDaysBefore(entity.isThreeDaysBefore())
         .oneDayBefore(entity.isOneDayBefore())
         .theDay(entity.isTheDay())
+        .lastCheckedAt(entity.getLastCheckedAt())
         .build();
   }
 
@@ -29,6 +30,7 @@ public class NotificationSettingMapper {
         .threeDaysBefore(notificationSetting.isThreeDaysBefore())
         .oneDayBefore(notificationSetting.isOneDayBefore())
         .theDay(notificationSetting.isTheDay())
+        .lastCheckedAt(notificationSetting.getLastCheckedAt())
         .build();
   }
 }

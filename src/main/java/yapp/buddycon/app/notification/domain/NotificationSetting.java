@@ -1,5 +1,6 @@
 package yapp.buddycon.app.notification.domain;
 
+import java.time.LocalDateTime;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -15,6 +16,7 @@ public class NotificationSetting {
   private boolean threeDaysBefore;
   private boolean oneDayBefore;
   private boolean theDay;
+  private LocalDateTime lastCheckedAt;
 
   public void update(boolean activated, boolean fourteenDaysBefore, boolean sevenDaysBefore,
       boolean threeDaysBefore, boolean oneDayBefore, boolean theDay) {
@@ -24,6 +26,10 @@ public class NotificationSetting {
     this.threeDaysBefore = threeDaysBefore;
     this.oneDayBefore = oneDayBefore;
     this.theDay = theDay;
+  }
+
+  public void updateLastCheckedAt(LocalDateTime lastCheckedAt) {
+    this.lastCheckedAt = lastCheckedAt;
   }
 
 }
