@@ -6,6 +6,7 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Collections;
 import org.junit.jupiter.api.BeforeEach;
@@ -73,8 +74,8 @@ public class ReadNotificationControllerTest {
       // given
       when(readUseCase.getNotifications(anyLong(), any())).thenReturn(
           new SliceImpl<>(Arrays.asList(
-              new NotificationResponseDTO(1L, 1L, "title1", null, null, null, null),
-              new NotificationResponseDTO(2L, null, null, 1L, 7, 1L, "name1")
+              new NotificationResponseDTO(1L, LocalDateTime.now(), 1L, "title1", null, null, null, null),
+              new NotificationResponseDTO(2L, LocalDateTime.now(), null, null, 1L, 7, 1L, "name1")
           )
       ));
 

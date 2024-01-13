@@ -10,7 +10,7 @@ public interface NotificationJpaRepository extends JpaRepository<NotificationEnt
 
   @Query(value = """
     SELECT new yapp.buddycon.app.notification.adapter.client.response.NotificationResponseDTO
-      (n.id, an.id, an.title, gen.id, gen.daysLeft, g.id, g.name)
+      (n.id, n.createdAt, an.id, an.title, gen.id, gen.daysLeft, g.id, g.name)
     FROM NotificationEntity n
     LEFT OUTER JOIN AnnouncementNotiEntity an
       ON n.id = an.notificationId
