@@ -6,10 +6,17 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import yapp.buddycon.app.common.AuthUser;
 import yapp.buddycon.app.common.response.ApiResponse;
 import yapp.buddycon.app.common.response.ResponseBody;
+import yapp.buddycon.app.gifticon.adapter.GifticonException.GifticonExceptionCode;
 import yapp.buddycon.app.gifticon.adapter.client.request.GifticonUpdateDto;
 import yapp.buddycon.app.gifticon.application.port.in.UpdateGifticonUsecase;
 
@@ -30,5 +37,17 @@ public class UpdateGifticonController {
     ) {
         usecase.update(dto, gifticonId, user.id());
         return ApiResponse.success("기프티콘 수정을 완료하였습니다.");
+    }
+
+    @Operation(summary = "기프티콘 사용 여부 변경")
+    @PatchMapping("{gifticon-id}")
+    public ResponseEntity<ResponseBody> updateGifticonUsed(
+            @Parameter(hidden = true) AuthUser user,
+            @PathVariable("gifticon-id") long gifticonId,
+            @Parameter(name = "기프티콘 사용 여부") @RequestParam("used") boolean used
+    ) {
+        boolean result = usecase.updateUsed(used, gifticonId, user.id());
+        if (result) return ApiResponse.success("기프티콘 사용 여부를 변경하였습니다.");
+        return ApiResponse.badRequest(GifticonExceptionCode.GIFTICON_IS_ALREADY_THAT_STATUS.getMessage(), null);
     }
 }

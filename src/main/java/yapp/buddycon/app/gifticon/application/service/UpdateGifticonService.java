@@ -1,8 +1,13 @@
 package yapp.buddycon.app.gifticon.application.service;
 
+import static yapp.buddycon.app.gifticon.adapter.GifticonException.GifticonExceptionCode.GIFTICON_IS_ALREADY_THAT_STATUS;
+
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import yapp.buddycon.app.common.response.BadRequestException;
+import yapp.buddycon.app.gifticon.adapter.GifticonException;
+import yapp.buddycon.app.gifticon.adapter.GifticonException.GifticonExceptionCode;
 import yapp.buddycon.app.gifticon.adapter.client.request.GifticonUpdateDto;
 import yapp.buddycon.app.gifticon.application.port.in.UpdateGifticonUsecase;
 import yapp.buddycon.app.gifticon.application.port.out.GifticonCommandStorage;
@@ -22,5 +27,16 @@ public class UpdateGifticonService implements UpdateGifticonUsecase {
         Gifticon gifticon = queryStorage.getByGifticonIdAndUserId(gifticonId, userId);
         gifticon.modify(dto.name(), dto.memo(), dto.expireDate(), dto.store());
         commandStorage.save(gifticon);
+    }
+
+    @Override
+    public boolean updateUsed(boolean used, Long gifticonId, Long userId) {
+        Gifticon gifticon = queryStorage.getByGifticonIdAndUserId(gifticonId, userId);
+        System.out.println("used = " + used);
+        System.out.println("gifticon = " + gifticon.isUsed());
+        if(gifticon.isUsed() == used) return false;
+        gifticon.modifyUsed(used);
+        commandStorage.save(gifticon);
+        return true;
     }
 }
