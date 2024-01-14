@@ -10,8 +10,8 @@ public record NotificationResponseDTO(
     Long GifticonExpirationAlertId,
     Integer gifticonDaysLeft,
     Long gifticonId,
-    String gifticonName
-//    boolean checked
+    String gifticonName,
+    boolean checked
 ) {
 
 }

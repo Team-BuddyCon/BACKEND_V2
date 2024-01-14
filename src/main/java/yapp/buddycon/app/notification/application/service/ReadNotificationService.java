@@ -11,6 +11,8 @@ import yapp.buddycon.app.event.NotificationCheckingEvent;
 import yapp.buddycon.app.notification.adapter.client.response.NotificationResponseDTO;
 import yapp.buddycon.app.notification.application.port.in.ReadNotificationUseCase;
 import yapp.buddycon.app.notification.application.port.out.NotificationQueryStorage;
+import yapp.buddycon.app.notification.application.port.out.NotificationSettingQueryStorage;
+import yapp.buddycon.app.notification.domain.NotificationSetting;
 
 @Service
 @RequiredArgsConstructor
@@ -18,11 +20,15 @@ import yapp.buddycon.app.notification.application.port.out.NotificationQueryStor
 public class ReadNotificationService implements ReadNotificationUseCase {
 
   private final NotificationQueryStorage queryStorage;
+  private final NotificationSettingQueryStorage notificationSettingQueryStorage;
   private final ApplicationEventPublisher applicationEventPublisher;
 
   @Override
   public Slice<NotificationResponseDTO> getNotifications(Long userId, PagingDTO dto) {
     applicationEventPublisher.publishEvent(new NotificationCheckingEvent(userId, LocalDateTime.now()));
-    return queryStorage.findAllByUserId(userId, dto.toPageable());
+
+    NotificationSetting notificationSetting = notificationSettingQueryStorage.getByUserId(userId);
+
+    return queryStorage.findAllByUserId(userId, notificationSetting.getLastCheckedAt(), dto.toPageable());
   }
 }

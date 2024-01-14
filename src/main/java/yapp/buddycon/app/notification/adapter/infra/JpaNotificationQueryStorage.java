@@ -1,5 +1,6 @@
 package yapp.buddycon.app.notification.adapter.infra;
 
+import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
@@ -15,7 +16,7 @@ public class JpaNotificationQueryStorage implements NotificationQueryStorage {
   private final NotificationJpaRepository notificationJpaRepository;
 
   @Override
-  public Slice<NotificationResponseDTO> findAllByUserId(long userId, Pageable pageable) {
-    return notificationJpaRepository.findAllByUserId(userId, pageable);
+  public Slice<NotificationResponseDTO> findAllByUserId(long userId, LocalDateTime lastCheckedAt, Pageable pageable) {
+    return notificationJpaRepository.findAllByUserId(userId, lastCheckedAt, pageable);
   }
 }

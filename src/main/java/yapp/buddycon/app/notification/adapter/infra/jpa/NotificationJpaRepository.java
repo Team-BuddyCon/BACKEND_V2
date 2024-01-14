@@ -1,5 +1,6 @@
 package yapp.buddycon.app.notification.adapter.infra.jpa;
 
+import java.time.LocalDateTime;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -10,7 +11,7 @@ public interface NotificationJpaRepository extends JpaRepository<NotificationEnt
 
   @Query(value = """
     SELECT new yapp.buddycon.app.notification.adapter.client.response.NotificationResponseDTO
-      (n.id, n.createdAt, an.id, an.title, gen.id, gen.daysLeft, g.id, g.name)
+      (n.id, n.createdAt, an.id, an.title, gen.id, gen.daysLeft, g.id, g.name, (n.createdAt  < CAST(:lastCheckedAt AS localdatetime)))
     FROM NotificationEntity n
     LEFT OUTER JOIN AnnouncementNotiEntity an
       ON n.id = an.notificationId
@@ -21,6 +22,6 @@ public interface NotificationJpaRepository extends JpaRepository<NotificationEnt
     WHERE g.userId = :userId
        OR g.userId IS NULL
   """)
-  Slice<NotificationResponseDTO> findAllByUserId(long userId, Pageable pageable);
+  Slice<NotificationResponseDTO> findAllByUserId(long userId, LocalDateTime lastCheckedAt, Pageable pageable);
 
 }
