@@ -9,6 +9,6 @@ public interface ReadNotificationUseCase {
 
   Slice<NotificationResponseDTO> getNotifications(Long userId, PagingDTO dto);
 
-  AnnouncementNotiResponseDTO getAnnouncementNoti(Long userId, Long announcementId);
+  AnnouncementNotiResponseDTO getAnnouncementNoti(Long announcementId);
 
 }

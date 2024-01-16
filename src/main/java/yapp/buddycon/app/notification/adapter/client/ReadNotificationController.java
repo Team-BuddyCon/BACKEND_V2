@@ -36,7 +36,7 @@ public class ReadNotificationController {
   public ResponseEntity<?> getAnnouncementNoti(
       @Parameter(hidden = true) AuthUser authUser, @PathVariable("announcement-id") long announcementId) {
     return ApiResponse.successWithBody("공지사항을 성공적으로 조회하였습니다.",
-        readUseCase.getAnnouncementNoti(authUser.id(), announcementId));
+        readUseCase.getAnnouncementNoti(announcementId));
   }
 
 }

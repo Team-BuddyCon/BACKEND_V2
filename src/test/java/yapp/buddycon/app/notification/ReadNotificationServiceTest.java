@@ -105,12 +105,12 @@ public class ReadNotificationServiceTest {
     void 공지사항_알림을_반환한다() {
       // given
       LocalDateTime today = LocalDateTime.now();
-      when(announcementNotiQueryStorage.getByIdAndUserId(anyLong(), anyLong())).thenReturn(
+      when(announcementNotiQueryStorage.getById(anyLong())).thenReturn(
           new AnnouncementNotiResponseDTO(1L, "title", "body", today)
       );
 
       // when
-      AnnouncementNotiResponseDTO result = readService.getAnnouncementNoti(1L, 1L);
+      AnnouncementNotiResponseDTO result = readService.getAnnouncementNoti(1L);
 
       // then
       assertThat(result.announcementNotiId()).isEqualTo(1L);

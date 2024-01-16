@@ -36,7 +36,7 @@ public class ReadNotificationService implements ReadNotificationUseCase {
   }
 
   @Override
-  public AnnouncementNotiResponseDTO getAnnouncementNoti(Long userId, Long announcementId) {
-    return announcementNotiQueryStorage.getByIdAndUserId(userId, announcementId);
+  public AnnouncementNotiResponseDTO getAnnouncementNoti(Long announcementId) {
+    return announcementNotiQueryStorage.getById(announcementId);
   }
 }

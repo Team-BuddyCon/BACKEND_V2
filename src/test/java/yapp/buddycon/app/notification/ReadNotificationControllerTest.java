@@ -104,7 +104,7 @@ public class ReadNotificationControllerTest {
     @Test
     void 공지사항_단건을_반환한다() throws Exception {
       // given
-      when(readUseCase.getAnnouncementNoti(anyLong(), anyLong())).thenReturn(
+      when(readUseCase.getAnnouncementNoti(anyLong())).thenReturn(
           new AnnouncementNotiResponseDTO(1L, "title1", "body1", LocalDateTime.now())
       );
 
@@ -123,7 +123,7 @@ public class ReadNotificationControllerTest {
     void 공지사항_단건이_없을_경우_404를_반환한다() throws Exception {
       // given
       doThrow(new AnnouncementNotiException(AnnouncementNotiExceptionCode.ANNOUNCEMENT_NOTI_NOT_FOUND))
-          .when(readUseCase).getAnnouncementNoti(anyLong(), anyLong());
+          .when(readUseCase).getAnnouncementNoti(anyLong());
 
       // when
       final ResultActions resultActions = mockMvc.perform(

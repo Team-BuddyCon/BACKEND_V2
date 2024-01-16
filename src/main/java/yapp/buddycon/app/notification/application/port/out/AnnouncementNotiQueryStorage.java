@@ -4,6 +4,6 @@ import yapp.buddycon.app.notification.adapter.client.response.AnnouncementNotiRe
 
 public interface AnnouncementNotiQueryStorage {
 
-  AnnouncementNotiResponseDTO getByIdAndUserId(Long id, Long userId);
+  AnnouncementNotiResponseDTO getById(Long id);
 
 }

@@ -10,7 +10,7 @@ import yapp.buddycon.app.notification.application.port.out.AnnouncementNotiQuery
 public class JpaAnnouncementNotiQueryStorage implements AnnouncementNotiQueryStorage {
 
   @Override
-  public AnnouncementNotiResponseDTO getByIdAndUserId(Long id, Long userId) {
+  public AnnouncementNotiResponseDTO getById(Long id) {
     // TODO implement
     return null;
   }
