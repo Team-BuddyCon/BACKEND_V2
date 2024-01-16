@@ -11,6 +11,7 @@ import yapp.buddycon.app.event.NotificationCheckingEvent;
 import yapp.buddycon.app.notification.adapter.client.response.AnnouncementNotiResponseDTO;
 import yapp.buddycon.app.notification.adapter.client.response.NotificationResponseDTO;
 import yapp.buddycon.app.notification.application.port.in.ReadNotificationUseCase;
+import yapp.buddycon.app.notification.application.port.out.AnnouncementNotiQueryStorage;
 import yapp.buddycon.app.notification.application.port.out.NotificationQueryStorage;
 import yapp.buddycon.app.notification.application.port.out.NotificationSettingQueryStorage;
 import yapp.buddycon.app.notification.domain.NotificationSetting;
@@ -22,6 +23,7 @@ public class ReadNotificationService implements ReadNotificationUseCase {
 
   private final NotificationQueryStorage queryStorage;
   private final NotificationSettingQueryStorage notificationSettingQueryStorage;
+  private final AnnouncementNotiQueryStorage announcementNotiQueryStorage;
   private final ApplicationEventPublisher applicationEventPublisher;
 
   @Override
@@ -35,7 +37,6 @@ public class ReadNotificationService implements ReadNotificationUseCase {
 
   @Override
   public AnnouncementNotiResponseDTO getAnnouncementNoti(Long userId, Long announcementId) {
-    // TODO implement
-    return null;
+    return announcementNotiQueryStorage.getByIdAndUserId(userId, announcementId);
   }
 }

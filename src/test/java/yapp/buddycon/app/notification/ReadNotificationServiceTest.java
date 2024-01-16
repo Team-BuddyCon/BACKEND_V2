@@ -22,7 +22,9 @@ import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.SliceImpl;
 import yapp.buddycon.app.common.request.PagingDTO;
 import yapp.buddycon.app.event.NotificationCheckingEvent;
+import yapp.buddycon.app.notification.adapter.client.response.AnnouncementNotiResponseDTO;
 import yapp.buddycon.app.notification.adapter.client.response.NotificationResponseDTO;
+import yapp.buddycon.app.notification.application.port.out.AnnouncementNotiQueryStorage;
 import yapp.buddycon.app.notification.application.port.out.NotificationQueryStorage;
 import yapp.buddycon.app.notification.application.port.out.NotificationSettingQueryStorage;
 import yapp.buddycon.app.notification.application.service.ReadNotificationService;
@@ -35,6 +37,8 @@ public class ReadNotificationServiceTest {
   private NotificationQueryStorage notificationQueryStorage;
   @Mock
   private NotificationSettingQueryStorage notificationSettingQueryStorage;
+  @Mock
+  private AnnouncementNotiQueryStorage announcementNotiQueryStorage;
   @Mock
   private ApplicationEventPublisher applicationEventPublisher;
   @InjectMocks
@@ -60,7 +64,7 @@ public class ReadNotificationServiceTest {
       Slice<NotificationResponseDTO> resultList = readService.getNotifications(1l, new PagingDTO());
 
       // then
-      assertThat(resultList.getSize()).isEqualTo(0);
+      assertThat(resultList.getSize()).isZero();
     }
 
     @Test
@@ -91,6 +95,28 @@ public class ReadNotificationServiceTest {
 
       // then
       verify(applicationEventPublisher).publishEvent(any(NotificationCheckingEvent.class));
+    }
+  }
+
+  @Nested
+  class getAnnouncementNoti {
+
+    @Test
+    void 공지사항_알림을_반환한다() {
+      // given
+      LocalDateTime today = LocalDateTime.now();
+      when(announcementNotiQueryStorage.getByIdAndUserId(anyLong(), anyLong())).thenReturn(
+          new AnnouncementNotiResponseDTO(1L, "title", "body", today)
+      );
+
+      // when
+      AnnouncementNotiResponseDTO result = readService.getAnnouncementNoti(1L, 1L);
+
+      // then
+      assertThat(result.announcementNotiId()).isEqualTo(1L);
+      assertThat(result.title()).isEqualTo("title");
+      assertThat(result.body()).isEqualTo("body");
+      assertThat(result.createdAt()).isEqualTo(today);
     }
   }
 

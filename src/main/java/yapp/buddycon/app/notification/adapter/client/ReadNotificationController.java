@@ -39,5 +39,4 @@ public class ReadNotificationController {
         readUseCase.getAnnouncementNoti(authUser.id(), announcementId));
   }
 
-
 }
