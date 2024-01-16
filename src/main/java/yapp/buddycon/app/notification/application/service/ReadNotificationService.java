@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import yapp.buddycon.app.common.request.PagingDTO;
 import yapp.buddycon.app.event.NotificationCheckingEvent;
+import yapp.buddycon.app.notification.adapter.client.response.AnnouncementNotiResponseDTO;
 import yapp.buddycon.app.notification.adapter.client.response.NotificationResponseDTO;
 import yapp.buddycon.app.notification.application.port.in.ReadNotificationUseCase;
 import yapp.buddycon.app.notification.application.port.out.NotificationQueryStorage;
@@ -30,5 +31,11 @@ public class ReadNotificationService implements ReadNotificationUseCase {
     NotificationSetting notificationSetting = notificationSettingQueryStorage.getByUserId(userId);
 
     return queryStorage.findAllByUserId(userId, notificationSetting.getLastCheckedAt(), dto.toPageable());
+  }
+
+  @Override
+  public AnnouncementNotiResponseDTO getAnnouncementNoti(Long userId, Long announcementId) {
+    // TODO implement
+    return null;
   }
 }
