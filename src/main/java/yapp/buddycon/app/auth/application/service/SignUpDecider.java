@@ -23,18 +23,19 @@ public class SignUpDecider {
   public User decide(LoginRequest request) {
     OAuthMemberInfo memberInfo = oAuthUserInfoApi.call(request.oauthAccessToken());
     Long clientId = memberInfo.id();
-    Optional<User> byClientId = userQueryStorage.findByClientId(clientId);
 
-    if (byClientId.isPresent()) {
-      return byClientId.get();
+    // 존재하는 유저라면 그대로 반환
+    Optional<User> existingUser = userQueryStorage.findByClientId(clientId);
+    if (existingUser.isPresent()) {
+      return existingUser.get();
     }
 
+    // 존재하지 않는 유저라면 생성
     User createdUser = userCommandStorage.save(
         new User(null, clientId, request.nickname(), request.email(), request.gender(),
             request.age()));
 
     applicationEventPublisher.publishEvent(new NotificationSettingCreationEvent(createdUser.id()));
-
     return createdUser;
   }
 }
