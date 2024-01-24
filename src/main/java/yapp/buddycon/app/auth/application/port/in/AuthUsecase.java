@@ -7,4 +7,6 @@ public interface AuthUsecase {
 
   TokenDto login(LoginRequest request);
 
+  void logout(Long userId);
+
 }

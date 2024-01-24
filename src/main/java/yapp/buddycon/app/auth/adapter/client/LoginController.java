@@ -1,6 +1,7 @@
 package yapp.buddycon.app.auth.adapter.client;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import yapp.buddycon.app.auth.application.port.in.AuthUsecase;
 import yapp.buddycon.app.auth.application.service.TokenDto;
+import yapp.buddycon.app.common.AuthUser;
 import yapp.buddycon.app.common.response.ResponseBody;
 import yapp.buddycon.app.common.response.ApiResponse;
 
@@ -27,6 +29,13 @@ public class LoginController {
     public ResponseEntity<ResponseBody> login(@RequestBody @Valid LoginRequest request) {
         TokenDto tokenDto = authUsecase.login(request);
         return ApiResponse.successWithBody("로그인에 성공하였습니다.", tokenDto);
+    }
+
+    @Operation(summary = "로그아웃")
+    @PostMapping("/logout")
+    public ResponseEntity<ResponseBody> logout(@Parameter(hidden = true) AuthUser authUser) {
+        authUsecase.logout(authUser.id());
+        return ApiResponse.success("로그아웃에 성공하였습니다.");
     }
 
 }
