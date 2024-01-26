@@ -46,8 +46,7 @@ public class UpdateGifticonController {
             @PathVariable("gifticon-id") long gifticonId,
             @Parameter(name = "기프티콘 사용 여부") @RequestParam("used") boolean used
     ) {
-        boolean result = usecase.updateUsed(used, gifticonId, user.id());
-        if (result) return ApiResponse.success("기프티콘 사용 여부를 변경하였습니다.");
-        return ApiResponse.badRequest(GifticonExceptionCode.GIFTICON_IS_ALREADY_THAT_STATUS.getMessage(), null);
+        usecase.updateUsed(used, gifticonId, user.id());
+        return ApiResponse.success("기프티콘 사용 여부를 변경하였습니다.");
     }
 }

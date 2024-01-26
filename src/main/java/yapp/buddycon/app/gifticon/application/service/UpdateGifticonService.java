@@ -30,13 +30,12 @@ public class UpdateGifticonService implements UpdateGifticonUsecase {
     }
 
     @Override
-    public boolean updateUsed(boolean used, Long gifticonId, Long userId) {
+    public void updateUsed(boolean used, Long gifticonId, Long userId) {
         Gifticon gifticon = queryStorage.getByGifticonIdAndUserId(gifticonId, userId);
-        System.out.println("used = " + used);
-        System.out.println("gifticon = " + gifticon.isUsed());
-        if(gifticon.isUsed() == used) return false;
+        if (gifticon.isUsed() == used) {
+            throw new BadRequestException(GifticonExceptionCode.GIFTICON_IS_ALREADY_THAT_STATUS.getMessage());
+        }
         gifticon.modifyUsed(used);
         commandStorage.save(gifticon);
-        return true;
     }
 }

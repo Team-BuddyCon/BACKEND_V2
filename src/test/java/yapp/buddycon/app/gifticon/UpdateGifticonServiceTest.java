@@ -14,6 +14,7 @@ import yapp.buddycon.app.gifticon.domain.GifticonStore;
 
 import java.time.LocalDate;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -71,8 +72,8 @@ class UpdateGifticonServiceTest {
         final var request = false;
 
         when(queryStorage.getByGifticonIdAndUserId(gifticonId, userId)).thenReturn(gifticon);
-        service.updateUsed(request, gifticonId, userId);
 
+        assertThatThrownBy(() -> service.updateUsed(request, gifticonId, userId));
         verifyNoInteractions(commandStorage);
     }
 }

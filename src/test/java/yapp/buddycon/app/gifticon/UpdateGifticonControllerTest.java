@@ -134,7 +134,7 @@ class UpdateGifticonControllerTest {
     void 기프티콘의_사용상태를_변경한다() throws Exception {
         // given
         when(authenticationArgumentResolver.resolveArgument(any(), any(), any(), any())).thenReturn(new AuthUser(1L));
-        when(usecase.updateUsed(anyBoolean(), any(), any())).thenReturn(true);
+        doNothing().when(usecase).updateUsed(anyBoolean(), any(), any());
 
         // when
         final var response = RestAssured.given().log().all()
@@ -147,24 +147,5 @@ class UpdateGifticonControllerTest {
 
         // then
         assertThat(response.statusCode()).isEqualTo(HttpStatus.OK.value());
-    }
-
-    @Test
-    void 기프티콘의_사용상태가_이미_요청과_같다면_예외를_반환한다() throws Exception {
-        // given
-        when(authenticationArgumentResolver.resolveArgument(any(), any(), any(), any())).thenReturn(new AuthUser(1L));
-        when(usecase.updateUsed(false, 1L, 1L)).thenReturn(false);
-
-        // when
-        final var response = RestAssured.given().log().all()
-                .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .queryParam("used", false)
-                .when().patch("/api/v1/gifticons/1")
-                .then()
-                .log().all()
-                .extract();
-
-        // then
-        assertThat(response.statusCode()).isEqualTo(HttpStatus.BAD_REQUEST.value());
     }
 }
