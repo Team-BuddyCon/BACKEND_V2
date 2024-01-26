@@ -27,4 +27,9 @@ public class RedisRefreshTokenStorage implements CacheStorage<String, String> {
   public void save(String key, String value, long expireTime) {
     redisTemplate.opsForValue().set("RT:" + key, value, expireTime, TimeUnit.MILLISECONDS);
   }
+
+  @Override
+  public void delete(String key) {
+    redisTemplate.delete("RT:" + key);
+  }
 }

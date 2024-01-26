@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import yapp.buddycon.app.auth.application.port.out.CacheStorage;
 import yapp.buddycon.app.auth.application.service.AuthService;
 import yapp.buddycon.app.auth.adapter.client.LoginRequest;
 import yapp.buddycon.app.auth.application.service.SignUpDecider;
@@ -16,10 +17,10 @@ import static org.mockito.Mockito.verify;
 class AuthServiceTest {
 
     @Test
-    void one_invocation_of_signup_when_login(@Mock SignUpDecider signUpDecider, @Mock TokenProvider tokenProvider) {
+    void one_invocation_of_signup_when_login(@Mock SignUpDecider signUpDecider, @Mock TokenProvider tokenProvider, @Mock CacheStorage cacheStorage) {
         // given
         var oauthAccessToken = "oauthAccessToken";
-        var authService = new AuthService(signUpDecider, tokenProvider);
+        var authService = new AuthService(signUpDecider, tokenProvider, cacheStorage);
         var request = new LoginRequest(oauthAccessToken, "nickname", "email", "FEMALE", "10-20");
 
         // when

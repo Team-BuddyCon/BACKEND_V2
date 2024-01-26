@@ -4,4 +4,5 @@ public interface CacheStorage<K, V> {
   void save(K key, V value);
   V get(K key);
   void save(K key, V value, long expireTime);
+  void delete(K key);
 }

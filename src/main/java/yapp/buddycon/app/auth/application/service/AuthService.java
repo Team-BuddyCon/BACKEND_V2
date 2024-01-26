@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import yapp.buddycon.app.auth.adapter.client.LoginRequest;
 import yapp.buddycon.app.auth.application.port.in.AuthUsecase;
+import yapp.buddycon.app.auth.application.port.out.CacheStorage;
 import yapp.buddycon.app.auth.application.port.out.TokenProvider;
 import yapp.buddycon.app.user.domain.User;
 
@@ -15,10 +16,16 @@ public class AuthService implements AuthUsecase {
 
     private final SignUpDecider signUpDecider;
     private final TokenProvider tokenProvider;
+    private final CacheStorage cacheStorage;
 
     @Override
     public TokenDto login(LoginRequest request) {
         User user = signUpDecider.decide(request);
         return tokenProvider.provide(user);
+    }
+
+    @Override
+    public void logout(Long userId) {
+        cacheStorage.delete(userId.toString());
     }
 }
