@@ -2,7 +2,10 @@ package yapp.buddycon.app.notification;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import jakarta.persistence.EntityManager;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -22,6 +25,8 @@ import yapp.buddycon.app.notification.adapter.infra.jpa.GifticonExpirationAlertN
 import yapp.buddycon.app.notification.adapter.infra.jpa.GifticonExpirationNotiJpaRepository;
 import yapp.buddycon.app.notification.adapter.infra.jpa.NotificationEntity;
 import yapp.buddycon.app.notification.adapter.infra.jpa.NotificationJpaRepository;
+import yapp.buddycon.app.notification.adapter.infra.jpa.NotificationSettingEntity;
+import yapp.buddycon.app.notification.adapter.infra.jpa.NotificationSettingJpaRepository;
 import yapp.buddycon.app.user.adapter.jpa.JpaUserRepository;
 import yapp.buddycon.app.user.adapter.jpa.UserEntity;
 
@@ -39,6 +44,10 @@ public class NotificationJpaRepositoryTest {
   private JpaUserRepository userRepository;
   @Autowired
   private GifticonJpaRepository gifticonJpaRepository;
+  @Autowired
+  private NotificationSettingJpaRepository notificationSettingJpaRepository;
+  @Autowired
+  private EntityManager em;
 
   @Nested
   class findAllByUserId {
@@ -72,7 +81,7 @@ public class NotificationJpaRepositoryTest {
               new GifticonExpirationAlertNotiEntity(null, 알림3.getId(), 사용자2_기프티콘.getId(), 7));
 
       // when
-      Slice<NotificationResponseDTO> result = notificationRepository.findAllByUserId(사용자1.getId(), PageRequest.of(0, 10));
+      Slice<NotificationResponseDTO> result = notificationRepository.findAllByUserId(사용자1.getId(), LocalDateTime.now(), PageRequest.of(0, 10));
 
       // then
       assertThat(result.getContent()).hasSize(2);
@@ -87,7 +96,7 @@ public class NotificationJpaRepositoryTest {
               new AnnouncementNotiEntity(null, 알림.getId(), "title", "body"));
 
       // when
-      Slice<NotificationResponseDTO> result = notificationRepository.findAllByUserId(1L, PageRequest.of(0, 10));
+      Slice<NotificationResponseDTO> result = notificationRepository.findAllByUserId(사용자1.getId(), LocalDateTime.now(), PageRequest.of(0, 10));
 
       // then
       assertThat(result.getContent()).hasSize(1);
@@ -98,11 +107,60 @@ public class NotificationJpaRepositoryTest {
       // given
 
       // when
-      Slice<NotificationResponseDTO> result = notificationRepository.findAllByUserId(1L, PageRequest.of(0, 10));
+      Slice<NotificationResponseDTO> result = notificationRepository.findAllByUserId(사용자1.getId(), LocalDateTime.now(), PageRequest.of(0, 10));
 
       // then
       assertThat(result.getContent()).hasSize(0);
     }
 
+    @Test
+    void 마지막_알림_확인_일시가_알림_생성_일시보다_이전인_알림은_확인_여부가_true이다() {
+      // given
+      LocalDateTime 조회_일시 = LocalDateTime.of(2020, 12, 1, 0, 0, 0);
+
+      LocalDateTime 마지막_알림_확인_일시 = LocalDateTime.of(2020, 6, 6, 0, 0, 0);
+      notificationSettingJpaRepository.save(
+          new NotificationSettingEntity(null, 사용자1.getId(), true, true, true, true, true, true,
+              마지막_알림_확인_일시)
+      );
+
+      LocalDateTime 알림_생성_일시1 = LocalDateTime.of(2019, 6, 6, 0, 0, 0);
+      LocalDateTime 알림_생성_일시2 = LocalDateTime.of(2020, 3, 1, 0, 0, 0);
+      LocalDateTime 알림_생성_일시3 = LocalDateTime.of(2020, 6, 6, 0, 0, 0);
+      LocalDateTime 알림_생성_일시4 = LocalDateTime.of(2021, 6, 6, 0, 0, 0);
+      em.createNativeQuery("INSERT INTO notification(created_at) VALUES (?1)")
+          .setParameter(1, 알림_생성_일시1.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
+          .executeUpdate();
+      em.createNativeQuery("INSERT INTO notification(created_at) VALUES (?1)")
+          .setParameter(1, 알림_생성_일시2.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
+          .executeUpdate();
+      em.createNativeQuery("INSERT INTO notification(created_at) VALUES (?1)")
+          .setParameter(1, 알림_생성_일시3.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
+          .executeUpdate();
+      em.createNativeQuery("INSERT INTO notification(created_at) VALUES (?1)")
+          .setParameter(1, 알림_생성_일시4.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
+          .executeUpdate();
+
+      // when
+      Slice<NotificationResponseDTO> result = notificationRepository
+          .findAllByUserId(사용자1.getId(), 조회_일시, PageRequest.of(0, 10));
+
+      // then
+      assertThat(result.getContent()).hasSize(4);
+
+      for (NotificationResponseDTO responseDTO : result.getContent()) {
+        if (responseDTO.notificationCreatedAt().equals(알림_생성_일시1)) {
+          assertThat(responseDTO.checked()).isTrue();
+        } else if (responseDTO.notificationCreatedAt().equals(알림_생성_일시2)) {
+          assertThat(responseDTO.checked()).isTrue();
+        } else if (responseDTO.notificationCreatedAt().equals(알림_생성_일시3)) {
+          assertThat(responseDTO.checked()).isTrue();
+        } else if (responseDTO.notificationCreatedAt().equals(알림_생성_일시4)) {
+          assertThat(responseDTO.checked()).isFalse();
+        }
+      }
+    }
+
   }
+
 }
