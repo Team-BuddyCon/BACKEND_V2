@@ -120,7 +120,7 @@ public class ReadNotificationControllerTest {
     }
 
     @Test
-    void 공지사항_단건이_없을_경우_404를_반환한다() throws Exception {
+    void 공지사항_단건이_없을_경우_400을_반환한다() throws Exception {
       // given
       doThrow(new AnnouncementNotiException(AnnouncementNotiExceptionCode.ANNOUNCEMENT_NOTI_NOT_FOUND))
           .when(readUseCase).getAnnouncementNoti(anyLong());
