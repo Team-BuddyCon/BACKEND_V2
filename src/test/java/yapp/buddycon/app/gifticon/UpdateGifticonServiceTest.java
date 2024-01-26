@@ -14,6 +14,7 @@ import yapp.buddycon.app.gifticon.domain.GifticonStore;
 
 import java.time.LocalDate;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -49,5 +50,30 @@ class UpdateGifticonServiceTest {
         service.update(request, gifticonId, userId);
 
         verify(commandStorage, times(1)).save(any(Gifticon.class));
+    }
+
+    @Test
+    void 기프티콘_상태_수정_성공시_save_command가_한번_수행된다() {
+        final var gifticonId = 1L;
+        final var userId = 1L;
+        final var request = true;
+
+        when(queryStorage.getByGifticonIdAndUserId(gifticonId, userId)).thenReturn(new Gifticon(gifticonId, userId, "imageUrl", "name", "memo", LocalDate.now(), false, false, GifticonStore.CU));
+        service.updateUsed(request, gifticonId, userId);
+
+        verify(commandStorage, times(1)).save(any(Gifticon.class));
+    }
+
+    @Test
+    void 기프티콘_상태_수정_실패시_save_command가_수행되지_않는다() {
+        final var gifticonId = 1L;
+        final var userId = 1L;
+        final var gifticon = new Gifticon(gifticonId, userId, "imageUrl", "name", "memo", LocalDate.now(), false, false, GifticonStore.CU);
+        final var request = false;
+
+        when(queryStorage.getByGifticonIdAndUserId(gifticonId, userId)).thenReturn(gifticon);
+
+        assertThatThrownBy(() -> service.updateUsed(request, gifticonId, userId));
+        verifyNoInteractions(commandStorage);
     }
 }

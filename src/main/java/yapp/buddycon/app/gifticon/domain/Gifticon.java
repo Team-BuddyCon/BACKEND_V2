@@ -41,6 +41,10 @@ public class Gifticon {
         this.gifticonStore = store;
     }
 
+    public void modifyUsed(boolean used) {
+        this.used = used;
+    }
+
     public void delete() {
         this.deleted = true;
     }

@@ -95,4 +95,10 @@ public class ReadGifticonControllerTest {
     }
   }
 
+  @Test
+  void dd() {
+    String repeat = "updatedContent".repeat(500);
+    System.out.println(repeat.length());
+  }
+
 }

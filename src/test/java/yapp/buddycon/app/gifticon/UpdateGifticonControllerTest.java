@@ -13,15 +13,22 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import yapp.buddycon.app.auth.adapter.AuthenticationArgumentResolver;
 import yapp.buddycon.app.common.AuthUser;
+import yapp.buddycon.app.common.response.BadRequestException;
+import yapp.buddycon.app.gifticon.adapter.GifticonException;
+import yapp.buddycon.app.gifticon.adapter.GifticonException.GifticonExceptionCode;
 import yapp.buddycon.app.gifticon.adapter.client.request.GifticonUpdateDto;
 import yapp.buddycon.app.gifticon.application.port.in.UpdateGifticonUsecase;
+import yapp.buddycon.app.gifticon.application.port.out.GifticonQueryStorage;
+import yapp.buddycon.app.gifticon.domain.Gifticon;
 import yapp.buddycon.app.gifticon.domain.GifticonStore;
 
 import java.time.LocalDate;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.BDDMockito.willThrow;
 import static org.mockito.Mockito.*;
+import static yapp.buddycon.app.gifticon.adapter.GifticonException.GifticonExceptionCode.GIFTICON_IS_ALREADY_THAT_STATUS;
 
 @ExtendWith(MockitoExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -121,5 +128,24 @@ class UpdateGifticonControllerTest {
 
         // then
         assertThat(response.statusCode()).isEqualTo(HttpStatus.BAD_REQUEST.value());
+    }
+
+    @Test
+    void 기프티콘의_사용상태를_변경한다() throws Exception {
+        // given
+        when(authenticationArgumentResolver.resolveArgument(any(), any(), any(), any())).thenReturn(new AuthUser(1L));
+        doNothing().when(usecase).updateUsed(anyBoolean(), any(), any());
+
+        // when
+        final var response = RestAssured.given().log().all()
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .queryParam("used", true)
+                .when().patch("/api/v1/gifticons/1")
+                .then()
+                .log().all()
+                .extract();
+
+        // then
+        assertThat(response.statusCode()).isEqualTo(HttpStatus.OK.value());
     }
 }
