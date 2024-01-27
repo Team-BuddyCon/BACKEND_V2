@@ -9,4 +9,6 @@ public interface UserQueryStorage {
     boolean existsByClientId(Long clientId);
 
     Optional<User> findByClientId(Long clientId);
+
+    Optional<User> findById(Long id);
 }
