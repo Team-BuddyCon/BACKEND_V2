@@ -46,7 +46,7 @@ public class JwtTokenProvider implements TokenProvider {
     String storedRefreshToken = refreshTokenStorage.get(String.valueOf(user.id()));
 
     if (storedRefreshToken == null || !storedRefreshToken.equals(refreshToken)) {
-      throw new InvalidTokenException("refresh token is not found");
+      throw new InvalidTokenException("유효하지 않은 토큰입니다.");
     }
     return this.provide(user);
   }
