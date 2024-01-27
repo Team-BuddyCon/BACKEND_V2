@@ -2,6 +2,7 @@ package yapp.buddycon.app.user.adapter;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import yapp.buddycon.app.auth.application.port.out.AuthToUserCommandStorage;
 import yapp.buddycon.app.user.adapter.jpa.JpaUserRepository;
 import yapp.buddycon.app.user.adapter.jpa.UserMapper;
 import yapp.buddycon.app.user.application.port.out.UserCommandStorage;
@@ -10,7 +11,8 @@ import yapp.buddycon.app.user.domain.User;
 
 @RequiredArgsConstructor
 @Component
-public class JpaUserCommandStorage implements UserCommandStorage {
+public class JpaUserCommandStorage implements UserCommandStorage,
+    AuthToUserCommandStorage {
 
     private final JpaUserRepository jpaUserRepository;
     private final UserMapper mapper;
