@@ -13,25 +13,26 @@ import yapp.buddycon.app.common.response.BadRequestException;
 
 import java.util.HashMap;
 import java.util.Map;
+import yapp.buddycon.app.common.response.ResponseBody;
 
 @Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(value = {BadRequestException.class})
-    protected ResponseEntity<?> handleBadRequestException(BadRequestException e) {
+    protected ResponseEntity<ResponseBody> handleBadRequestException(BadRequestException e) {
         log.error("handleBadRequestException throw BadRequestException : {}", e.getMessage());
         return ApiResponse.badRequest(e.getMessage(), null);
     }
 
     @ExceptionHandler(value = {ApplicationException.class})
-    protected ResponseEntity<?> handleApplicationException(ApplicationException e) {
+    protected ResponseEntity<ResponseBody> handleApplicationException(ApplicationException e) {
         log.error("handleApplicationException throw ApplicationException : {}", e.getMessage());
         return ApiResponse.serverError(e.getMessage(), null);
     }
 
     @ExceptionHandler(value = {MethodArgumentNotValidException.class})
-    protected ResponseEntity<?> handleValidationException(MethodArgumentNotValidException e) {
+    protected ResponseEntity<ResponseBody> handleValidationException(MethodArgumentNotValidException e) {
         log.error("handleValidationException throw MethodArgumentNotValidException : {}", e.getMessage());
         Map<String, String> errors = new HashMap<>();
         e.getBindingResult().getAllErrors().forEach((error) -> {
