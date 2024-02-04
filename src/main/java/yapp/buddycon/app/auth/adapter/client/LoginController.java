@@ -27,14 +27,14 @@ public class LoginController {
 
     @Operation(summary = "로그인")
     @PostMapping("/login")
-    public ResponseEntity<ResponseBody> login(@RequestBody @Valid LoginRequest request) {
+    public ResponseEntity<ResponseBody<TokenDto>> login(@RequestBody @Valid LoginRequest request) {
         TokenDto tokenDto = authUsecase.login(request);
         return ApiResponse.successWithBody("로그인에 성공하였습니다.", tokenDto);
     }
 
     @Operation(summary = "로그아웃")
     @PostMapping("/logout")
-    public ResponseEntity<ResponseBody> logout(@Parameter(hidden = true) AuthUser authUser) {
+    public ResponseEntity<ResponseBody<Void>> logout(@Parameter(hidden = true) AuthUser authUser) {
         authUsecase.logout(authUser.id());
         return ApiResponse.success("로그아웃에 성공하였습니다.");
     }

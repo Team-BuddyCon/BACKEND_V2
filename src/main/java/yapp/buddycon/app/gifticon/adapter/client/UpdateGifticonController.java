@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 import yapp.buddycon.app.common.AuthUser;
 import yapp.buddycon.app.common.response.ApiResponse;
 import yapp.buddycon.app.common.response.ResponseBody;
-import yapp.buddycon.app.gifticon.adapter.GifticonException.GifticonExceptionCode;
 import yapp.buddycon.app.gifticon.adapter.client.request.GifticonUpdateDto;
 import yapp.buddycon.app.gifticon.application.port.in.UpdateGifticonUsecase;
 
@@ -30,7 +29,7 @@ public class UpdateGifticonController {
 
     @Operation(summary = "기프티콘 내용 변경")
     @PutMapping("{gifticon-id}")
-    public ResponseEntity<ResponseBody> updateGifticonContent(
+    public ResponseEntity<ResponseBody<Void>> updateGifticonContent(
             @Parameter(hidden = true) AuthUser user,
             @PathVariable("gifticon-id") long gifticonId,
             @Parameter(name = "기프티콘 수정 dto") @RequestBody @Valid GifticonUpdateDto dto
@@ -41,7 +40,7 @@ public class UpdateGifticonController {
 
     @Operation(summary = "기프티콘 사용 여부 변경")
     @PatchMapping("{gifticon-id}")
-    public ResponseEntity<ResponseBody> updateGifticonUsed(
+    public ResponseEntity<ResponseBody<Void>> updateGifticonUsed(
             @Parameter(hidden = true) AuthUser user,
             @PathVariable("gifticon-id") long gifticonId,
             @Parameter(name = "기프티콘 사용 여부") @RequestParam("used") boolean used

@@ -26,7 +26,7 @@ public class UpdateNotificationSettingController {
 
   @Operation(summary = "내 알림 설정 수정")
   @PutMapping("/me")
-  public ResponseEntity<ResponseBody> updateMyNotificationSetting(
+  public ResponseEntity<ResponseBody<Void>> updateMyNotificationSetting(
       @Parameter(hidden = true) AuthUser authUser,
       @RequestBody @Valid UpdateNotificationSettingDTO dto) {
     updateNotificationSettingUseCase.updateNotificationSetting(dto, authUser.id());

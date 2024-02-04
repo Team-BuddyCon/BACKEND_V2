@@ -21,7 +21,7 @@ public class DeleteGifticonController {
 
     @Operation(summary = "기프티콘 제거")
     @DeleteMapping("")
-    public ResponseEntity<ResponseBody> deleteGifticon(
+    public ResponseEntity<ResponseBody<Void>> deleteGifticon(
             @Parameter(hidden = true) AuthUser user,
             @Parameter(name = "제거할 기프티콘 id") @RequestParam("gifticonId") Long gifticonId
     ) {
