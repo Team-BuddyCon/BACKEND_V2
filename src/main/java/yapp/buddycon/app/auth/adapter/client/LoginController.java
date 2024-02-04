@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import yapp.buddycon.app.auth.adapter.client.request.ReissueRequestDto;
 import yapp.buddycon.app.auth.application.port.in.AuthUsecase;
 import yapp.buddycon.app.auth.application.service.TokenDto;
 import yapp.buddycon.app.common.AuthUser;
@@ -36,6 +37,13 @@ public class LoginController {
     public ResponseEntity<ResponseBody> logout(@Parameter(hidden = true) AuthUser authUser) {
         authUsecase.logout(authUser.id());
         return ApiResponse.success("로그아웃에 성공하였습니다.");
+    }
+
+    @Operation(summary = "토큰 재발행")
+    @PostMapping("/reissue")
+    public ResponseEntity<ResponseBody> reissue(@RequestBody @Valid ReissueRequestDto dto) {
+        TokenDto tokenDto = authUsecase.reissue(dto);
+        return ApiResponse.successWithBody("토큰 재발행에 성공하였습니다.", tokenDto);
     }
 
 }

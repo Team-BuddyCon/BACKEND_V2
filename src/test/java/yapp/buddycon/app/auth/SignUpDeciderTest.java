@@ -12,11 +12,11 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.context.ApplicationEventPublisher;
+import yapp.buddycon.app.auth.application.port.out.AuthToUserCommandStorage;
+import yapp.buddycon.app.auth.application.port.out.AuthToUserQueryStorage;
 import yapp.buddycon.app.auth.application.port.out.OAuthUserInfoApi;
 import yapp.buddycon.app.auth.adapter.client.LoginRequest;
 import yapp.buddycon.app.event.NotificationSettingCreationEvent;
-import yapp.buddycon.app.user.application.port.out.UserCommandStorage;
-import yapp.buddycon.app.user.application.port.out.UserQueryStorage;
 import yapp.buddycon.app.auth.application.service.OAuthMemberInfo;
 import yapp.buddycon.app.auth.application.service.SignUpDecider;
 import yapp.buddycon.app.user.domain.User;
@@ -25,9 +25,9 @@ import yapp.buddycon.app.user.domain.User;
 class SignUpDeciderTest {
 
   @Mock
-  UserQueryStorage userQueryStorage;
+  AuthToUserQueryStorage userQueryStorage;
   @Mock
-  UserCommandStorage userCommandStorage;
+  AuthToUserCommandStorage userCommandStorage;
   @Mock
   OAuthUserInfoApi oAuthUserInfoApi;
   @Mock
