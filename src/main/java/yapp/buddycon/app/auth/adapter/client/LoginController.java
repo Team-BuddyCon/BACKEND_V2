@@ -41,7 +41,7 @@ public class LoginController {
 
     @Operation(summary = "토큰 재발행")
     @PostMapping("/reissue")
-    public ResponseEntity<ResponseBody> reissue(@RequestBody @Valid ReissueRequestDto dto) {
+    public ResponseEntity<ResponseBody<TokenDto>> reissue(@RequestBody @Valid ReissueRequestDto dto) {
         TokenDto tokenDto = authUsecase.reissue(dto);
         return ApiResponse.successWithBody("토큰 재발행에 성공하였습니다.", tokenDto);
     }
