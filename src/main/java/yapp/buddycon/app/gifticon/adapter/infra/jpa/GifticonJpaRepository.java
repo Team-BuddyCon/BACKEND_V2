@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import yapp.buddycon.app.gifticon.adapter.client.response.GifticonResponseDTO;
+import yapp.buddycon.app.gifticon.domain.GifticonStore;
 import yapp.buddycon.app.gifticon.domain.GifticonStoreCategory;
 
 import java.util.Optional;
@@ -36,10 +37,33 @@ public interface GifticonJpaRepository extends JpaRepository<GifticonEntity, Lon
     from GifticonEntity g
     where g.used = false
     and g.userId = :userId
+    and g.gifticonStore = :gifticonStore
+  """)
+  Slice<GifticonResponseDTO> findAllByUsedIsFalseAndUserIdAndGifticonStore(
+      long userId, GifticonStore gifticonStore, Pageable pageable);
+
+  @Query(value = """
+    select new yapp.buddycon.app.gifticon.adapter.client.response.GifticonResponseDTO
+      (g.id, g.imageUrl, g.name, g.memo, g.expireDate, g.gifticonStore, g.gifticonStoreCategory)
+    from GifticonEntity g
+    where g.used = false
+    and g.userId = :userId
     and g.gifticonStoreCategory = :gifticonStoreCategory
   """)
   Slice<GifticonResponseDTO> findAllByUsedIsFalseAndUserIdAndGifticonStoreCategory(
       long userId, GifticonStoreCategory gifticonStoreCategory, Pageable pageable);
+
+  @Query(value = """
+    select new yapp.buddycon.app.gifticon.adapter.client.response.GifticonResponseDTO
+      (g.id, g.imageUrl, g.name, g.memo, g.expireDate, g.gifticonStore, g.gifticonStoreCategory)
+    from GifticonEntity g
+    where g.used = false
+    and g.userId = :userId
+    and g.gifticonStoreCategory = :gifticonStoreCategory
+    and g.gifticonStore = :gifticonStore
+  """)
+  Slice<GifticonResponseDTO> findAllByUsedIsFalseAndUserIdAndGifticonStoreCategoryAndGifticonStore(
+      long userId, GifticonStoreCategory gifticonStoreCategory, GifticonStore gifticonStore, Pageable pageable);
 
   @Query(value = """
     select g

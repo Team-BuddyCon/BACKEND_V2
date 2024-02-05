@@ -60,7 +60,7 @@ public class ReadGifticonServiceTest {
     void 정상조회() {
       // given
       SearchAvailableGifticonDTO requestDTO = new SearchAvailableGifticonDTO();
-      when(gifticonQueryStoragePort.findAllAvailableGifticons(anyLong(), any(), any())).thenReturn(
+      when(gifticonQueryStoragePort.findAllAvailableGifticons(anyLong(), any(), any(), any())).thenReturn(
           new SliceImpl<>(Arrays.asList(
               new GifticonResponseDTO(1L, "", "", "", null, null, null),
               new GifticonResponseDTO(2L, "", "", "", null, null, null)))

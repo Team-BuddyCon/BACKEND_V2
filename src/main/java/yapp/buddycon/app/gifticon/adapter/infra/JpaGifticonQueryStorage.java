@@ -8,12 +8,11 @@ import yapp.buddycon.app.gifticon.adapter.GifticonException;
 import yapp.buddycon.app.gifticon.adapter.client.response.GifticonResponseDTO;
 import yapp.buddycon.app.gifticon.adapter.infra.jpa.GifticonEntity;
 import yapp.buddycon.app.gifticon.domain.Gifticon;
+import yapp.buddycon.app.gifticon.domain.GifticonStore;
 import yapp.buddycon.app.gifticon.domain.GifticonStoreCategory;
 import yapp.buddycon.app.gifticon.adapter.infra.jpa.GifticonJpaRepository;
 import yapp.buddycon.app.gifticon.adapter.infra.jpa.GifticonMapper;
 import yapp.buddycon.app.gifticon.application.port.out.GifticonQueryStorage;
-
-import java.util.Optional;
 
 @RequiredArgsConstructor
 @Component
@@ -29,11 +28,23 @@ public class JpaGifticonQueryStorage implements GifticonQueryStorage {
 
     @Override
     public Slice<GifticonResponseDTO> findAllAvailableGifticons(
-            long userId, GifticonStoreCategory gifticonStoreCategory, Pageable pageable) {
+            long userId, GifticonStoreCategory gifticonStoreCategory, GifticonStore gifticonStore, Pageable pageable) {
         if (gifticonStoreCategory == null) {
-            return gifticonJpaRepository.findAllByUsedIsFalseAndUserId(userId, pageable);
+            if (gifticonStore == null) {
+                // Category X, Store X
+                return gifticonJpaRepository.findAllByUsedIsFalseAndUserId(userId, pageable);
+            } else {
+                // Category X, Store O
+                return gifticonJpaRepository.findAllByUsedIsFalseAndUserIdAndGifticonStore(userId, gifticonStore, pageable);
+            }
         } else {
-            return gifticonJpaRepository.findAllByUsedIsFalseAndUserIdAndGifticonStoreCategory(userId, gifticonStoreCategory, pageable);
+            if (gifticonStore == null) {
+                // Category O, Store X
+                return gifticonJpaRepository.findAllByUsedIsFalseAndUserIdAndGifticonStoreCategory(userId, gifticonStoreCategory, pageable);
+            } else {
+                // Category O, Store O
+                return gifticonJpaRepository.findAllByUsedIsFalseAndUserIdAndGifticonStoreCategoryAndGifticonStore(userId, gifticonStoreCategory, gifticonStore, pageable);
+            }
         }
     }
 
