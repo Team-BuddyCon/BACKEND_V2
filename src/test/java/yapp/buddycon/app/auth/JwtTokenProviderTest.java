@@ -40,7 +40,7 @@ class JwtTokenProviderTest {
     final var testTime = new LocalTime().getNow();
 
     when(time.getNow()).thenReturn(testTime);
-    when(jwtTokenCreator.createToken(DEFAULT_USER, testTime, testTime, testTime)).thenReturn(new TokenDto("access", "refresh"));
+    when(jwtTokenCreator.createToken(DEFAULT_USER, testTime, testTime, testTime)).thenReturn(new TokenDto("access", "refresh", 1l));
 
     // when
     jwtTokenProvider.provide(DEFAULT_USER);
@@ -55,7 +55,7 @@ class JwtTokenProviderTest {
     final var testTime = new LocalTime().getNow();
 
     when(time.getNow()).thenReturn(testTime);
-    when(jwtTokenCreator.createToken(DEFAULT_USER, testTime, testTime, testTime)).thenReturn(new TokenDto("access", "refresh"));
+    when(jwtTokenCreator.createToken(DEFAULT_USER, testTime, testTime, testTime)).thenReturn(new TokenDto("access", "refresh", 1l));
 
     // when
     jwtTokenProvider.provide(DEFAULT_USER);
@@ -101,7 +101,7 @@ class JwtTokenProviderTest {
       // given
       when(refreshTokenStorage.get(String.valueOf(DEFAULT_USER.id()))).thenReturn("refreshToken");
 
-      TokenDto expect = new TokenDto("reissue accessToken", "reissue refreshToken");
+      TokenDto expect = new TokenDto("reissue accessToken", "reissue refreshToken", 1l);
       doReturn(expect).when(jwtTokenProvider).provide(DEFAULT_USER);
 
       // when
