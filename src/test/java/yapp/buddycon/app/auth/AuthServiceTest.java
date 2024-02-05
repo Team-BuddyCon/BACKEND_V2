@@ -69,7 +69,7 @@ class AuthServiceTest {
       User user = new User(1l, 123l, "", "", "", "");
       when(userQueryStorage.findById(1l)).thenReturn(Optional.of(user));
 
-      TokenDto tokenDto = new TokenDto("new accessToken", "new refreshToken");
+      TokenDto tokenDto = new TokenDto("new accessToken", "new refreshToken", 1l);
       when(tokenProvider.reissue(any(), any())).thenReturn(tokenDto);
 
       // when
