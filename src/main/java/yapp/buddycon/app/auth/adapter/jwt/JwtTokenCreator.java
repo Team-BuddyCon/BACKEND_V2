@@ -30,6 +30,6 @@ public class JwtTokenCreator {
       .signWith(key, SignatureAlgorithm.HS512)
       .compact();
 
-    return new TokenDto(accessToken, refreshToken);
+    return new TokenDto(accessToken, refreshToken, accessTokenExpiresIn.toEpochMilli());
   }
 }
