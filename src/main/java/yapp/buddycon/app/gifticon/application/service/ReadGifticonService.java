@@ -4,8 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import yapp.buddycon.app.gifticon.adapter.GifticonException;
-import yapp.buddycon.app.gifticon.adapter.GifticonException.GifticonExceptionCode;
 import yapp.buddycon.app.gifticon.adapter.client.request.SearchAvailableGifticonDTO;
 import yapp.buddycon.app.gifticon.adapter.client.response.GifticonResponseDTO;
 import yapp.buddycon.app.gifticon.application.port.in.ReadGifticonUseCase;
@@ -29,6 +27,7 @@ public class ReadGifticonService implements ReadGifticonUseCase {
     return gifticonQueryStorage.findAllAvailableGifticons(
         userId,
         dto.getGifticonStoreCategory(),
+        dto.getGifticonStore(),
         dto.toPageable());
   }
 
