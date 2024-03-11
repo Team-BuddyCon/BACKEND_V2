@@ -11,6 +11,7 @@ import yapp.buddycon.app.gifticon.adapter.client.request.GifticonCreationDto;
 import yapp.buddycon.app.gifticon.application.port.out.GifticonCommandStorage;
 import yapp.buddycon.app.common.s3.application.port.out.ImageUploader;
 import yapp.buddycon.app.gifticon.application.service.CreateGifticonService;
+import yapp.buddycon.app.gifticon.domain.Gifticon;
 import yapp.buddycon.app.gifticon.domain.GifticonStore;
 
 import java.time.LocalDate;
@@ -43,6 +44,10 @@ class CreateGifticonServiceTest {
                 "testpng".getBytes()
         );
         when(imageUploader.upload(testImage)).thenReturn("s3 image url");
+
+        Gifticon savedGifticon = mock(Gifticon.class);
+        when(savedGifticon.getId()).thenReturn(1L);
+        when(gifticonCommandStorage.save(any(Gifticon.class))).thenReturn(savedGifticon);
 
         // when
         service.createGifticon(dto, testImage, userId);
