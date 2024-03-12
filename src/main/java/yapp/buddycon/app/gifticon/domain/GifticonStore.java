@@ -20,6 +20,7 @@ public enum GifticonStore {
 
   MACDONALD("맥도날드", GifticonStoreCategory.OTHERS),
   BASKIN_ROBBINS("배스킨 라빈스", GifticonStoreCategory.OTHERS),
+  OTHERS("기타", GifticonStoreCategory.OTHERS),
   ;
 
   private String name;

@@ -62,7 +62,7 @@ public class CreateGifticonControllerTest {
         final var dto = new GifticonCreationDto("name", LocalDate.MAX, GifticonStore.GS25, "memo");
         final var mockDto = new MockMultipartFile("dto", "", "application/json", mapper.registerModule(new JavaTimeModule()).writeValueAsString(dto).getBytes(StandardCharsets.UTF_8));
 
-        doNothing().when(usecase).createGifticon(any(GifticonCreationDto.class), eq(testImage), anyLong());
+        when(usecase.createGifticon(any(GifticonCreationDto.class), eq(testImage), anyLong())).thenReturn(1l);
 
         // when
         ResultActions result = mockMvc.perform(
