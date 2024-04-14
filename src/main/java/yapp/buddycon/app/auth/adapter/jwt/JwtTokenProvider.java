@@ -29,12 +29,12 @@ public class JwtTokenProvider implements TokenProvider {
   private final LocalTime time;
 
   @Override
-  public TokenDto provide(User user) {
+  public TokenDto provide(User user, boolean isFirstLogin) {
     Instant now = time.getNow();
     Instant accessTokenExpiresIn = now.plus(Duration.ofMillis(ACCESS_TOKEN_EXPIRE_TIME));
     Instant refreshTokenExpiresIn = now.plus(Duration.ofMillis(REFRESH_TOKEN_EXPIRE_TIME));
 
-    TokenDto tokenDto = jwtTokenCreator.createToken(user, accessTokenExpiresIn, refreshTokenExpiresIn, now);
+    TokenDto tokenDto = jwtTokenCreator.createToken(user, accessTokenExpiresIn, refreshTokenExpiresIn, now, isFirstLogin);
 
     refreshTokenStorage.save(String.valueOf(user.id()), tokenDto.refreshToken(), REFRESH_TOKEN_EXPIRE_TIME);
 
@@ -42,13 +42,14 @@ public class JwtTokenProvider implements TokenProvider {
   }
 
   @Override
-  public TokenDto reissue(User user, String refreshToken) {
+  public TokenDto
+  reissue(User user, String refreshToken) {
     String storedRefreshToken = refreshTokenStorage.get(String.valueOf(user.id()));
 
     if (storedRefreshToken == null || !storedRefreshToken.equals(refreshToken)) {
       throw new InvalidTokenException("유효하지 않은 토큰입니다.");
     }
-    return this.provide(user);
+    return this.provide(user, false);
   }
 
   @Override
