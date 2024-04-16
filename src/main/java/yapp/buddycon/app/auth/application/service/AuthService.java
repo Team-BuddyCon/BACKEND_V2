@@ -26,7 +26,8 @@ public class AuthService implements AuthUsecase {
     @Override
     public TokenDto login(LoginRequest request) {
         User user = signUpDecider.decide(request);
-        return tokenProvider.provide(user);
+        boolean isFirstLogin = user.id() == null;
+        return tokenProvider.provide(user, isFirstLogin);
     }
 
     @Override

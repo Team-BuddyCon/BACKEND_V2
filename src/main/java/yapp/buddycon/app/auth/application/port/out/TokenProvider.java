@@ -6,7 +6,7 @@ import yapp.buddycon.app.user.domain.User;
 
 public interface TokenProvider {
 
-    TokenDto provide(User user);
+    TokenDto provide(User user, boolean isFirstLogin);
     TokenDto reissue(User user, String refreshToken);
     AuthUser decrypt(String accessToken);
 }

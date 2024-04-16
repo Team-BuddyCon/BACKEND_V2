@@ -37,7 +37,7 @@ class JwtTokenCreatorTest {
     when(jwtTokenSecretKey.getSecretKey()).thenReturn(Keys.hmacShaKeyFor(Decoders.BASE64.decode(secretKey)));
 
     // when
-    TokenDto tokenDto = jwtTokenCreator.createToken(user, testTime, testTime, testTime);
+    TokenDto tokenDto = jwtTokenCreator.createToken(user, testTime, testTime, testTime, false);
 
     // then
     Map<String, String> map = makePayloadToJson(tokenDto);

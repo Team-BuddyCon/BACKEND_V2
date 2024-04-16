@@ -16,7 +16,7 @@ public class JwtTokenCreator {
 
   private final JwtTokenSecretKey jwtTokenSecretKey;
 
-  public TokenDto createToken(User user, Instant accessTokenExpiresIn, Instant refreshTokenExpiresIn, Instant now) {
+  public TokenDto createToken(User user, Instant accessTokenExpiresIn, Instant refreshTokenExpiresIn, Instant now, boolean isFirstLogin) {
     var key = jwtTokenSecretKey.getSecretKey();
 
     var accessToken = Jwts.builder()
@@ -30,6 +30,6 @@ public class JwtTokenCreator {
       .signWith(key, SignatureAlgorithm.HS512)
       .compact();
 
-    return new TokenDto(accessToken, refreshToken, accessTokenExpiresIn.toEpochMilli());
+    return new TokenDto(accessToken, refreshToken, accessTokenExpiresIn.toEpochMilli(), isFirstLogin);
   }
 }

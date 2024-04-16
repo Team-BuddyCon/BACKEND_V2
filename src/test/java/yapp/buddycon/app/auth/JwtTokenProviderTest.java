@@ -40,13 +40,13 @@ class JwtTokenProviderTest {
     final var testTime = new LocalTime().getNow();
 
     when(time.getNow()).thenReturn(testTime);
-    when(jwtTokenCreator.createToken(DEFAULT_USER, testTime, testTime, testTime)).thenReturn(new TokenDto("access", "refresh", 1l));
+    when(jwtTokenCreator.createToken(DEFAULT_USER, testTime, testTime, testTime, false)).thenReturn(new TokenDto("access", "refresh", 1l, false));
 
     // when
-    jwtTokenProvider.provide(DEFAULT_USER);
+    jwtTokenProvider.provide(DEFAULT_USER, false);
 
     // then
-    verify(jwtTokenCreator, times(1)).createToken(DEFAULT_USER, testTime, testTime, testTime);
+    verify(jwtTokenCreator, times(1)).createToken(DEFAULT_USER, testTime, testTime, testTime, false);
   }
 
   @Test
@@ -55,10 +55,10 @@ class JwtTokenProviderTest {
     final var testTime = new LocalTime().getNow();
 
     when(time.getNow()).thenReturn(testTime);
-    when(jwtTokenCreator.createToken(DEFAULT_USER, testTime, testTime, testTime)).thenReturn(new TokenDto("access", "refresh", 1l));
+    when(jwtTokenCreator.createToken(DEFAULT_USER, testTime, testTime, testTime, false)).thenReturn(new TokenDto("access", "refresh", 1l, false));
 
     // when
-    jwtTokenProvider.provide(DEFAULT_USER);
+    jwtTokenProvider.provide(DEFAULT_USER, false);
 
     // then
     verify(refreshTokenStorage, times(1)).save(anyString(), anyString(), anyLong());
@@ -101,14 +101,14 @@ class JwtTokenProviderTest {
       // given
       when(refreshTokenStorage.get(String.valueOf(DEFAULT_USER.id()))).thenReturn("refreshToken");
 
-      TokenDto expect = new TokenDto("reissue accessToken", "reissue refreshToken", 1l);
-      doReturn(expect).when(jwtTokenProvider).provide(DEFAULT_USER);
+      TokenDto expect = new TokenDto("reissue accessToken", "reissue refreshToken", 1l, false);
+      doReturn(expect).when(jwtTokenProvider).provide(DEFAULT_USER, false);
 
       // when
       TokenDto result = jwtTokenProvider.reissue(DEFAULT_USER, "refreshToken");
 
       // then
-      verify(jwtTokenProvider, times(1)).provide(DEFAULT_USER);
+      verify(jwtTokenProvider, times(1)).provide(DEFAULT_USER, false);
       assertThat(result.accessToken()).isEqualTo(expect.accessToken());
       assertThat(result.refreshToken()).isEqualTo(expect.refreshToken());
     }
