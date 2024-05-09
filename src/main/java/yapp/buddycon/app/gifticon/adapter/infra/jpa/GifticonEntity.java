@@ -7,6 +7,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Where;
 import yapp.buddycon.app.gifticon.domain.GifticonStore;
 import yapp.buddycon.app.gifticon.domain.GifticonStoreCategory;
 import yapp.buddycon.app.common.BaseEntity;
@@ -14,6 +15,7 @@ import yapp.buddycon.app.common.BaseEntity;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
+@Where(clause = "deleted = false")
 @Table(name = "gifticon")
 public class GifticonEntity extends BaseEntity {
 
