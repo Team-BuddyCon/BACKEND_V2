@@ -229,7 +229,7 @@ public class GifticonJpaRepositoryTest {
 
       // when
       Long result = gifticonJpaRepository.countByUserIdAndUsedAndGifticonStoreCategoryAndExpireDate(
-              null, null, null, LocalDate.of(2021, 1, 4));
+              user.getId(), null, null, LocalDate.of(2021, 1, 4));
 
       // then
       assertThat(result).isEqualTo(2);
