@@ -9,6 +9,7 @@ import yapp.buddycon.app.gifticon.adapter.client.response.GifticonResponseDTO;
 import yapp.buddycon.app.gifticon.domain.GifticonStore;
 import yapp.buddycon.app.gifticon.domain.GifticonStoreCategory;
 
+import java.time.LocalDate;
 import java.util.Optional;
 
 public interface GifticonJpaRepository extends JpaRepository<GifticonEntity, Long> {
@@ -85,4 +86,16 @@ public interface GifticonJpaRepository extends JpaRepository<GifticonEntity, Lon
   void delete(Long userId, Long gifticonId);
 
   boolean existsByUserIdAndId(long userId, long gifticonId);
+
+  @Query(value = """
+    select count(g)
+    from GifticonEntity g
+    where g.userId = :userId
+    and (:used is null or g.used = :used)
+    and (:gifticonStoreCategory is null or g.gifticonStoreCategory = :gifticonStoreCategory)
+    and (:toExpireDate is null or g.expireDate <= :toExpireDate)
+  """)
+  Long countByUserIdAndUsedAndGifticonStoreCategoryAndExpireDate(
+          Long userId, Boolean used, GifticonStoreCategory gifticonStoreCategory, LocalDate toExpireDate);
+
 }

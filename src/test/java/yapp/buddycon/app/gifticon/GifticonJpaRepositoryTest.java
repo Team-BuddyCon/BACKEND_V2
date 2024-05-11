@@ -161,6 +161,81 @@ public class GifticonJpaRepositoryTest {
     }
   }
 
+  @Nested
+  class CountByUserIdAndUsedAndGifticonStoreCategoryAndExpireDate {
+
+    @Test
+    void 유저_아이디로만_필터링() {
+      // given
+      UserEntity user1 = userRepository.save(
+              new UserEntity(null, 123L, "nickname", "dd@domain.com", "male", "20"));
+      UserEntity user2 = userRepository.save(
+              new UserEntity(null, 456L, "nickname2", "dd2@domain.com", "male", "20"));
+
+      createGifticonEntity("name5", false, GifticonStore.STARBUCKS, user1.getId());
+      createGifticonEntity("name5", false, GifticonStore.STARBUCKS, user1.getId());
+
+      createGifticonEntity("name5", false, GifticonStore.STARBUCKS, user2.getId());
+
+      // when
+      Long result = gifticonJpaRepository.countByUserIdAndUsedAndGifticonStoreCategoryAndExpireDate(
+              user1.getId(), null, null, null);
+
+      // then
+      assertThat(result).isEqualTo(2);
+    }
+
+    @Test
+    void 유저_아이디와_사용여부와_카테고리로_필터링() {
+      // given
+      UserEntity user1 = userRepository.save(
+              new UserEntity(null, 123L, "nickname", "dd@domain.com", "male", "20"));
+      UserEntity user2 = userRepository.save(
+              new UserEntity(null, 456L, "nickname2", "dd2@domain.com", "male", "20"));
+
+      createGifticonEntity("name5", false, GifticonStore.STARBUCKS, user1.getId());
+      createGifticonEntity("name5", false, GifticonStore.MACDONALD, user1.getId());
+      createGifticonEntity("name5", true, GifticonStore.STARBUCKS, user1.getId()); // 조회 대상
+      createGifticonEntity("name5", true, GifticonStore.COFFEE_BEAN, user1.getId()); // 조회 대상
+
+      createGifticonEntity("name5", false, GifticonStore.STARBUCKS, user2.getId());
+
+      // when
+      Long result = gifticonJpaRepository.countByUserIdAndUsedAndGifticonStoreCategoryAndExpireDate(
+              user1.getId(), true, GifticonStoreCategory.CAFE, null);
+
+      // then
+      assertThat(result).isEqualTo(2);
+    }
+
+    @Test
+    void 남은_만료_일자로_필터링() {
+      // given
+      UserEntity user = userRepository.save(
+              new UserEntity(null, 123L, "nickname", "dd@domain.com", "male", "20"));
+
+      gifticonJpaRepository.save(GifticonEntity.builder() // 조회 대상
+              .userId(user.getId()).imageUrl("url1").name("name").used(true).gifticonStore(GifticonStore.CU)
+              .expireDate(LocalDate.of(2021, 1, 1))
+              .build());
+      gifticonJpaRepository.save(GifticonEntity.builder() // 조회 대상
+              .userId(user.getId()).imageUrl("url1").name("name").used(true).gifticonStore(GifticonStore.CU)
+              .expireDate(LocalDate.of(2021, 1, 3))
+              .build());
+      gifticonJpaRepository.save(GifticonEntity.builder()
+              .userId(user.getId()).imageUrl("url1").name("name").used(true).gifticonStore(GifticonStore.CU)
+              .expireDate(LocalDate.of(2021, 1, 5))
+              .build());
+
+      // when
+      Long result = gifticonJpaRepository.countByUserIdAndUsedAndGifticonStoreCategoryAndExpireDate(
+              null, null, null, LocalDate.of(2021, 1, 4));
+
+      // then
+      assertThat(result).isEqualTo(2);
+    }
+  }
+
   // TODO Entity 메소드로 분리 예정
   private GifticonEntity createGifticonEntity(String name, boolean used, GifticonStore gifticonStore, Long userId) {
     GifticonEntity gifticonEntity = GifticonEntity.builder()
