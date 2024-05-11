@@ -4,5 +4,5 @@ import yapp.buddycon.app.gifticon.adapter.client.request.GifticonCountDto;
 
 public interface GifticonCountUsecase {
 
-    long countGifticons(long userId, GifticonCountDto dto);
+    long countGifticons(Long userId, GifticonCountDto dto);
 }

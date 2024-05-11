@@ -17,7 +17,7 @@ public class GifticonCountService implements GifticonCountUsecase {
     private final GifticonQueryStorage queryStorage;
 
     @Override
-    public long countGifticons(long userId, GifticonCountDto dto) {
+    public long countGifticons(Long userId, GifticonCountDto dto) {
         LocalDate toExpireDate = dto.remainingDays() == null ? null : LocalDate.now().plusDays(dto.remainingDays());
         return queryStorage.countByUserIdAndUsedAndGifticonStoreCategoryAndExpireDate(
                 userId, dto.used(), dto.gifticonStoreCategory(), toExpireDate);
