@@ -2,12 +2,16 @@ package yapp.buddycon.app.gifticon;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import yapp.buddycon.app.gifticon.application.port.in.GifticonCountUsecase;
+import yapp.buddycon.app.gifticon.adapter.client.request.GifticonCountDto;
 import yapp.buddycon.app.gifticon.application.port.out.GifticonQueryStorage;
 import yapp.buddycon.app.gifticon.application.service.GifticonCountService;
+import yapp.buddycon.app.gifticon.domain.GifticonStoreCategory;
+
+import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -21,24 +25,62 @@ class GifticonCountServiceTest {
     GifticonCountService service;
 
     @Test
-    void 사용완료_기프티콘_갯수조회_요청에_대해_해당하는_데이터를_반환한다() {
-        final var userId = 1L;
-        final var usedGifticonCount = 5L;
-        when(queryStorage.countByUserIdAndUsed(userId, true)).thenReturn(usedGifticonCount);
+    void 전달받은_값으로_queryStorage_메소드를_호출한다() {
+        // given
+        long userId = 1l;
+        GifticonCountDto dto = new GifticonCountDto(true, GifticonStoreCategory.CAFE, null);
 
-        Long actual = service.countGifticons(userId, true);
+        when(queryStorage.countByUserIdAndUsedAndGifticonStoreCategoryAndExpireDate(
+                anyLong(), any(), any(), any())).thenReturn(10l);
 
-        assertEquals(usedGifticonCount, actual);
+        // when
+        service.countGifticons(userId, dto);
+
+        // then
+        ArgumentCaptor<Long> userIdArgument = ArgumentCaptor.forClass(Long.class);
+        ArgumentCaptor<GifticonStoreCategory> gifticonStoreCategoryArgument = ArgumentCaptor.forClass(GifticonStoreCategory.class);
+        ArgumentCaptor<Boolean> usedArgument = ArgumentCaptor.forClass(Boolean.class);
+
+        verify(queryStorage).countByUserIdAndUsedAndGifticonStoreCategoryAndExpireDate(
+                userIdArgument.capture(), usedArgument.capture(), gifticonStoreCategoryArgument.capture(), any());
+        assertEquals(userId, userIdArgument.getValue());
+        assertEquals(dto.gifticonStoreCategory(), gifticonStoreCategoryArgument.getValue());
+        assertEquals(dto.used(), usedArgument.getValue());
     }
 
     @Test
-    void 사용가능_기프티콘_갯수조회_요청에_대해_해당하는_데이터를_반환한다() {
-        final var userId = 1L;
-        final var usableGifticonCount = 10L;
-        when(queryStorage.countByUserIdAndUsed(userId, false)).thenReturn(usableGifticonCount);
+    void queryStorage가_반환한_값을_그대로_반환한다() {
+        // given
+        long expectedResult = 10l;
+        GifticonCountDto dto = new GifticonCountDto(null, null, null);
 
-        Long actual = service.countGifticons(userId, false);
+        when(queryStorage.countByUserIdAndUsedAndGifticonStoreCategoryAndExpireDate(
+                anyLong(), any(), any(), any())).thenReturn(expectedResult);
 
-        assertEquals(usableGifticonCount, actual);
+        // when
+        long result = service.countGifticons(1l, dto);
+
+        // then
+        assertEquals(expectedResult, result);
     }
+
+    @Test
+    void 전달받은_값에_remainingDays가_null이_아닌_경우_날짜로_변환해서_queryStorage_메소드를_호출한다() {
+        // given
+        GifticonCountDto dto = new GifticonCountDto(null, null, 30);
+
+        when(queryStorage.countByUserIdAndUsedAndGifticonStoreCategoryAndExpireDate(
+                anyLong(), any(), any(), any())).thenReturn(10l);
+
+        // when
+        service.countGifticons(1l, dto);
+
+        // then
+        ArgumentCaptor<LocalDate> toExpireDateArgument = ArgumentCaptor.forClass(LocalDate.class);
+
+        verify(queryStorage).countByUserIdAndUsedAndGifticonStoreCategoryAndExpireDate(
+                anyLong(), any(), any(), toExpireDateArgument.capture());
+        assertEquals(LocalDate.now().plusDays(30), toExpireDateArgument.getValue());
+    }
+
 }
