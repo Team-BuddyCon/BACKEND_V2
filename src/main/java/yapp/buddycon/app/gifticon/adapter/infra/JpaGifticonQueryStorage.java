@@ -14,6 +14,8 @@ import yapp.buddycon.app.gifticon.adapter.infra.jpa.GifticonJpaRepository;
 import yapp.buddycon.app.gifticon.adapter.infra.jpa.GifticonMapper;
 import yapp.buddycon.app.gifticon.application.port.out.GifticonQueryStorage;
 
+import java.time.LocalDate;
+
 @RequiredArgsConstructor
 @Component
 public class JpaGifticonQueryStorage implements GifticonQueryStorage {
@@ -62,9 +64,10 @@ public class JpaGifticonQueryStorage implements GifticonQueryStorage {
         );
     }
 
-  @Override
-  public Long countByUserIdAndUsed(long userId, boolean used) {
-    return gifticonJpaRepository.countByUserIdAndUsed(userId, used);
-  }
+    @Override
+    public Long countByUserIdAndUsedAndGifticonStoreCategoryAndExpireDate(
+            long userId, Boolean used, GifticonStoreCategory gifticonStoreCategory, LocalDate toExpireDate) {
+        return gifticonJpaRepository.countByUserIdAndUsedAndGifticonStoreCategoryAndExpireDate(userId, used, gifticonStoreCategory, toExpireDate);
+    }
 
 }

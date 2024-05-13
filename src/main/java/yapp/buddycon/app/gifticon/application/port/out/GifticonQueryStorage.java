@@ -7,6 +7,8 @@ import yapp.buddycon.app.gifticon.domain.Gifticon;
 import yapp.buddycon.app.gifticon.domain.GifticonStore;
 import yapp.buddycon.app.gifticon.domain.GifticonStoreCategory;
 
+import java.time.LocalDate;
+
 public interface GifticonQueryStorage {
 
   Slice<GifticonResponseDTO> findAllUnavailableGifticons(long userId, Pageable pageable);
@@ -18,5 +20,6 @@ public interface GifticonQueryStorage {
 
   Gifticon getByGifticonIdAndUserId(long gifticonId, long userId);
 
-  Long countByUserIdAndUsed(long userId, boolean used);
+  Long countByUserIdAndUsedAndGifticonStoreCategoryAndExpireDate(
+          long userId, Boolean used, GifticonStoreCategory gifticonStoreCategory, LocalDate toExpireDate);
 }
