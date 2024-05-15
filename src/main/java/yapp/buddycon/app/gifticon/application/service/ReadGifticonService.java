@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import yapp.buddycon.app.gifticon.adapter.client.request.SearchAvailableGifticonDTO;
 import yapp.buddycon.app.gifticon.adapter.client.response.GifticonResponseDTO;
+import yapp.buddycon.app.gifticon.adapter.client.response.SingleGifticonResponseDto;
 import yapp.buddycon.app.gifticon.application.port.in.ReadGifticonUseCase;
 import yapp.buddycon.app.gifticon.application.port.out.GifticonQueryStorage;
 import yapp.buddycon.app.common.request.PagingDTO;
@@ -32,7 +33,7 @@ public class ReadGifticonService implements ReadGifticonUseCase {
   }
 
   @Override
-  public GifticonResponseDTO getGifticon(Long userId, Long gifticonId) {
+  public SingleGifticonResponseDto getGifticon(Long userId, Long gifticonId) {
     return gifticonQueryStorage.findByGifticonIdAndUserId(gifticonId, userId);
   }
 }

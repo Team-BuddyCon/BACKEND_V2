@@ -17,6 +17,7 @@ import yapp.buddycon.app.common.response.ApiResponse;
 import yapp.buddycon.app.gifticon.adapter.client.request.SearchAvailableGifticonDTO;
 import yapp.buddycon.app.common.AuthUser;
 import yapp.buddycon.app.gifticon.adapter.client.response.GifticonResponseDTO;
+import yapp.buddycon.app.gifticon.adapter.client.response.SingleGifticonResponseDto;
 import yapp.buddycon.app.gifticon.application.port.in.ReadGifticonUseCase;
 import yapp.buddycon.app.common.request.PagingDTO;
 
@@ -44,7 +45,7 @@ public class ReadGifticonController {
 
   @Operation(summary = "특정 기프티콘 단건 조회")
   @GetMapping("/{gifticon-id}")
-  public ResponseEntity<ResponseBody<GifticonResponseDTO>> getGifticon(
+  public ResponseEntity<ResponseBody<SingleGifticonResponseDto>> getGifticon(
           @Parameter(hidden = true) AuthUser authUser, @PathVariable("gifticon-id") long gifticonId) {
     return ApiResponse.successWithBody("기프티콘을 성공적으로 조회하였습니다.",
         gifticonUseCase.getGifticon(authUser.id(), gifticonId));
