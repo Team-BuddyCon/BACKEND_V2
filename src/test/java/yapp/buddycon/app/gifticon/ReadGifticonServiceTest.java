@@ -20,6 +20,7 @@ import yapp.buddycon.app.gifticon.adapter.GifticonException;
 import yapp.buddycon.app.gifticon.adapter.GifticonException.GifticonExceptionCode;
 import yapp.buddycon.app.gifticon.adapter.client.request.SearchAvailableGifticonDTO;
 import yapp.buddycon.app.gifticon.adapter.client.response.GifticonResponseDTO;
+import yapp.buddycon.app.gifticon.adapter.client.response.SingleGifticonResponseDto;
 import yapp.buddycon.app.gifticon.application.port.out.GifticonQueryStorage;
 import yapp.buddycon.app.gifticon.application.service.ReadGifticonService;
 import yapp.buddycon.app.common.request.PagingDTO;
@@ -83,11 +84,11 @@ public class ReadGifticonServiceTest {
     @Test
     void 요청한_기프티콘이_있을_경우_DTO를_반환한다() {
       // given
-      GifticonResponseDTO gifticonResponseDTO = new GifticonResponseDTO(REQUEST_GIFTICON_ID, "", "", "", null, null, null);
+      SingleGifticonResponseDto gifticonResponseDTO = new SingleGifticonResponseDto(REQUEST_GIFTICON_ID, "", "", "", null, null, null, false);
       when(gifticonQueryStoragePort.findByGifticonIdAndUserId(REQUEST_GIFTICON_ID, REQUEST_USER_ID)).thenReturn(gifticonResponseDTO);
 
       // when
-      GifticonResponseDTO result = gifticonService.getGifticon(REQUEST_USER_ID, REQUEST_GIFTICON_ID);
+      SingleGifticonResponseDto result = gifticonService.getGifticon(REQUEST_USER_ID, REQUEST_GIFTICON_ID);
 
       // then
       assertThat(result.gifticonId()).isEqualTo(REQUEST_GIFTICON_ID);

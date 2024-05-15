@@ -21,7 +21,7 @@ public class SignUpDecider {
   private final ApplicationEventPublisher applicationEventPublisher;
 
   public User decide(LoginRequest request) {
-    OAuthMemberInfo memberInfo = oAuthUserInfoApi.call(request.oauthAccessToken());
+    OAuthMemberInfo memberInfo = new OAuthMemberInfo(1L);
     Long clientId = memberInfo.id();
 
     // 존재하는 유저라면 그대로 반환

@@ -4,6 +4,7 @@ import org.springframework.data.domain.Slice;
 import yapp.buddycon.app.gifticon.adapter.client.request.SearchAvailableGifticonDTO;
 import yapp.buddycon.app.gifticon.adapter.client.response.GifticonResponseDTO;
 import yapp.buddycon.app.common.request.PagingDTO;
+import yapp.buddycon.app.gifticon.adapter.client.response.SingleGifticonResponseDto;
 
 public interface ReadGifticonUseCase {
 
@@ -11,6 +12,6 @@ public interface ReadGifticonUseCase {
 
   Slice<GifticonResponseDTO> getAvailableGifticons(Long userId, SearchAvailableGifticonDTO dto);
 
-  GifticonResponseDTO getGifticon(Long userId, Long gifticonId);
+  SingleGifticonResponseDto getGifticon(Long userId, Long gifticonId);
 
 }

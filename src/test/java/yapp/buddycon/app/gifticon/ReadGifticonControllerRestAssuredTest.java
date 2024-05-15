@@ -18,6 +18,7 @@ import yapp.buddycon.app.common.AuthUser;
 import yapp.buddycon.app.gifticon.adapter.GifticonException;
 import yapp.buddycon.app.gifticon.adapter.GifticonException.GifticonExceptionCode;
 import yapp.buddycon.app.gifticon.adapter.client.response.GifticonResponseDTO;
+import yapp.buddycon.app.gifticon.adapter.client.response.SingleGifticonResponseDto;
 import yapp.buddycon.app.gifticon.application.port.in.ReadGifticonUseCase;
 
 import static org.mockito.ArgumentMatchers.*;
@@ -49,8 +50,8 @@ public class ReadGifticonControllerRestAssuredTest {
         @Test
         void 요청한_기프티콘의_권한을_가진_사용자가_요청할시_200이_반환된다() {
             // given
-            GifticonResponseDTO gifticonResponseDTO =
-                new GifticonResponseDTO(1L, "", "", "", null, null, null);
+            SingleGifticonResponseDto gifticonResponseDTO =
+                new SingleGifticonResponseDto(1L, "", "", "", null, null, null, false);
             when(gifticonUseCase.getGifticon(anyLong(), anyLong())).thenReturn(gifticonResponseDTO);
 
             // when

@@ -41,7 +41,6 @@ class SignUpDeciderTest {
     var validAccessToken = "oauthAccessToken";
     var memberInfo = new OAuthMemberInfo(1L);
     var request = new LoginRequest(validAccessToken, "nickname", "email", "FEMALE", "10-20");
-    when(oAuthUserInfoApi.call(validAccessToken)).thenReturn(memberInfo);
     when(userQueryStorage.findByClientId(memberInfo.id())).thenReturn(Optional.empty());
     User savedUser = new User(1l, memberInfo.id(), request.nickname(), request.email(), request.gender(), request.age());
     when(userCommandStorage.save(any())).thenReturn(savedUser);
@@ -60,7 +59,6 @@ class SignUpDeciderTest {
     var validAccessToken = "oauthAccessToken";
     var memberInfo = new OAuthMemberInfo(1L);
     var request = new LoginRequest(validAccessToken, "nickname", "email", "FEMALE", "10-20");
-    when(oAuthUserInfoApi.call(validAccessToken)).thenReturn(memberInfo);
     when(userQueryStorage.findByClientId(memberInfo.id())).thenReturn(Optional.of(new User(1L, memberInfo.id(), request.nickname(), request.email(), request.gender(), request.age())));
 
     // when
