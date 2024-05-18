@@ -66,9 +66,10 @@ public class JpaGifticonQueryStorage implements GifticonQueryStorage {
     }
 
     @Override
-    public Long countByUserIdAndUsedAndGifticonStoreCategoryAndExpireDate(
-            long userId, Boolean used, GifticonStoreCategory gifticonStoreCategory, LocalDate toExpireDate) {
-        return gifticonJpaRepository.countByUserIdAndUsedAndGifticonStoreCategoryAndExpireDate(userId, used, gifticonStoreCategory, toExpireDate);
+    public Long countByUserIdAndUsedAndGifticonStoreCategoryAndGifticonStoreAndExpireDate(
+            long userId, Boolean used, GifticonStoreCategory gifticonStoreCategory, GifticonStore gifticonStore, LocalDate toExpireDate) {
+        return gifticonJpaRepository.countByUserIdAndUsedAndGifticonStoreCategoryAndGifticonStoreAndExpireDate(
+                userId, used, gifticonStoreCategory, gifticonStore, toExpireDate);
     }
 
 }

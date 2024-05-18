@@ -21,6 +21,6 @@ public interface GifticonQueryStorage {
 
   Gifticon getByGifticonIdAndUserId(long gifticonId, long userId);
 
-  Long countByUserIdAndUsedAndGifticonStoreCategoryAndExpireDate(
-          long userId, Boolean used, GifticonStoreCategory gifticonStoreCategory, LocalDate toExpireDate);
+  Long countByUserIdAndUsedAndGifticonStoreCategoryAndGifticonStoreAndExpireDate(
+          long userId, Boolean used, GifticonStoreCategory gifticonStoreCategory, GifticonStore gifticonStore, LocalDate toExpireDate);
 }

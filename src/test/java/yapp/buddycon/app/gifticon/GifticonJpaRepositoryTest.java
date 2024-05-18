@@ -162,7 +162,7 @@ public class GifticonJpaRepositoryTest {
   }
 
   @Nested
-  class CountByUserIdAndUsedAndGifticonStoreCategoryAndExpireDate {
+  class CountByUserIdAndUsedAndGifticonStoreCategoryAndGifticonStoreAndExpireDate {
 
     @Test
     void 유저_아이디로만_필터링() {
@@ -178,8 +178,8 @@ public class GifticonJpaRepositoryTest {
       createGifticonEntity("name5", false, GifticonStore.STARBUCKS, user2.getId());
 
       // when
-      Long result = gifticonJpaRepository.countByUserIdAndUsedAndGifticonStoreCategoryAndExpireDate(
-              user1.getId(), null, null, null);
+      Long result = gifticonJpaRepository.countByUserIdAndUsedAndGifticonStoreCategoryAndGifticonStoreAndExpireDate(
+              user1.getId(), null, null, null, null);
 
       // then
       assertThat(result).isEqualTo(2);
@@ -201,8 +201,8 @@ public class GifticonJpaRepositoryTest {
       createGifticonEntity("name5", false, GifticonStore.STARBUCKS, user2.getId());
 
       // when
-      Long result = gifticonJpaRepository.countByUserIdAndUsedAndGifticonStoreCategoryAndExpireDate(
-              user1.getId(), true, GifticonStoreCategory.CAFE, null);
+      Long result = gifticonJpaRepository.countByUserIdAndUsedAndGifticonStoreCategoryAndGifticonStoreAndExpireDate(
+              user1.getId(), true, GifticonStoreCategory.CAFE, null, null);
 
       // then
       assertThat(result).isEqualTo(2);
@@ -228,8 +228,8 @@ public class GifticonJpaRepositoryTest {
               .build());
 
       // when
-      Long result = gifticonJpaRepository.countByUserIdAndUsedAndGifticonStoreCategoryAndExpireDate(
-              user.getId(), null, null, LocalDate.of(2021, 1, 4));
+      Long result = gifticonJpaRepository.countByUserIdAndUsedAndGifticonStoreCategoryAndGifticonStoreAndExpireDate(
+              user.getId(), null, null, null, LocalDate.of(2021, 1, 4));
 
       // then
       assertThat(result).isEqualTo(2);
