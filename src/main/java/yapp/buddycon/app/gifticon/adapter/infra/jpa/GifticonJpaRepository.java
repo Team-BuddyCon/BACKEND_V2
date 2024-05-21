@@ -93,9 +93,10 @@ public interface GifticonJpaRepository extends JpaRepository<GifticonEntity, Lon
     where g.userId = :userId
     and (:used is null or g.used = :used)
     and (:gifticonStoreCategory is null or g.gifticonStoreCategory = :gifticonStoreCategory)
+    and (:gifticonStore is null or g.gifticonStore = :gifticonStore)
     and (:toExpireDate is null or g.expireDate <= :toExpireDate)
   """)
-  Long countByUserIdAndUsedAndGifticonStoreCategoryAndExpireDate(
-          long userId, Boolean used, GifticonStoreCategory gifticonStoreCategory, LocalDate toExpireDate);
+  Long countByUserIdAndUsedAndGifticonStoreCategoryAndGifticonStoreAndExpireDate(
+          long userId, Boolean used, GifticonStoreCategory gifticonStoreCategory, GifticonStore gifticonStore, LocalDate toExpireDate);
 
 }
