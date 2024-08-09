@@ -32,7 +32,7 @@ class JwtTokenProviderTest {
   @InjectMocks
   JwtTokenProvider jwtTokenProvider;
 
-  User DEFAULT_USER = new User(1L, 12345678L, "nickname", "email", "FEMALE", "10-20");
+  User DEFAULT_USER = new User(1L, 12345678L, "nickname", "email", "FEMALE", "10-20", false);
 
   @Test
   void 토큰을_생성할때_token_creator는_한번_invocation_된다() {

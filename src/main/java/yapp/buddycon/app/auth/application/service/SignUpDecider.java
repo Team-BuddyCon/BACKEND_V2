@@ -33,7 +33,7 @@ public class SignUpDecider {
     // 존재하지 않는 유저라면 생성
     User createdUser = userCommandStorage.save(
         new User(null, clientId, request.nickname(), request.email(), request.gender(),
-            request.age()));
+            request.age(), false));
 
     applicationEventPublisher.publishEvent(new NotificationSettingCreationEvent(createdUser.id()));
     return createdUser;

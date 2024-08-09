@@ -43,14 +43,14 @@ class SignUpDeciderTest {
     var request = new LoginRequest(validAccessToken, "nickname", "email", "FEMALE", "10-20");
     when(oAuthUserInfoApi.call(validAccessToken)).thenReturn(memberInfo);
     when(userQueryStorage.findByClientId(memberInfo.id())).thenReturn(Optional.empty());
-    User savedUser = new User(1l, memberInfo.id(), request.nickname(), request.email(), request.gender(), request.age());
+    User savedUser = new User(1l, memberInfo.id(), request.nickname(), request.email(), request.gender(), request.age(), false);
     when(userCommandStorage.save(any())).thenReturn(savedUser);
 
     // when
     signUpDecider.decide(request);
 
     // then
-    verify(userCommandStorage).save(new User(null, memberInfo.id(), request.nickname(), request.email(), request.gender(), request.age()));
+    verify(userCommandStorage).save(new User(null, memberInfo.id(), request.nickname(), request.email(), request.gender(), request.age(), false));
     verify(applicationEventPublisher).publishEvent(new NotificationSettingCreationEvent(1l));
   }
 
@@ -61,7 +61,7 @@ class SignUpDeciderTest {
     var memberInfo = new OAuthMemberInfo(1L);
     var request = new LoginRequest(validAccessToken, "nickname", "email", "FEMALE", "10-20");
     when(oAuthUserInfoApi.call(validAccessToken)).thenReturn(memberInfo);
-    when(userQueryStorage.findByClientId(memberInfo.id())).thenReturn(Optional.of(new User(1L, memberInfo.id(), request.nickname(), request.email(), request.gender(), request.age())));
+    when(userQueryStorage.findByClientId(memberInfo.id())).thenReturn(Optional.of(new User(1L, memberInfo.id(), request.nickname(), request.email(), request.gender(), request.age(), false)));
 
     // when
     signUpDecider.decide(request);

@@ -6,7 +6,8 @@ public record User(
   String nickname,
   String email,
   String gender,
-  String age
+  String age,
+  boolean deleted
 ) {
 
 }

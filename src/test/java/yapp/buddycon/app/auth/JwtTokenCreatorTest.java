@@ -30,7 +30,7 @@ class JwtTokenCreatorTest {
 
     // given
     final var jwtTokenCreator = new JwtTokenCreator(jwtTokenSecretKey);
-    final var user = new User(1L, 12345678L, "nickname", "email", "FEMALE", "10-20");
+    final var user = new User(1L, 12345678L, "nickname", "email", "FEMALE", "10-20", false);
     final var testTime = new LocalTime().getNow();
     final var secretKey = "abcdefghijklmnopqrstuvwxyz12345678901234567890abcdefghijklmnopqrstuvwxyz12345678901234567890";
 
