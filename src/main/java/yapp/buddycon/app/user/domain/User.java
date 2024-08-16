@@ -10,4 +10,8 @@ public record User(
   boolean deleted
 ) {
 
+  // delete method
+  public User delete() {
+    return new User(id, clientId, nickname, email, gender, age, true);
+  }
 }
