@@ -6,10 +6,12 @@ import org.springframework.stereotype.Component;
 import yapp.buddycon.app.auth.application.port.out.CacheStorage;
 
 import java.util.concurrent.TimeUnit;
+import yapp.buddycon.app.user.application.port.out.UserToAuthCommandStorage;
 
 @RequiredArgsConstructor
 @Component
-public class RedisRefreshTokenStorage implements CacheStorage<String, String> {
+public class RedisRefreshTokenStorage implements CacheStorage<String, String>,
+    UserToAuthCommandStorage<String, String> {
 
   private final RedisTemplate<String, String> redisTemplate;
 
