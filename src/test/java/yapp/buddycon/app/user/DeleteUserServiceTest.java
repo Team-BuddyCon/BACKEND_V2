@@ -13,6 +13,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import yapp.buddycon.app.user.application.port.out.UserCommandStorage;
 import yapp.buddycon.app.user.application.port.out.UserQueryStorage;
+import yapp.buddycon.app.user.application.port.out.UserToAuthCommandStorage;
 import yapp.buddycon.app.user.application.service.DeleteUserService;
 import yapp.buddycon.app.user.domain.User;
 
@@ -23,6 +24,8 @@ public class DeleteUserServiceTest {
   UserQueryStorage userQueryStorage;
   @Mock
   UserCommandStorage userCommandStorage;
+  @Mock
+  UserToAuthCommandStorage userToAuthCommandStorage;
   @InjectMocks
   DeleteUserService service;
 
@@ -43,5 +46,20 @@ public class DeleteUserServiceTest {
     verify(userCommandStorage).save(savedUser.capture());
     assertEquals(savedUser.getValue().id(), userId);
     assertEquals(savedUser.getValue().deleted(), true);
+  }
+
+  @Test
+  void 유저_삭제_시_JWT_토큰을_로그아웃_처리한다() {
+
+    // given
+    final long userId = 1L;
+    User user = new User(userId, 123l, "", "", "", "", false);
+    when(userQueryStorage.findById(userId)).thenReturn(Optional.of(user));
+
+    // when
+    service.delete(userId);
+
+    // then
+    verify(userToAuthCommandStorage).delete("1");
   }
 }
