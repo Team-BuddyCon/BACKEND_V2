@@ -1,5 +1,6 @@
 package yapp.buddycon.app.auth;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
@@ -12,6 +13,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.context.ApplicationEventPublisher;
+import yapp.buddycon.app.auth.adapter.AuthException;
 import yapp.buddycon.app.auth.application.port.out.AuthToUserCommandStorage;
 import yapp.buddycon.app.auth.application.port.out.AuthToUserQueryStorage;
 import yapp.buddycon.app.auth.application.port.out.OAuthUserInfoApi;
@@ -69,6 +71,21 @@ class SignUpDeciderTest {
     // then
     verifyNoMoreInteractions(userCommandStorage);
     verifyNoMoreInteractions(applicationEventPublisher);
+  }
+
+  @Test
+  void 삭제된_회원은_Exception을_던진다() {
+    // given
+    var validAccessToken = "oauthAccessToken";
+    var memberInfo = new OAuthMemberInfo(1L);
+    var request = new LoginRequest(validAccessToken, "nickname", "email", "FEMALE", "10-20");
+    when(oAuthUserInfoApi.call(validAccessToken)).thenReturn(memberInfo);
+    when(userQueryStorage.findByClientId(memberInfo.id())).thenReturn(
+        Optional.of(new User(1L, memberInfo.id(), request.nickname(), request.email(), request.gender(), request.age(), true))
+    );
+
+    // when & then
+    assertThrows(AuthException.class, () -> signUpDecider.decide(request));
   }
 
 }

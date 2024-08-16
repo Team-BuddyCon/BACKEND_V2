@@ -4,6 +4,8 @@ import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Component;
+import yapp.buddycon.app.auth.adapter.AuthException;
+import yapp.buddycon.app.auth.adapter.AuthException.AuthExceptionCode;
 import yapp.buddycon.app.auth.adapter.client.LoginRequest;
 import yapp.buddycon.app.auth.application.port.out.AuthToUserCommandStorage;
 import yapp.buddycon.app.auth.application.port.out.AuthToUserQueryStorage;
@@ -27,7 +29,13 @@ public class SignUpDecider {
     // 존재하는 유저라면 그대로 반환
     Optional<User> existingUser = userQueryStorage.findByClientId(clientId);
     if (existingUser.isPresent()) {
-      return existingUser.get();
+      User user = existingUser.get();
+
+      // 탈퇴한 유저
+      if (user.deleted()) {
+        throw new AuthException(AuthExceptionCode.DELETED_USER);
+      }
+      return user;
     }
 
     // 존재하지 않는 유저라면 생성
