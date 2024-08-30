@@ -57,8 +57,8 @@ public class NotificationJpaRepositoryTest {
 
     @BeforeEach
     void dataInit() {
-      사용자1 = userRepository.save(new UserEntity(null, 123L, "nickname1", "aa@domain.com", "male", "20"));
-      사용자2 = userRepository.save(new UserEntity(null, 456L, "nickname2", "bb@domain.com", "female", "20"));
+      사용자1 = userRepository.save(new UserEntity(null, 123L, "nickname1", "aa@domain.com", "male", "20", false));
+      사용자2 = userRepository.save(new UserEntity(null, 456L, "nickname2", "bb@domain.com", "female", "20", false));
     }
 
     @Test

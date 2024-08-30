@@ -44,7 +44,7 @@ class AuthServiceTest {
     var oauthAccessToken = "oauthAccessToken";
     var authService = new AuthService(signUpDecider, tokenProvider, cacheStorage, userQueryStorage);
     var request = new LoginRequest(oauthAccessToken, "nickname", "email", "FEMALE", "10-20");
-    var user = new User(1l, 123l, "", "", "", "");
+    var user = new User(1l, 123l, "", "", "", "", false);
     when(signUpDecider.decide(request)).thenReturn(user);
 
     // when
@@ -65,7 +65,7 @@ class AuthServiceTest {
       AuthUser authUser = new AuthUser(1l);
       when(tokenProvider.decrypt(dto.accessToken())).thenReturn(authUser);
 
-      User user = new User(1l, 123l, "", "", "", "");
+      User user = new User(1l, 123l, "", "", "", "", false);
       when(userQueryStorage.findById(1l)).thenReturn(Optional.of(user));
 
       TokenDto tokenDto = new TokenDto("new accessToken", "new refreshToken", 1l, false);

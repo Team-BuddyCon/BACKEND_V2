@@ -36,7 +36,7 @@ public class GifticonJpaRepositoryTest {
     @Test
     void 사용한_기프티콘_목록만_반환() {
       // given
-      UserEntity user = new UserEntity(null, 123L, "nickname", "dd@domain.com", "male", "20");
+      UserEntity user = new UserEntity(null, 123L, "nickname", "dd@domain.com", "male", "20", false);
       userRepository.save(user);
       GifticonEntity 사용하지_않은_기프티콘1 = createGifticonEntity("사용하지 않은 기프티콘 1", false, GifticonStore.STARBUCKS, user.getId());
       GifticonEntity 사용하지_않은_기프티콘2 = createGifticonEntity("사용하지 않은 기프티콘 2", false, GifticonStore.STARBUCKS, user.getId());
@@ -55,11 +55,11 @@ public class GifticonJpaRepositoryTest {
 
     @Test
     void 유저_필터링() {
-      UserEntity user = new UserEntity(null, 111L, "nickname1", "dd1@domain.com", "male", "20");
+      UserEntity user = new UserEntity(null, 111L, "nickname1", "dd1@domain.com", "male", "20", false);
       user = userRepository.save(user);
       GifticonEntity 사용한_기프티콘1 = createGifticonEntity("사용한 기프티콘 1", true, GifticonStore.STARBUCKS, user.getId());
 
-      UserEntity user2 = new UserEntity(null, 222L, "nickname2", "dd2@domain.com", "male", "20");
+      UserEntity user2 = new UserEntity(null, 222L, "nickname2", "dd2@domain.com", "male", "20", false);
       user2 = userRepository.save(user2);
       GifticonEntity 사용한_기프티콘2 = createGifticonEntity("사용한 기프티콘 2", true, GifticonStore.STARBUCKS, user2.getId());
 
@@ -79,7 +79,7 @@ public class GifticonJpaRepositoryTest {
     @Test
     void 사용_이전의_기프티콘_목록_조회() {
       // given
-      UserEntity user = new UserEntity(null, 123L, "nickname", "dd@domain.com", "male", "20");
+      UserEntity user = new UserEntity(null, 123L, "nickname", "dd@domain.com", "male", "20", false);
       user = userRepository.save(user);
       createGifticonEntity("name1", false, GifticonStore.STARBUCKS, user.getId());
       createGifticonEntity("name2", false, GifticonStore.CU, user.getId());
@@ -96,7 +96,7 @@ public class GifticonJpaRepositoryTest {
     @Test
     void 이름_순서로_정렬_목록_조회() {
       // given
-      UserEntity user = new UserEntity(null, 123L, "nickname", "dd@domain.com", "male", "20");
+      UserEntity user = new UserEntity(null, 123L, "nickname", "dd@domain.com", "male", "20", false);
       user = userRepository.save(user);
       createGifticonEntity("name5", false, GifticonStore.STARBUCKS, user.getId());
       GifticonEntity 조회대상_기프티콘 = createGifticonEntity("name1", false, GifticonStore.CU, user.getId());
@@ -118,7 +118,7 @@ public class GifticonJpaRepositoryTest {
     @Test
     void 카테고리_필터링_지정_목록_조회() {
       // given
-      UserEntity user = new UserEntity(null, 123L, "nickname", "dd@domain.com", "male", "20");
+      UserEntity user = new UserEntity(null, 123L, "nickname", "dd@domain.com", "male", "20", false);
       user = userRepository.save(user);
       createGifticonEntity("name1", false, GifticonStore.STARBUCKS, user.getId());
       createGifticonEntity("name2", false, GifticonStore.CU, user.getId());
@@ -138,7 +138,7 @@ public class GifticonJpaRepositoryTest {
     @Test
     void 정상조회() {
       // given
-      UserEntity user = new UserEntity(null, 123L, "nickname", "dd@domain.com", "male", "20");
+      UserEntity user = new UserEntity(null, 123L, "nickname", "dd@domain.com", "male", "20", false);
       user = userRepository.save(user);
       GifticonEntity target = createGifticonEntity("name1", false, GifticonStore.STARBUCKS, user.getId());
 
@@ -168,9 +168,9 @@ public class GifticonJpaRepositoryTest {
     void 유저_아이디로만_필터링() {
       // given
       UserEntity user1 = userRepository.save(
-              new UserEntity(null, 123L, "nickname", "dd@domain.com", "male", "20"));
+              new UserEntity(null, 123L, "nickname", "dd@domain.com", "male", "20", false));
       UserEntity user2 = userRepository.save(
-              new UserEntity(null, 456L, "nickname2", "dd2@domain.com", "male", "20"));
+              new UserEntity(null, 456L, "nickname2", "dd2@domain.com", "male", "20", false));
 
       createGifticonEntity("name5", false, GifticonStore.STARBUCKS, user1.getId());
       createGifticonEntity("name5", false, GifticonStore.STARBUCKS, user1.getId());
@@ -189,9 +189,9 @@ public class GifticonJpaRepositoryTest {
     void 유저_아이디와_사용여부와_카테고리로_필터링() {
       // given
       UserEntity user1 = userRepository.save(
-              new UserEntity(null, 123L, "nickname", "dd@domain.com", "male", "20"));
+              new UserEntity(null, 123L, "nickname", "dd@domain.com", "male", "20", false));
       UserEntity user2 = userRepository.save(
-              new UserEntity(null, 456L, "nickname2", "dd2@domain.com", "male", "20"));
+              new UserEntity(null, 456L, "nickname2", "dd2@domain.com", "male", "20", false));
 
       createGifticonEntity("name5", false, GifticonStore.STARBUCKS, user1.getId());
       createGifticonEntity("name5", false, GifticonStore.MACDONALD, user1.getId());
@@ -212,7 +212,7 @@ public class GifticonJpaRepositoryTest {
     void 남은_만료_일자로_필터링() {
       // given
       UserEntity user = userRepository.save(
-              new UserEntity(null, 123L, "nickname", "dd@domain.com", "male", "20"));
+              new UserEntity(null, 123L, "nickname", "dd@domain.com", "male", "20", false));
 
       gifticonJpaRepository.save(GifticonEntity.builder() // 조회 대상
               .userId(user.getId()).imageUrl("url1").name("name").used(true).gifticonStore(GifticonStore.CU)
