@@ -5,6 +5,6 @@ import yapp.buddycon.app.user.domain.User;
 
 public interface AuthToUserQueryStorage {
 
-  Optional<User> findByClientId(Long clientId);
+  Optional<User> findByClientIdAndDeletedIsFalse(Long clientId);
   Optional<User> findById(Long id);
 }

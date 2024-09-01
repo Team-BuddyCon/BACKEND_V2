@@ -27,7 +27,7 @@ public class SignUpDecider {
     Long clientId = memberInfo.id();
 
     // 존재하는 유저라면 그대로 반환
-    Optional<User> existingUser = userQueryStorage.findByClientId(clientId);
+    Optional<User> existingUser = userQueryStorage.findByClientIdAndDeletedIsFalse(clientId);
     if (existingUser.isPresent()) {
       User user = existingUser.get();
 

@@ -7,5 +7,5 @@ import java.util.Optional;
 public interface JpaUserRepository extends JpaRepository<UserEntity, Long> {
     boolean existsByClientId(Long clientId);
 
-    Optional<UserEntity> findByClientId(Long clientId);
+    Optional<UserEntity> findByClientIdAndDeletedIsFalse(Long clientId);
 }

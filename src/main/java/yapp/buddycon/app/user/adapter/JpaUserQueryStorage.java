@@ -24,8 +24,8 @@ public class JpaUserQueryStorage implements UserQueryStorage,
     }
 
     @Override
-    public Optional<User> findByClientId(Long clientId) {
-        return mapper.toUser(jpaUserRepository.findByClientId(clientId));
+    public Optional<User> findByClientIdAndDeletedIsFalse(Long clientId) {
+        return mapper.toUser(jpaUserRepository.findByClientIdAndDeletedIsFalse(clientId));
     }
 
     @Override
