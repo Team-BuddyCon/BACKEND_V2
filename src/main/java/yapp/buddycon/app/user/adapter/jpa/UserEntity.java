@@ -20,6 +20,7 @@ public class UserEntity extends BaseEntity {
     private Long id;
 
     @NotNull
+    @Column(unique = true)
     private Long clientId;
 
     @NotNull
